@@ -2,9 +2,12 @@ import express from "express";
 import dotenv from 'dotenv'
 dotenv.config()
 import {notFound,errorHandler} from './middleware/errorMiddleware.js'
+import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
 const port = process.env.PORT || 4000
 import userRoutes from './routes/userRoutes.js'
+
+connectDB();
 
 const app = express()
 
