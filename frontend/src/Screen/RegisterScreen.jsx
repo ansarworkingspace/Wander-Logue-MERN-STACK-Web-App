@@ -1,17 +1,54 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import FormContainer from '../Components/FormContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRegisterMutation } from '../slices/UserApiSlice';
+import { setCredentials } from '../slices/AuthSlice';
+import { toast } from 'react-toastify';
+import Loader from '../Components/Loader';
+
+
+
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [mobile, setMobile] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  
+  
+  const { userInfo } = useSelector((state) => state.auth);
+  const [register, { isLoading }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('submit');
+  
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+    } else {
+      try {
+        const res = await register({ name, email, password, mobile}).unwrap();
+        
+        dispatch(setCredentials({ ...res }));
+        navigate('/');
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+       
+      }
+    }
   };
 
   return (
@@ -57,9 +94,21 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
+        <Form.Group className='my-2' controlId='mobile'>
+          <Form.Label>Mobile</Form.Label>
+          <Form.Control
+            type='mobile'
+            placeholder='Enter mobile number'
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+      
+
         <Button type='submit' variant='primary' className='mt-3'>
           Register
         </Button>
+        {isLoading && <Loader />}
       </Form>
 
       <Row className='py-3'>
