@@ -1,12 +1,14 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModels.js'
+import userJwt from '../utils/userJWT.js'
+
 
 const authUser = asyncHandler(async (req,res)=>{
     res.status(200).json({message:"auth user"})
 });
 
 const registerUser = asyncHandler(async (req,res)=>{
-    // console.log(req.body);
+
     const {name,email,password,mobile} = req.body;
     const userExists = await User.findOne({email:email})
 
@@ -23,7 +25,7 @@ const registerUser = asyncHandler(async (req,res)=>{
     });
 
     if(user){
-        // generateToken(res,user._id)
+        userJwt(res,user._id)
         res.status(201).json({
             _id:user._id,
             name:user.name,
