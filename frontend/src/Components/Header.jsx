@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navbar, Nav, Container,NavDropdown, Badge  } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
@@ -26,6 +27,20 @@ const Header = () => {
     }
   };
 
+  // useEffect to check if userInfo is present in localStorage, otherwise redirect to login
+  useEffect(() => {
+    const jwtToken = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('jwt='))
+      ?.split('=')[1];
+
+    if (!jwtToken) {
+      // If jwtToken is not found, clear userInfo from localStorage and redirect to login
+      localStorage.removeItem('userInfo');
+      navigate('/login');
+    }
+  }, [navigate]);
+  
 
   return (
     <header>
