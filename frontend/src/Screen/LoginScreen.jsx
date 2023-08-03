@@ -88,7 +88,7 @@ const LoginScreen = () => {
         >
           Sign In
         </Button>
-        <div style={{color:"white", fontFamily: 'Londrina Solid'}}> New Customer? <Link style={{ fontFamily: 'Londrina Solid',color:"#20B0B9"}} to='/register'>Register</Link></div>
+        <div style={{color:"white", fontFamily: 'Londrina Solid'}}> New User? <Link style={{ fontFamily: 'Londrina Solid',color:"#20B0B9"}} to='/register'>Register</Link></div>
       </Form>
 
       {isLoading && <Loader />}
