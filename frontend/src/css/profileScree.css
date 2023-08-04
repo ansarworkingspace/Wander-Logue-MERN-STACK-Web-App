@@ -50,16 +50,43 @@
     gap: 10px; /* Adjust the value as needed for the desired gap */
   }
   
+  /* Existing styles */
+/* Existing styles */
+
+.profile-counts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .profile-count {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+  }
+  
   .follofollowingbtn {
     background-color: #007bff;
     color: #ffffff;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    padding: 8px 16px; /* Add padding for better visual appearance */
+    padding: 8px 16px;
   }
   
   .follofollowingbtn:hover {
     background-color: #0056b3;
+  }
+  
+  .count-above-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .count-above-btn .profile-count {
+    margin-bottom: 4px; /* Adjust the margin as needed */
   }
   

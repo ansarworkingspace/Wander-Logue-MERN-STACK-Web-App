@@ -28,13 +28,23 @@ const ProfileScreen = () => {
         {name ? name.charAt(0).toUpperCase() : ''}
       </div>
       <h3 className="profile-name">{name}</h3>
-      {/* Add other user profile details here */}
+     
       <div className="profile-buttons">
-        <button className="follofollowingbtn">Followers</button>
-        <button className="follofollowingbtn">Following</button>
+        <div className="count-above-btn">
+          <div className="profile-count">145k</div>
+          <button className="follofollowingbtn">Followers</button>
+        </div>
+        <div className="count-above-btn">
+          <div className="profile-count">1016</div>
+          <button className="follofollowingbtn">Following</button>
+        </div>
       </div>
     </div>
   );
+  
+  
+  
+  
   
 };
 
