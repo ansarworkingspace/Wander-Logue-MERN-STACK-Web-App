@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { Navbar, Nav, Container,NavDropdown, Badge  } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaSignInAlt, FaSignOutAlt,FaGoogle } from 'react-icons/fa';
@@ -15,7 +15,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [logoutApiCall] = useLogoutMutation();
   
   const logoutHandler = async () => {
@@ -28,19 +28,21 @@ const Header = () => {
     }
   };
 
-  // useEffect to check if userInfo is present in localStorage, otherwise redirect to login
-  useEffect(() => {
-    const jwtToken = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('jwt='))
-      ?.split('=')[1];
 
-    if (!jwtToken) {
-      // If jwtToken is not found, clear userInfo from localStorage and redirect to login
-      localStorage.removeItem('userInfo');
-      navigate('/login');
-    }
-  }, [navigate]);
+
+  // useEffect to check if userInfo is present in localStorage, otherwise redirect to login
+  // useEffect(() => {
+  //   const jwtToken = document.cookie
+  //     .split('; ')
+  //     .find((row) => row.startsWith('jwt='))
+  //     ?.split('=')[1];
+
+  //   if (!jwtToken) {
+  //     // If jwtToken is not found, clear userInfo from localStorage and redirect to login
+  //     localStorage.removeItem('userInfo');
+  //     navigate('/login');
+  //   }
+  // }, [navigate]);
   
   
 

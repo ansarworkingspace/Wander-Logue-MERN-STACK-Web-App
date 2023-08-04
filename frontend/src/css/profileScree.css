@@ -1,0 +1,65 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Adjust the padding as needed for space between left and right */
+    background-color: white; /* Set the background color to white */
+    height: 100vh; /* Fill the entire screen height */
+    position: relative; /* Add this to make positioning relative for absolute elements */
+    border-radius: 1rem;
+  }
+  
+  .profile-edit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 8px 12px;
+   
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .profile-edit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+  .profile-picture {
+    width: 200px; /* Set the desired width of the container */
+    height: 200px; /* Set the desired height of the container */
+    background-color: #f0f0f0;
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .profile-name {
+    margin-top: 10px; /* Add margin to create a gap between the profile picture and the name */
+  }
+  
+  /* Existing styles */
+
+.profile-buttons {
+    display: flex;
+    gap: 10px; /* Adjust the value as needed for the desired gap */
+  }
+  
+  .follofollowingbtn {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 16px; /* Add padding for better visual appearance */
+  }
+  
+  .follofollowingbtn:hover {
+    background-color: #0056b3;
+  }
+  
