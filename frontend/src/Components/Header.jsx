@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Navbar, Nav, Container,NavDropdown, Badge  } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaSignInAlt, FaSignOutAlt,FaGoogle } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/UserApiSlice';
 import { logout } from '../slices/AuthSlice';
+
 
 
 
@@ -41,13 +42,17 @@ const Header = () => {
     }
   }, [navigate]);
   
+  
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+     
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>Wander-Logue</Navbar.Brand>
+       
+
+            <Navbar.Brand  className='navbar-brand-custom' style={{ fontFamily: 'Londrina Solid', fontSize:"2rem",color:"white"}}>WANDER-LOGUE</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -65,12 +70,12 @@ const Header = () => {
                 <>
                   <LinkContainer to='/login'>
                     <Nav.Link>
-                      <FaSignInAlt /> Sign In
+                    <FaGoogle /> Sign In 
                     </Nav.Link>
                   </LinkContainer>
                   <LinkContainer to='/register'>
                     <Nav.Link>
-                      <FaSignOutAlt /> Sign Up
+                    <FaGoogle /> Sign Up
                     </Nav.Link>
                   </LinkContainer>
                 </>

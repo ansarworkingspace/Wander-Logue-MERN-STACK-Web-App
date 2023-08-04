@@ -1,3 +1,17 @@
 /* src/assets/fonts.css */
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Londrina+Solid:wght@300;400&family=Roboto:wght@500&display=swap');
+
+.navbar-brand-custom {
+    font-family: 'Londrina Solid', sans-serif; /* Ensure the font name matches exactly */
+    font-size: 2rem;
+    color: white;
+  }
+
+  /* Custom class for the Navbar */
+.custom-navbar {
+    height: 80px; /* Adjust the height as per your requirement */
+  }
+  
+
+ 
