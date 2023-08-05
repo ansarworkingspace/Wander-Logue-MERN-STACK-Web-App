@@ -16,6 +16,8 @@ import store from './store';
 import { Provider } from 'react-redux';
 import ProfileScreen from './Screen/ProfileScreen.jsx';
 import PrivateRoute from './Components/PrivetRouter.jsx';
+import EditProfile from './Screen/EditProfile.jsx'
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +28,7 @@ const router = createBrowserRouter(
       <Route path='/register' element={<RegisterScreen />} /> 
       <Route path='' element={<PrivateRoute />}>
          <Route path='/profile' element={<ProfileScreen />} />
+         <Route path='/editprofile' element={<EditProfile />} />
       </Route>
     </Route>
   )

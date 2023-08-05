@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
-
+import asyncHandler from 'express-async-handler';
 
 const { Schema } = mongoose;
 

@@ -5,6 +5,7 @@ import Loader from '../Components/Loader';
 import { useUpdateUserMutation } from '../slices/UserApiSlice';
 import { setCredentials } from '../slices/AuthSlice';
 import '../css/profileScree.css'; // Import the CSS file
+import { Link } from 'react-router-dom';
 
 const ProfileScreen = () => {
   const [email, setEmail] = useState('');
@@ -20,10 +21,11 @@ const ProfileScreen = () => {
   }, [userInfo.email, userInfo.name]);
 
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
-
   return (
     <div className="profile-container">
-      <button className="profile-edit-button">Edit Profile</button>
+      <Link to="/editprofile">
+        <button className="profile-edit-button">Edit Profile</button>
+      </Link>
       <div className="profile-picture">
         {name ? name.charAt(0).toUpperCase() : ''}
       </div>
