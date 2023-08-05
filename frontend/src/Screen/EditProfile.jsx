@@ -127,6 +127,7 @@ const EditProfile = () => {
 
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
+  
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
@@ -155,6 +156,7 @@ const EditProfile = () => {
 
         const res = await updateProfile(formData).unwrap();
         dispatch(setCredentials(res));
+        
         toast.success('Profile updated successfully');
       } catch (err) {
         toast.error(err?.data?.message || err.error);
