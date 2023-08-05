@@ -131,7 +131,7 @@ const EditProfile = () => {
     setName(userInfo.name);
     setEmail(userInfo.email);
     setMobile(userInfo.mobile);
-    setProfileImage(userInfo.profileImage)
+    setProfileImage(`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`)
   }, [userInfo.email, userInfo.name, userInfo.mobile,userInfo.profileImage]);
 
   const handleImageUpload = (e) => {
