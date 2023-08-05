@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Admin from '../models/adminModels.js'
-import adminJwt from '../utils/adminJWT.js'
+import adminJwt from '../utils/userJWT.js'
 import {fetchAllUsers} from '../helpers/adminHelpers.js'
 
 const authAdmin = asyncHandler(async (req,res)=>{

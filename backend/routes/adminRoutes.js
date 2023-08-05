@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/auth',authAdmin)
 router.post('/register',registerAdmin)
 router.post('/logout',logoutAdmin)
-router.get('/getAllUsers',getAllUsers)
+router.get('/adminHome',getAllUsers)
 
 
 export default router;
