@@ -204,7 +204,7 @@ const EditProfile = () => {
         />
 
 
-{profileImage && (
+{/* {profileImage && (
           <img
             src={profileImage}
             alt="Profile"
@@ -219,7 +219,27 @@ const EditProfile = () => {
         
           accept="image/*"
           onChange={handleImageUpload}
-        />
+        /> */}
+
+
+{profileImage && (
+  <div className="image-container">
+    <img
+      src={profileImage}
+      alt="Profile"
+      className="current-profile-image"
+    />
+    <label htmlFor="profileImage">Profile Image</label>
+  </div>
+)}
+
+<input
+  type="file"
+  id="profileImage"
+  accept="image/*"
+  onChange={handleImageUpload}
+/>
+
 
         <button type="submit" className="edit-profile-button">
           Save Changes

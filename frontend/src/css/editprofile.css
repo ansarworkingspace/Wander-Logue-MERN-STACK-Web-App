@@ -34,7 +34,7 @@
     align-items: center;
     padding: 20px; /* Adjust the padding as needed for space between left and right */
     background-color: white; /* Set the background color to white */
-    height: 100vh; /* Fill the entire screen height */
+    min-height: 100vh;/* Fill the entire screen height */
     position: relative; /* Add this to make positioning relative for absolute elements */
     border-radius: 1rem;
   }
@@ -48,11 +48,37 @@
     margin: 20px auto; /* Add margin to the top and center the form */
   }
   
-.current-profile-image {
+.current-profile-imag {
   max-width: 200px; /* Set a maximum width for the displayed image */
   height: auto; /* Maintain aspect ratio */
   margin-bottom: 20px; /* Add some spacing below the image */
   border: 1px solid #ccc; /* Add a border around the image */
   border-radius: 4px; /* Add rounded corners to the border */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px; /* Add some spacing below the image */
+}
+
+.current-profile-image {
+  max-width: 200px; /* Set a maximum width for the displayed image */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Add margin to the right of the image */
+  border: 1px solid #ccc; /* Add a border around the image */
+  border-radius: 4px; /* Add rounded corners to the border */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+/* Adjust the alignment and spacing for the label and input */
+.edit-profile-form .image-container label {
+  flex: 1; /* Allow the label to take remaining space */
+  margin-bottom: 0; /* Remove margin at the bottom */
+}
+
+.edit-profile-form input[type="file"] {
+  flex: 1; /* Allow the input to take remaining space */
+  margin-left: 20px; /* Add margin to the left of the input */
 }
