@@ -30,6 +30,9 @@ router.post('/auth',authUser)
 router.post('/register',registerUser)
 router.post('/logout',logoutUser)
 router.get('/profile',protect,getUserProfile)
+
+router.use('/uploads', express.static('uploads'));
+
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
 
 

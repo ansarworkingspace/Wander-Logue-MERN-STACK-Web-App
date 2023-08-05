@@ -119,9 +119,11 @@ const EditProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [mobile, setMobile] = useState('');
   const [profileImage, setProfileImage] = useState(null); // Store the selected image
+ 
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
+  
 
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
@@ -129,7 +131,8 @@ const EditProfile = () => {
     setName(userInfo.name);
     setEmail(userInfo.email);
     setMobile(userInfo.mobile);
-  }, [userInfo.email, userInfo.name, userInfo.mobile]);
+    setProfileImage(userInfo.profileImage)
+  }, [userInfo.email, userInfo.name, userInfo.mobile,userInfo.profileImage]);
 
   const handleImageUpload = (e) => {
     const imageFile = e.target.files[0];
@@ -200,10 +203,20 @@ const EditProfile = () => {
           onChange={(e) => setMobile(e.target.value)}
         />
 
+
+{profileImage && (
+          <img
+            src={profileImage}
+            alt="Profile"
+            className="current-profile-image"
+          />
+        )}
+
         <label htmlFor="profileImage">Profile Image</label>
         <input
           type="file"
           id="profileImage"
+        
           accept="image/*"
           onChange={handleImageUpload}
         />

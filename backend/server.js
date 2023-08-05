@@ -4,8 +4,10 @@ dotenv.config()
 import {notFound,errorHandler} from './middleware/errorMiddleware.js'
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
+
 const port = process.env.PORT || 4000
 import userRoutes from './routes/userRoutes.js'
+
 
 connectDB();
 
@@ -20,6 +22,7 @@ app.use('/api/users',userRoutes)
 app.get('/',(req,res)=>res.send('server is ready'));
 app.use(notFound);
 app.use(errorHandler);
+
 
 
 app.listen(port,()=>console.log(`server start on port ${port}`));
