@@ -14,13 +14,13 @@ const AdminAuthSlice = createSlice({
       state.adminInfo = action.payload;
       localStorage.setItem('adminInfo', JSON.stringify(action.payload));
     },
-    adminlogout: (state, action) => {
+    adminLogout: (state, action) => {
       state.adminInfo = null;
       localStorage.removeItem('adminInfo');
     },
   },
 });
 
-export const { setAdminCredentials, adminlogout } = AdminAuthSlice.actions;
+export const { setAdminCredentials, adminLogout } = AdminAuthSlice.actions;
 
 export default AdminAuthSlice.reducer;

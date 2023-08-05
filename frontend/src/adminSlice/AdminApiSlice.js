@@ -1,22 +1,22 @@
-import { ApiSlice } from './ApiSlice';
+import { apiSlice } from "../slices/ApiSlice";
 const ADMIN_URL = '/api/admin';
 
-export const AdminApiSlice = ApiSlice.injectEndpoints({
+export const AdminApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-      login: builder.mutation({
+      adminLogin: builder.mutation({
         query: (data) => ({
           url: `${ADMIN_URL}/auth`,
           method: 'POST',
           body: data,
         }),
       }),
-      logout: builder.mutation({
+      adminLogout: builder.mutation({
         query: () => ({
           url: `${ADMIN_URL}/logout`,
           method: 'POST',
         }),
       }),
-      register: builder.mutation({
+      adminRegister: builder.mutation({
         query: (data) => ({
           url: `${ADMIN_URL}/register`,
           method: 'POST',

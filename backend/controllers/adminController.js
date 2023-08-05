@@ -1,63 +1,54 @@
 import asyncHandler from 'express-async-handler'
-import Admin from '../models/adminModels.js'
+import admin from '../models/adminModels.js'
 import adminJwt from '../utils/userJWT.js'
 import {fetchAllUsers} from '../helpers/adminHelpers.js'
 
-const authAdmin = asyncHandler(async (req,res)=>{
-    const {email,password} = req.body
-    const admin  = await Admin.findOne({email});
+const authAdmin = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const foundAdmin = await admin.findOne({ email }); // Rename the variable here
 
-    if(admin && (await admin.matchPassword(password))){
-        adminJwt(res,admin._id)
+    if (foundAdmin && (await foundAdmin.matchPassword(password))) {
+        adminJwt(res, foundAdmin._id);
         res.status(201).json({
-            _id:admin._id,
-            name:admin.name,
-            email:admin.email
-        })
-    
-    
-    
-    }else{
-        res.status(401)
+            _id: foundAdmin._id,
+            name: foundAdmin.name,
+            email: foundAdmin.email
+        });
+    } else {
+        res.status(401);
         throw new Error('Invalid email or password');
     }
 });
 
-const registerAdmin = asyncHandler(async (req,res)=>{
+const registerAdmin = asyncHandler(async (req, res) => {
 
-    const {name,email,password} = req.body;
-    const adminExists = await admin.findOne({email:email})
+    const { name, email, password } = req.body;
+    const adminExists = await admin.findOne({ email: email })
 
-    if(adminExists){
+    if (adminExists) {
         res.status(400)
-        throw new Error('admin already exists');
+        throw new Error('Admin already exists');
     }
 
-    const admin = await admin.create({
+    const newAdmin = await admin.create({
         name,
         email,
         password
-       
     });
 
-    if(admin){
-        adminJwt(res,admin._id)
+    if (newAdmin) {
+        adminJwt(res, newAdmin._id)
         res.status(201).json({
-            _id:admin._id,
-            name:admin.name,
-            email:admin.email
-           
-        })
-    }else{
+            _id: newAdmin._id,
+            name: newAdmin.name,
+            email: newAdmin.email
+        });
+    } else {
         res.status(400)
         throw new Error('Invalid admin data');
     }
-
-    
-    
-    
-   
 });
+
 
 const logoutAdmin = asyncHandler(async (req,res)=>{
     res.cookie('jwt','',{
