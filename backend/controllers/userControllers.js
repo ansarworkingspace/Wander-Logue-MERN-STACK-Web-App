@@ -84,31 +84,63 @@ const getUserProfile = asyncHandler(async (req,res)=>{
 
 });
 
-const updateUserProfile = asyncHandler(async (req,res)=>{
-    const user = await User.findById(req.user._id)
+// const updateUserProfile = asyncHandler(async (req,res)=>{
+//     const user = await User.findById(req.user._id)
 
-    if(user){
-        user.name = req.body.name || user.name;
-        user.email = req.body.email || user.email;
-        user.mobile = req.body.mobile || user.mobile;
+//     if(user){
+//         user.name = req.body.name || user.name;
+//         user.email = req.body.email || user.email;
+//         user.mobile = req.body.mobile || user.mobile;
         
-        if(req.body.password){
-          user.password = req.body.password;
-        }
+//         if(req.body.password){
+//           user.password = req.body.password;
+//         }
         
-        const updatedUser =  await user.save();
-        res.status(200).json({
-           _id:updatedUser._id, 
-           name:updatedUser.name, 
-           email:updatedUser.email,
-           mobile:updatedUser.mobile
-        });
-    }else{
-        res.status(404);
-        throw new Error ('User not found');
-    }
+//         const updatedUser =  await user.save();
+//         res.status(200).json({
+//            _id:updatedUser._id, 
+//            name:updatedUser.name, 
+//            email:updatedUser.email,
+//            mobile:updatedUser.mobile
+//         });
+//     }else{
+//         res.status(404);
+//         throw new Error ('User not found');
+//     }
     
-});
+// });
+
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+  
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.mobile = req.body.mobile || user.mobile;
+  
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+  
+      if (req.file) {
+        // Assuming you have a 'profileImage' field in the User schema
+        user.profileImage = req.file.filename;
+      }
+  
+      const updatedUser = await user.save();
+  
+      res.status(200).json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        mobile: updatedUser.mobile,
+        profileImage: updatedUser.profileImage, // Include profileImage in the response
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  });
 
 
 export {
