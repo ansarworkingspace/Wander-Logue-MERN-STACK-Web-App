@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import admin from '../models/adminModels.js'
 import adminJwt from '../utils/userJWT.js'
 import {fetchAllUsers} from '../helpers/adminHelpers.js'
+import user from '../models/userModels.js'
 
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -71,10 +72,28 @@ const getAllUsers = asyncHandler(async (req,res) => {
       });
   })
 
+  const getUserByEmail = asyncHandler(async (req, res) => {
+    const { email } = req.query;
+  
+    const foundUser = await user.findOne({ email });
+  
+    if (foundUser) {
+      res.status(200).json({
+        _id: foundUser._id,
+        name: foundUser.name,
+        email: foundUser.email,
+        // Include other user details as needed
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  });
 
 export {
     authAdmin,
     registerAdmin,
     logoutAdmin,
-    getAllUsers
+    getAllUsers,
+    getUserByEmail
 };

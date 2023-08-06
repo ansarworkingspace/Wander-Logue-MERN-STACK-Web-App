@@ -21,6 +21,8 @@ import EditProfile from './Screen/EditProfile.jsx'
 import AdminHomeScreen from './Screen/AdminHome.jsx';
 import AdminRegisterScreen from './Screen/AdminSignUp.jsx'
 import AdminLoginScreen from './Screen/AdminLoginScreen.jsx'
+import AdminUserPRview from './Screen/AdminUserPRview.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +42,7 @@ const router = createBrowserRouter(
       <Route path="/admin/register" element={<AdminRegisterScreen/>} />
       <Route path="/admin/login" element={<AdminLoginScreen />} />
 
-   
+      <Route path="/admin/userProfile" element={<AdminUserPRview />} />
       <Route path="/admin/adminHome" element={<AdminHomeScreen />} />
       
 
