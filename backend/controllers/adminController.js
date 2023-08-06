@@ -82,6 +82,7 @@ const getAllUsers = asyncHandler(async (req,res) => {
         _id: foundUser._id,
         name: foundUser.name,
         email: foundUser.email,
+        profileImage:foundUser.profileImage
         // Include other user details as needed
       });
     } else {

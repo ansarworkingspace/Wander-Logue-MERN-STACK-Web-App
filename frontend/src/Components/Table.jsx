@@ -100,11 +100,11 @@ const TableComponent = ({ users }) => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <Link to={`/admin/userProfile?email=${user.email}`}>
-                  <Button variant="primary">View</Button>
-                </Link>
-                <Button variant="danger" className="ml-2">Block</Button>
-              </td>
+  <Link to={`/admin/userProfile?email=${user.email}`}>
+    <Button variant="primary">View</Button>
+  </Link>
+  <Button variant="danger" className="ms-2 me-2">Block</Button>
+</td>
             </tr>
           ))}
         </tbody>
