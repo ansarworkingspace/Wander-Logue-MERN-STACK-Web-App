@@ -91,10 +91,49 @@ const getAllUsers = asyncHandler(async (req,res) => {
     }
   });
 
-export {
+// ... Other imports
+
+const toggleBlockUser = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const foundUser = await user.findOne({ email });
+  
+      if (!foundUser) {
+        res.status(404);
+        throw new Error('User not found');
+      }
+  
+      foundUser.status = !foundUser.status; // Toggle the status
+  
+      await foundUser.save();
+  
+      res.status(200).json({ message: 'User status toggled successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  });
+  
+
+
+  const getBlockedUsers = asyncHandler(async (req, res) => {
+    try {
+      const blockedUsers = await user.find({ status: true }); // Assuming you have a 'status' field in your user schema to indicate blocked status
+      res.status(200).json({ blockedUsers });
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching blocked users' });
+    }
+  });
+
+  export {
     authAdmin,
     registerAdmin,
     logoutAdmin,
     getAllUsers,
-    getUserByEmail
-};
+    getUserByEmail,
+    toggleBlockUser,
+    getBlockedUsers
+  };
+  
+
+
