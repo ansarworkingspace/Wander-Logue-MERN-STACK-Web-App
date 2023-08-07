@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile } from "../controllers/userControllers.js";
+         updateUserProfile,createBlog } from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 
 
@@ -34,7 +34,7 @@ router.get('/profile',protect,getUserProfile)
 router.use('/uploads', express.static('uploads'));
 
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
-
+router.post('/blogs', upload.single('image'), createBlog);
 
 export default router;
 
