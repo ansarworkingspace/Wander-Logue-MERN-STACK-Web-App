@@ -1,0 +1,36 @@
+/* Header styling */
+.custom-navbar {
+    background-color: #343a40;
+  }
+  
+  .navbar-brand-custom {
+    font-family: 'Londrina Solid';
+    font-size: 2rem;
+    color: white;
+  }
+  
+  /* Adjust the display picture styling */
+  .dp-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* This pushes the display picture to the right side */
+  }
+  
+  .dp-image {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    object-fit: cover;
+  }
+  
+  .dp-initials {
+    width: 30px; /* Adjust the size as needed */
+    height: 30px; /* Adjust the size as needed */
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px; /* Adjust the font size as needed */
+  }
+  
