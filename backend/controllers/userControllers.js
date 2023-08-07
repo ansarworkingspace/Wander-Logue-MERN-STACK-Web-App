@@ -3,27 +3,57 @@ import User from '../models/userModels.js'
 import userJwt from '../utils/userJWT.js'
 import Blog from '../models/createBlog.js';
 
-const authUser = asyncHandler(async (req,res)=>{
-    const {email,password} = req.body
-    const user  = await User.findOne({email});
+// const authUser = asyncHandler(async (req,res)=>{
+//     const {email,password} = req.body
+//     const user  = await User.findOne({email});
 
-    if(user && (await user.matchPassword(password))){
-        userJwt(res,user._id)
-        res.status(201).json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
-            profileImage:user.profileImage,
-            mobile:user.mobile
-        })
+//     if(user && (await user.matchPassword(password))){
+//         userJwt(res,user._id)
+//         res.status(201).json({
+//             _id:user._id,
+//             name:user.name,
+//             email:user.email,
+//             profileImage:user.profileImage,
+//             mobile:user.mobile
+//         })
     
     
     
-    }else{
-        res.status(401)
+//     }else{
+//         res.status(401)
+//         throw new Error('Invalid email or password');
+//     }
+// });
+
+const authUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+        if (user.status) {
+            res.status(401);
+            throw new Error('Your account is temporarily blocked');
+        }
+
+        if (await user.matchPassword(password)) {
+            userJwt(res, user._id);
+            res.status(201).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                profileImage: user.profileImage,
+                mobile: user.mobile,
+            });
+        } else {
+            res.status(401);
+            throw new Error('Invalid email or password');
+        }
+    } else {
+        res.status(401);
         throw new Error('Invalid email or password');
     }
 });
+
 
 const registerUser = asyncHandler(async (req,res)=>{
 
