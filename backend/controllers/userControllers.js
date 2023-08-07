@@ -129,7 +129,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 const createBlog = asyncHandler(async (req, res) => {
     try {
       const { title, summary, content, author } = req.body; // Retrieve author (user ID) from request body
-      console.log(req.body)
+     
       const image = req.file ? req.file.path : '';
   
       const newBlog = new Blog({

@@ -34,7 +34,10 @@ router.get('/profile',protect,getUserProfile)
 router.use('/uploads', express.static('uploads'));
 
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
-router.post('/blogs', upload.single('image'), createBlog);
-
+router.post('/blogs', protect,upload.single('image'), createBlog);
+router.get('/test-protect', protect, (req, res) => {
+  console.log('User:', req.user); // Log the user object
+  res.json({ message: 'Protected route accessed successfully' });
+});
 export default router;
 
