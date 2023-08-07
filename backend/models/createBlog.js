@@ -8,6 +8,10 @@ const blogSchema = new Schema(
       type: String,
       required: true
     },
+    summary: {   // Added the "summary" field
+      type: String,
+      required: true
+    },
     content: {
       type: String,
       required: true
@@ -40,4 +44,3 @@ const blogSchema = new Schema(
 const Blog = mongoose.model('Blog', blogSchema);
 
 export default Blog;
-

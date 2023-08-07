@@ -1,0 +1,56 @@
+/* blogCreate.css */
+
+/* Larger screens */
+.blog-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .blog-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .blog-input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+  
+  .blog-quill-editor {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+  
+  .blog-post-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .blog-post-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Smaller screens */
+  @media screen and (max-width: 768px) {
+    .blog-input-container {
+      max-width: 100%;
+    }
+  
+    .blog-quill-editor {
+      max-width: 100%;
+    }
+  }
+  
