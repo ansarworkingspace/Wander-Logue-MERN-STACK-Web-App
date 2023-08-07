@@ -94,7 +94,7 @@
 // export default CreateBlog;
 
 
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import ReactQuill from 'react-quill';
 import { useSelector } from 'react-redux'; // Import useSelector from Redux
 import 'react-quill/dist/quill.snow.css'; // Import the CSS for the Quill editor style
@@ -107,7 +107,7 @@ const CreateBlog = () => {
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
-  
+    const [isSuccess, setIsSuccess] = useState(false); // State to track success
     // Access user info from the Redux store
     const { userInfo } = useSelector((state) => state.auth);
   
@@ -127,6 +127,27 @@ const CreateBlog = () => {
       setImage(event.target.files[0]);
     };
   
+
+    const handleSuccess = () => {
+        setTitle('');
+        setSummary('');
+        setContent('');
+        setImage(null);
+        setIsSuccess(true); // Set success state to show the message
+      };
+
+      useEffect(() => {
+        if (isSuccess) {
+          const timer = setTimeout(() => {
+            setIsSuccess(false); // Hide the success message after 3 seconds
+          }, 3000);
+    
+          return () => {
+            clearTimeout(timer);
+          };
+        }
+      }, [isSuccess]);
+
     const handlePostClick = async () => {
       const formData = new FormData();
       formData.append('title', title);
@@ -145,10 +166,13 @@ const CreateBlog = () => {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true, // Include cookies in the request
+      
     });
-
+   
+    
+     handleSuccess();
           
-        // Handle success, show a success message or redirect
+        
       } catch (error) {
         // Handle error, show an error message
       }
@@ -184,9 +208,18 @@ const CreateBlog = () => {
         onChange={handleContentChange}
         className="blog-quill-editor"
       />
-      <button  onClick={handlePostClick} className="blog-post-button" style={{ marginTop: '6rem' , borderRadius:'10px'}}>
+      <button
+        onClick={handlePostClick}
+        className="blog-post-button"
+        style={{ marginTop: '5rem', borderRadius: '10px' }}
+      >
         Create Tale
       </button>
+      {isSuccess && (
+        <p style={{ color: 'green', marginTop: '1rem' }}>
+          Blog created successfully! {/* Display a success message */}
+        </p>
+      )}
     </div>
   );
 };
