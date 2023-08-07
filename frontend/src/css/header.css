@@ -34,3 +34,12 @@
     font-size: 14px; /* Adjust the font size as needed */
   }
   
+  .dp-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .plus-icon {
+    margin-right: 10px; /* Adjust the gap size as needed */
+  }
+  
