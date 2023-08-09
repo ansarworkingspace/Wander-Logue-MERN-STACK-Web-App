@@ -47,7 +47,7 @@ const LoginScreen = () => {
    
     <FormContainer >
 
-      <h1 style={{ fontFamily: 'Londrina Solid', textAlign: 'center' ,fontSize:"2rem",color:"white"}} className=' mx-auto'>Sign In</h1>
+      <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}} className=' mx-auto'>Sign In</h1>
 
       <Form onSubmit={submitHandler} 
       style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}
@@ -77,22 +77,16 @@ const LoginScreen = () => {
           disabled={isLoading}
           type='submit'
           variant='primary'
-          className='mt-3'
-          style={{
-            width: '37%',
-            margin:"0",
-            height:"3rem",
-            marginTop:"1rem",
-            backgroundColor:"#27BE19",
-            borderRadius:"1rem",
-            border:"none"
-          }}
+          className='mt-3 custom-button'
+          
         >
           Sign In
         </Button>
-        <div style={{color:"white", fontFamily: 'Londrina Solid'}}> New User? <Link style={{ fontFamily: 'Londrina Solid',color:"#20B0B9"}} to='/register'>Register</Link></div>
+
       </Form>
 
+      <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"-1.8rem", fontFamily: 'Squada One', marginTop:"6rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
+      
       {isLoading && <Loader />}
 
 

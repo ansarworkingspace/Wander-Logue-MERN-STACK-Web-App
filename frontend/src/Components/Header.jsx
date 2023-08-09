@@ -1,6 +1,7 @@
 
 
 import React from 'react';
+import { useEffect } from 'react';
 import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { FaPlus, FaGoogle } from 'react-icons/fa';
@@ -8,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/UserApiSlice';
 import { logout } from '../slices/AuthSlice';
+import { useCookies } from 'react-cookie'; // Import the hook
 import '../css/header.css';
 
 const Header = () => {
@@ -15,6 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
+  const [cookies] = useCookies(['jwt']);
 
   const logoutHandler = async () => {
     try {
@@ -26,12 +29,23 @@ const Header = () => {
     }
   };
 
+
+
+  useEffect(() => {
+    const jwtToken = cookies.jwt; // Retrieve the JWT token from cookies
+
+    // If JWT token is missing, perform a logout
+    if (!jwtToken ) {
+      logoutHandler();
+    }
+  }, [cookies.jwt]);
+
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
+      <Navbar style={{ backgroundColor: '#181a1b' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand className='navbar-brand-custom'>WANDER-LOGUE</Navbar.Brand>
+            <Navbar.Brand className='navbar-brand-custom'>Wander-Logue</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -63,12 +77,12 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <LinkContainer to='/login'>
+                  <LinkContainer style={{fontFamily:"Preahvihear",fontSize:"0.9rem"}} to='/login'>
                     <Nav.Link>
                       <FaGoogle /> Sign In
                     </Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to='/register'>
+                  <LinkContainer style={{fontFamily:"Preahvihear",fontSize:"0.9rem"}} to='/register'>
                     <Nav.Link>
                       <FaGoogle /> Sign Up
                     </Nav.Link>
