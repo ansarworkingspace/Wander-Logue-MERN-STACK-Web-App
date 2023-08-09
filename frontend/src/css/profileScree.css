@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px; /* Adjust the padding as needed for space between left and right */
-    background-color: white; /* Set the background color to white */
+    background-color: #242729; /* Set the background color to white */
     height: 100vh; /* Fill the entire screen height */
     position: relative; /* Add this to make positioning relative for absolute elements */
     border-radius: 1rem;

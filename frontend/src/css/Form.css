@@ -28,13 +28,15 @@
 
 
 .custom-regInput {
-  width: 100%;
+  width: 13rem;
   height: 3rem;
   margin-top: 1rem;
   border-radius: 10px;
   padding: 0.7rem 1rem;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 0 0 #ccc;
+  font-size: 0.7rem;
+  margin-bottom: 0.5rem; 
 }
 .custom-style-register {
   width: 30rem;
@@ -83,6 +85,34 @@
   font-size: 12px;
   padding-left: 19px;
   margin-left: 5.5rem;
+  background-color: green;
+    border: none;
+}
+
+.formParent-reg{
+  font-family: 'Squada One', sans-serif;
+  border-style: solid;
+  box-shadow: 2px 1px 0 0 #ccc;
+  border-radius: 3rem;
+  background-color: #181a1b;
+  backdrop-filter: blur(15px);
+  width: 33rem;
+  height: 24rem;
+  border: none;
+}
+
+.custom-button-reg{
+  width: 28%;
+  height: 2rem;
+  margin: auto;
+  margin-top: 1.3rem;
+  border-radius: 6px;
+  padding-left: 2rem;
+  border-style: solid;
+  box-shadow: 2px 2px 0 0 #ccc;
+  font-size: 12px;
+  padding-left: 19px;
+  margin-left: 11rem;
   background-color: green;
     border: none;
 }
