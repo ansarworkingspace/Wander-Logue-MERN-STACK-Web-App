@@ -118,7 +118,7 @@
     border-width: thin;
     border-color: #797878;
     margin-top: 2rem;
-    background-color: #242729;
+    background-color: rgb(57, 62, 64);
     width: 73%;
     height: 5rem;
     border-radius: 6px;
@@ -191,24 +191,79 @@
   }
 
   .postImage{
-    background-color: yellow;
+    background-color: rgb(255, 255, 255);
     width: 20%;
-    height: 10rem;
+    
     border-radius: 5px;
+   
   }
   
-.postContent {
-  background-color: #242729;
-  width: 60%;
-  height: 10rem;
-  border-radius: 5px;
-  position: relative; /* Add position relative for absolute positioning */
-}
+
+  .postImageOndiv{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    
+    height: 10rem;
+    border-radius: 5px;
+    background-size: cover;
+  }
+
+
+  .postContent {
+    background-color: #242729;
+    color: white;
+    width: 60%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    overflow: hidden;
+    height: 10rem; /* Set a fixed height for the parent div */
+  }
+  
+  .postContent h3 {
+    font-size: 2rem; /* Adjust the font size for h3 */
+    margin-bottom: 0.2rem; /* Add a small margin below h3 */
+    overflow: hidden;
+    font-family: Teko;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .summaryPosted {
+    font-size: 0.8rem; /* Adjust the font size for p */
+    line-height: 1.2; /* Adjust the line height for readability */
+    margin-bottom: 0.2rem; /* Add a small margin below p */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show up to three lines before hiding */
+    -webkit-box-orient: vertical;
+  }
+  
+  
+
+  
+  .datePosted {
+    font-size: 0.5rem;
+    position: absolute;
+    bottom: -6px;
+    left: 0.7rem;
+  }
+  
+
+
+
+
+
 
 .iconInPostContentGroup {
   position: absolute;
   bottom: 5px; /* Adjust the bottom position to your preference */
-  left: 0;
+  left: 4rem;
   width: 100%;
   display: flex;
   justify-content: space-evenly; /* Align buttons horizontally with space between */
@@ -224,3 +279,9 @@
 }
 
 
+.allpostText{
+  color: white;
+ 
+  font-size: 1rem; /* Adjust the font size */
+  font-family: Teko;
+}

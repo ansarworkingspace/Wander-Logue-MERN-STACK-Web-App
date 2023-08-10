@@ -1,29 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModels.js'
-import userJwt from '../utils/userJWT.js'
+import generateToken from '../utils/userJWT.js'
 import Blog from '../models/createBlog.js';
 
-// const authUser = asyncHandler(async (req,res)=>{
-//     const {email,password} = req.body
-//     const user  = await User.findOne({email});
-
-//     if(user && (await user.matchPassword(password))){
-//         userJwt(res,user._id)
-//         res.status(201).json({
-//             _id:user._id,
-//             name:user.name,
-//             email:user.email,
-//             profileImage:user.profileImage,
-//             mobile:user.mobile
-//         })
-    
-    
-    
-//     }else{
-//         res.status(401)
-//         throw new Error('Invalid email or password');
-//     }
-// });
 
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -36,13 +15,15 @@ const authUser = asyncHandler(async (req, res) => {
         }
 
         if (await user.matchPassword(password)) {
-            userJwt(res, user._id);
+          generateToken(res, user._id);
+         
             res.status(201).json({
                 _id: user._id,
                 name: user.name,
                 email: user.email,
                 profileImage: user.profileImage,
                 mobile: user.mobile,
+                
             });
         } else {
             res.status(401);
@@ -53,6 +34,10 @@ const authUser = asyncHandler(async (req, res) => {
         throw new Error('Invalid email or password');
     }
 });
+
+
+
+
 
 
 const registerUser = asyncHandler(async (req,res)=>{
@@ -73,7 +58,7 @@ const registerUser = asyncHandler(async (req,res)=>{
     });
 
     if(user){
-        userJwt(res,user._id)
+      generateToken(res,user._id)
         res.status(201).json({
             _id:user._id,
             name:user.name,
@@ -179,6 +164,25 @@ const createBlog = asyncHandler(async (req, res) => {
   });
   
   
+
+  const getUserBlogs = asyncHandler(async (req, res) => {
+    try {
+      // Get the user ID from the authenticated user
+      const userId = req.user._id;
+  
+      // Fetch blogs with the given user ID
+      const blogs = await Blog.find({ author: userId })
+        .select('title summary createdAt images') // Only select specific fields
+        .sort({ createdAt: -1 }); // Sort by creation date in descending order
+  
+      res.status(200).json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching blogs.' });
+    }
+  });
+  
+
+
   
 
 export {
@@ -187,5 +191,6 @@ export {
     logoutUser,
     getUserProfile,
     updateUserProfile,
-    createBlog
+    createBlog,
+    getUserBlogs
 };

@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import Loader from '../Components/Loader';
+import axios from 'axios'; 
 import { useUpdateUserMutation } from '../slices/UserApiSlice';
 import { setCredentials } from '../slices/AuthSlice';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faPen, faSave, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
-
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom'; 
 import '../css/profileScree.css'; // Import the CSS file
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
@@ -19,30 +17,122 @@ const ProfileScreen = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [blogs, setBlogs] = useState([]);
   const { userInfo } = useSelector((state) => state.auth);
-
+  const navigate = useNavigate(); // Initialize useHistory
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
   }, [userInfo.email, userInfo.name]);
 
-  const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
  // Set the user image from userInfo
  const userImage = userInfo.profileImage
  ? `http://localhost:4000/api/users/uploads/${userInfo.profileImage}`
  : null;
 
+
+
+//  useEffect(() => {
+//   const fetchBlogs = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:4000/api/users/blogs', {
+//         withCredentials: true, // Send cookies with the request
+//       });
+      
+//       setBlogs(response.data);
+//     } catch (error) {
+//       console.error('Error fetching blogs:', error);
+//     }
+//   };
+
+//   fetchBlogs();
+// }, []);
+
+
+// const blogItems = blogs.map((blog) => (
+//   <div className='eachPost' key={blog._id}>
+//     <div className='postImage'>
+//       {/* Display blog image here */}
+//       {blog.images.length > 0 && (
+//         <Image src={`http://localhost:4000/api/users/uploads/${blog.images[0]}`} alt='Blog' />
+//       )}
+//     </div>
+//     <div className='postContent'>
+//       {/* Display blog title, summary, and creation date */}
+//       <h3>{blog.title}</h3>
+//       <p>{blog.summary}</p>
+//       <p>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
+//       {/* Add your buttons/icons as needed */}
+//     </div>
+//   </div>
+// ));
+
+const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/users/blogs', {
+          withCredentials: true, // Send cookies with the request
+        });
+
+        setBlogs(response.data);
+        setLoading(false); // Set loading to false on successful fetch
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+        setError(error); // Set the error state on fetch error
+        setLoading(false); // Set loading to false on fetch error
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching blogs. Please try again later.</div>;
+  }
+  const blogItems = blogs.map((blog) => (
+    <div className='eachPost' key={blog._id}>
+      <div className='postImage'>
+        {/* Display blog image here */}
+        {blog.images.length > 0 && (
+          // <Image src={`http://localhost:4000/api/users/${blog.images[0]}`} alt='Blog' />
+
+          <Image
+          src={`http://localhost:4000/api/users/${blog.images[0]}`}
+          alt='Blog'
+          className='postImageOndiv'
+        />
+        )}
+      </div>
+      <div className='postContent'>
+        {/* Display blog title, summary, and creation date */}
+        <h3>{blog.title}</h3>
+        <p className='summaryPosted summaryExpand'>{blog.summary}</p>
+        <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
+        <div className='iconInPostContentGroup'>
+              <button className='iconInPostContent'><FaEye /></button>
+              <button className='iconInPostContent'><FaTrash /></button>
+              <button className='iconInPostContent'><FaEdit /></button>
+            </div>
+      </div>
+    </div>
+    
+  ));
+  
+
   return (
     <div className="profile-container">
       <Link to="/editprofile">
         <button className="profile-edit-button">Edit Profile</button>
       </Link>
-      {/* <div className="profile-picture">
-        {name ? name.charAt(0).toUpperCase() : ''}
-      </div>
-      <h3 className="profile-name">{name}</h3> */}
+    
      
      <div className="profile-picture">
         <div className="profile-image-container">
@@ -88,9 +178,9 @@ const ProfileScreen = () => {
     </div>
     <div className='proLine'></div>
 
-
+    <h4 className='allpostText'>Your Tales</h4>
     <div className='allPost'>
-          <div className='eachPost'>
+          {/* <div className='eachPost'>
             <div className='postImage'>
 
             </div>
@@ -104,44 +194,13 @@ const ProfileScreen = () => {
             </div>
           </div>
   
-          </div>
+          </div> */}
+
+
+{blogItems}
 
           <div className='proLine'></div>
-          <div className='eachPost'>
-            <div className='postImage'>
-
-            </div>
-            <div className='postContent'>
-
-
-               <div className='iconInPostContentGroup'>
-              <button className='iconInPostContent'><FaEye /></button>
-              <button className='iconInPostContent'><FaTrash /></button>
-              <button className='iconInPostContent'><FaEdit /></button>
-            </div>
-          </div>
-  
-          </div>
-
-          <div className='proLine'></div>
-
-          <div className='eachPost'>
-            <div className='postImage'>
-
-            </div>
-            <div className='postContent'>
-
-
-               <div className='iconInPostContentGroup'>
-              <button className='iconInPostContent'><FaEye /></button>
-              <button className='iconInPostContent'><FaTrash /></button>
-              <button className='iconInPostContent'><FaEdit /></button>
-            </div>
-          </div>
-  
-          </div>
-
-          <div className='proLine'></div>
+                  
 
 
 </div>
@@ -155,10 +214,11 @@ const ProfileScreen = () => {
     
   );
   
-  
-  
-  
+
   
 };
 
 export default ProfileScreen;
+
+
+

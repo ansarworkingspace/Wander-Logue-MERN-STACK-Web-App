@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog } from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs } from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 
 
@@ -35,6 +35,11 @@ router.use('/uploads', express.static('uploads'));
 
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
 router.post('/blogs', protect,upload.single('image'), createBlog);
+// Add this route to fetch user's blogs
+router.get('/blogs', protect,getUserBlogs);
+
+
+
 
 export default router;
 

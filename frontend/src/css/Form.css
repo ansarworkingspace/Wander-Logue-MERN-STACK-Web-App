@@ -60,18 +60,28 @@
 }    
 
 
-
-.formParent{
+.formParent {
   font-family: 'Squada One', sans-serif;
   border-style: solid;
-  box-shadow: 2px 1px 0 0 #ccc;
   border-radius: 3rem;
   background-color: #181a1b;
   backdrop-filter: blur(15px);
   width: 21rem;
   height: 23rem;
   border: none;
+  animation: shadowMove 3s infinite alternate;
+  box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
 }
+
+@keyframes shadowMove {
+  0%, 100% {
+    box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 2px 1px 0 0 rgba(255, 255, 255, 0.5);
+  }
+}
+
 
 .custom-button {
   width: 35%;
