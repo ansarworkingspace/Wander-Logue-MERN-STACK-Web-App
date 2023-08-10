@@ -1,0 +1,118 @@
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(57, 62, 64);
+    position: relative;
+    border-radius: 1rem;
+    
+  }
+  
+  .topHome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 0.5rem 0.5rem 0 0;
+    height: 3rem;
+  }
+  
+  .topHome h3 {
+    color: white;
+    margin: 0;
+    font-size: 1rem; /* Adjust the font size */
+    font-family: Teko;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 5px 10px;
+  }
+  
+  .search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 5px;
+    font-size: 0.7rem; /* Adjust the font size */
+    font-family: Sora;
+  }
+  
+  .search-bar button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem; /* Adjust the font size */
+  }
+  
+  .allPostLanding{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: rgb(57, 62, 64);
+    width: 100%;
+   
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .proLine{
+    height: 1px;
+    width: 100%;
+    margin: 2rem 0;
+    background: #6f766f;
+  }
+
+  .eachPost{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: #181a1b;
+    width: 80%;
+    height: 13rem;
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+  
+  }
+
+  .postImage{
+    background-color: yellow;
+    width: 20%;
+    height: 10rem;
+    border-radius: 5px;
+  }
+
+
+.postContentLanding{
+    background-color: #242729;
+    width: 60%;
+    height: 10rem;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .iconInPostContentLanding {
+    background-color: #181a1b00;
+    color: rgb(170, 170, 170);
+    border: none;
+    font-size: smaller;
+    margin: 2px;
+    padding: 5px 21px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  

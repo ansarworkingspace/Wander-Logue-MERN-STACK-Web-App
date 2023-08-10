@@ -3,8 +3,8 @@
     flex-direction: column;
     align-items: center;
     padding: 20px; /* Adjust the padding as needed for space between left and right */
-    background-color: #242729; /* Set the background color to white */
-    height: 100vh; /* Fill the entire screen height */
+    background-color: rgb(57, 62, 64); /* Set the background color to white */
+     /* Fill the entire screen height */
     position: relative; /* Add this to make positioning relative for absolute elements */
     border-radius: 1rem;
   }
@@ -16,15 +16,19 @@
 }
   .profile-edit-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
+    top: 27px;
+    right: 28px;
+    background-color: #149c64;
     color: #ffffff;
     padding: 8px 12px;
    
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #ccc;
+    font-size: 12px;
+    border: none;
   }
   
   .profile-edit-button:hover {
@@ -32,8 +36,8 @@
   }
   
   .profile-picture {
-    width: 200px;
-    height: 200px;
+    width: 165px;
+    height: 165px;
     background-color: #f0f0f0;
     border-radius: 50%;
     display: flex;
@@ -63,7 +67,7 @@
 
 .profile-buttons {
     display: flex;
-    gap: 10px; /* Adjust the value as needed for the desired gap */
+    gap: 15px; /* Adjust the value as needed for the desired gap */
   }
   
   /* Existing styles */
@@ -79,16 +83,20 @@
     text-align: center;
     font-size: 14px;
     font-weight: bold;
-    color: black;
+    color: rgb(255, 255, 255);
   }
   
   .follofollowingbtn {
-    background-color: #007bff;
+    background-color: #149c64;
     color: #ffffff;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
     padding: 8px 16px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #ccc;
+    font-size: 12px;
+    border: none;
   }
   
   .follofollowingbtn:hover {
@@ -106,4 +114,113 @@
     margin-bottom: 4px; /* Adjust the margin as needed */
   }
   
+  .showcase {
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 2rem;
+    background-color: #242729;
+    width: 73%;
+    height: 5rem;
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
   
+  .icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style the icon color */
+  .pro {
+    color: white;
+  }
+  .proLike {
+    color: rgb(210, 21, 21);
+  }
+
+  .proChat {
+    color: rgb(103, 210, 21);
+  }
+
+  .icon-text {
+    font-size: 0.8rem;
+    color: white;
+    margin-top: 0.5rem; /* Adjust the margin as needed */
+  }
+  
+  .allPost{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: #242729;
+    width: 100%;
+   
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .proLine{
+    height: 1px;
+    width: 100%;
+    margin: 2rem 0;
+    background: #6f766f;
+  }
+
+  .eachPost{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: #181a1b;
+    width: 80%;
+    height: 13rem;
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+  
+  }
+
+  .postImage{
+    background-color: yellow;
+    width: 20%;
+    height: 10rem;
+    border-radius: 5px;
+  }
+  
+.postContent {
+  background-color: #242729;
+  width: 60%;
+  height: 10rem;
+  border-radius: 5px;
+  position: relative; /* Add position relative for absolute positioning */
+}
+
+.iconInPostContentGroup {
+  position: absolute;
+  bottom: 5px; /* Adjust the bottom position to your preference */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly; /* Align buttons horizontally with space between */
+}
+
+.iconInPostContent {
+  background-color: #181a1b00;
+  color: rgb(170, 170, 170);
+  border: none;
+  font-size: smaller;
+  margin: 2px;
+  padding: 2px 5px;
+}
+
+

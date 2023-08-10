@@ -4,10 +4,15 @@ import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
 import { useUpdateUserMutation } from '../slices/UserApiSlice';
 import { setCredentials } from '../slices/AuthSlice';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { faPen, faSave, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
+import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
+
 import '../css/profileScree.css'; // Import the CSS file
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
-
 
 const ProfileScreen = () => {
   const [email, setEmail] = useState('');
@@ -48,7 +53,8 @@ const ProfileScreen = () => {
           )}
         </div>
       </div>
-      <h3 className="profile-name">{name}</h3>
+      <h3 className="profile-name" style={{fontFamily:"Squada One",color:"white",fontSize:"1.4rem"}}>{name}</h3>
+      <h5 style={{color:"gray",fontSize:"0.6rem"}}>travel blogger</h5>
 
       <div className="profile-buttons">
         <div className="count-above-btn">
@@ -59,8 +65,94 @@ const ProfileScreen = () => {
           <div className="profile-count">1016</div>
           <button className="follofollowingbtn">Following</button>
         </div>
+
+
+      </div>
+      <div className='showcase'>
+      <div className='icon'>
+        <FontAwesomeIcon icon={faPen} size='lg' className='pro' />
+        <span className='icon-text'>Pen</span>
+      </div>
+      <div className='icon'>
+        <FontAwesomeIcon icon={faSave} size='lg' className='pro' />
+        <span className='icon-text'>Save</span>
+      </div>
+      <div className='icon'>
+        <FontAwesomeIcon icon={faHeart} size='lg' className='pro' />
+        <span className='icon-text'>Like</span>
+      </div>
+      <div className='icon'>
+        <FontAwesomeIcon icon={faComment} size='lg' className='pro' />
+        <span className='icon-text'>Chat</span>
       </div>
     </div>
+    <div className='proLine'></div>
+
+
+    <div className='allPost'>
+          <div className='eachPost'>
+            <div className='postImage'>
+
+            </div>
+            <div className='postContent'>
+
+
+               <div className='iconInPostContentGroup'>
+              <button className='iconInPostContent'><FaEye /></button>
+              <button className='iconInPostContent'><FaTrash /></button>
+              <button className='iconInPostContent'><FaEdit /></button>
+            </div>
+          </div>
+  
+          </div>
+
+          <div className='proLine'></div>
+          <div className='eachPost'>
+            <div className='postImage'>
+
+            </div>
+            <div className='postContent'>
+
+
+               <div className='iconInPostContentGroup'>
+              <button className='iconInPostContent'><FaEye /></button>
+              <button className='iconInPostContent'><FaTrash /></button>
+              <button className='iconInPostContent'><FaEdit /></button>
+            </div>
+          </div>
+  
+          </div>
+
+          <div className='proLine'></div>
+
+          <div className='eachPost'>
+            <div className='postImage'>
+
+            </div>
+            <div className='postContent'>
+
+
+               <div className='iconInPostContentGroup'>
+              <button className='iconInPostContent'><FaEye /></button>
+              <button className='iconInPostContent'><FaTrash /></button>
+              <button className='iconInPostContent'><FaEdit /></button>
+            </div>
+          </div>
+  
+          </div>
+
+          <div className='proLine'></div>
+
+
+</div>
+<div className='proLine'></div>
+
+
+
+
+
+    </div>
+    
   );
   
   
