@@ -68,9 +68,9 @@ const Header = () => {
                       <div className="dp-initials">{userInfo.name ? userInfo.name.charAt(0).toUpperCase() : ''}</div>
                     )}
                   </div>
-                  <NavDropdown title="Profile" id='username'>
+                  <NavDropdown className='dropHome'  title="" id='username'>
                     <LinkContainer to='/profile'>
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item >Profile</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>

@@ -55,7 +55,7 @@
     border-width: thin;
     border-color: #797878;
     margin-top: 1rem;
-    background-color: rgb(57, 62, 64);
+    background-color: #242729;
     width: 100%;
    
     border-radius: 6px;
@@ -89,21 +89,41 @@
   }
 
   .postImage{
-    background-color: yellow;
+    background-color: rgb(255, 255, 255);
     width: 20%;
-    height: 10rem;
+    
     border-radius: 5px;
   }
 
+  .postImageOndiv{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    
+    height: 10rem;
+    border-radius: 5px;
+    background-size: cover;
+  }
 
 .postContentLanding{
-    background-color: #242729;
+   background-color: #242729;
+    color: white;
     width: 60%;
-    height: 10rem;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.8rem;
     position: relative;
+    overflow: hidden;
+    height: 10rem; /* Set a fixed height for the parent div */
   }
-  
+  .postContentLanding h3 {
+    font-size: 2rem; /* Adjust the font size for h3 */
+    margin-bottom: 0.2rem; /* Add a small margin below h3 */
+    overflow: hidden;
+    font-family: Teko;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .iconInPostContentLanding {
     background-color: #181a1b00;
     color: rgb(170, 170, 170);

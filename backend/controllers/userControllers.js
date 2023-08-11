@@ -182,7 +182,19 @@ const createBlog = asyncHandler(async (req, res) => {
   });
   
 
-
+  const allUsersBlogs = asyncHandler(async (req, res) => {
+    try {
+      // Fetch all blogs in db oredr like latest first
+      const blogs = await Blog.find({ })
+        .select('title summary createdAt images') // Only select specific fields
+        .sort({ createdAt: -1 }); // Sort by creation date in descending order
+  
+      res.status(200).json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching blogs.' });
+    }
+  });
+  
   
 
 export {
@@ -192,5 +204,6 @@ export {
     getUserProfile,
     updateUserProfile,
     createBlog,
-    getUserBlogs
+    getUserBlogs,
+    allUsersBlogs
 };

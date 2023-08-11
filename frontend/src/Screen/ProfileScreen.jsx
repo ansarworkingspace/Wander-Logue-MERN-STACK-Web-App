@@ -33,40 +33,6 @@ const ProfileScreen = () => {
 
 
 
-//  useEffect(() => {
-//   const fetchBlogs = async () => {
-//     try {
-//       const response = await axios.get('http://localhost:4000/api/users/blogs', {
-//         withCredentials: true, // Send cookies with the request
-//       });
-      
-//       setBlogs(response.data);
-//     } catch (error) {
-//       console.error('Error fetching blogs:', error);
-//     }
-//   };
-
-//   fetchBlogs();
-// }, []);
-
-
-// const blogItems = blogs.map((blog) => (
-//   <div className='eachPost' key={blog._id}>
-//     <div className='postImage'>
-//       {/* Display blog image here */}
-//       {blog.images.length > 0 && (
-//         <Image src={`http://localhost:4000/api/users/uploads/${blog.images[0]}`} alt='Blog' />
-//       )}
-//     </div>
-//     <div className='postContent'>
-//       {/* Display blog title, summary, and creation date */}
-//       <h3>{blog.title}</h3>
-//       <p>{blog.summary}</p>
-//       <p>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
-//       {/* Add your buttons/icons as needed */}
-//     </div>
-//   </div>
-// ));
 
 const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
