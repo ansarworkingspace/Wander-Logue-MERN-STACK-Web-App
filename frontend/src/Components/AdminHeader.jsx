@@ -33,14 +33,11 @@ const Header = () => {
 
   return (
     <header>
-     
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
-        <Container>
-          <LinkContainer to='/'>
-       
-
-            <Navbar.Brand  className='navbar-brand-custom' style={{ fontFamily: 'Londrina Solid', fontSize:"2rem",color:"white"}}>WANDER-LOGUE</Navbar.Brand>
-          </LinkContainer>
+    <Navbar style={{ backgroundColor: '#181a1b' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
+      <Container>
+        <LinkContainer to='/'>
+          <Navbar.Brand className='navbar-brand-custom'>WANDER<span style={{color:"#e8f32b"}}>LOGUE</span></Navbar.Brand>
+        </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>

@@ -197,6 +197,26 @@ const createBlog = asyncHandler(async (req, res) => {
   
   
 
+  const getOneBlog = async (req, res) => {
+    const blogId = req.params.blogId;
+  
+    try {
+      const blog = await Blog.findById(blogId)
+        .populate('author', 'name') // Populate author info
+        .exec();
+  
+      if (!blog) {
+        return res.status(404).json({ message: 'Blog not found.' });
+      }
+  
+      res.status(200).json(blog);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching the blog.' });
+    }
+  };
+  
+
+
 export {
     authUser,
     registerUser,
@@ -205,5 +225,6 @@ export {
     updateUserProfile,
     createBlog,
     getUserBlogs,
-    allUsersBlogs
+    allUsersBlogs,
+    getOneBlog
 };

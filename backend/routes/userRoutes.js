@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs } from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog } from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 
 
@@ -37,7 +37,7 @@ router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfil
 router.post('/blogs', protect,upload.single('image'), createBlog);
 router.get('/blogs', protect,getUserBlogs);
 router.get('/allBlogs',protect,allUsersBlogs)
-
+router.get('/getOneBlog/:blogId', getOneBlog);
 
 
 export default router;

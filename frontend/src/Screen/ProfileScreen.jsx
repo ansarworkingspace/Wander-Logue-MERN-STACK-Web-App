@@ -98,7 +98,7 @@ const [loading, setLoading] = useState(true);
         <p className='summaryPosted summaryExpand'>{blog.summary}</p>
         <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
         <div className='iconInPostContentGroup'>
-              <button className='iconInPostContent'><FaEye /></button>
+              <button className='iconInPostContent' onClick={() => navigate(`/allBlogs/${blog._id}`)}  ><FaEye /></button>
               <button className='iconInPostContent'><FaTrash /></button>
               <button className='iconInPostContent'><FaEdit /></button>
             </div>

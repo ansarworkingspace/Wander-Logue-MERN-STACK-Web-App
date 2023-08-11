@@ -49,15 +49,6 @@
       width: 95%;
     }
 
-.formParent-OLD{
-  /* 
-  OLD 
-  border-style: solid;
-  box-shadow: 2px 4px 0 0 #ccc;
-  border-radius: 5rem;
-  background-color: rgba(177, 189, 186, 0.158); /* The background color with opacity (adjust as needed) */
-  backdrop-filter: blur(15px);  */
-}    
 
 
 .formParent {
@@ -100,15 +91,26 @@
 }
 
 .formParent-reg{
-  font-family: 'Squada One', sans-serif;
+  font-family: 'Sora', sans-serif;
   border-style: solid;
-  box-shadow: 2px 1px 0 0 #ccc;
+  /* box-shadow: 2px 1px 0 0 #ccc; */
   border-radius: 3rem;
   background-color: #181a1b;
   backdrop-filter: blur(15px);
   width: 33rem;
   height: 24rem;
   border: none;
+  animation: shadowMove 3s infinite alternate;
+  box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+@keyframes shadowMove {
+  0%, 100% {
+    box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 2px 1px 0 0 rgba(255, 255, 255, 0.5);
+  }
 }
 
 .custom-button-reg{
@@ -126,3 +128,12 @@
   background-color: green;
     border: none;
 }
+
+
+/* width: '37%',
+margin:"0",
+height:"3rem",
+marginTop:"1rem",
+backgroundColor:"#27BE19",
+borderRadius:"1rem",
+border:"none" */

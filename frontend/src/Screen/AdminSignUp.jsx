@@ -47,7 +47,7 @@ const RegisterScreen = () => {
 
   return (
     <FormRegContainer>
-      <h1 style={{ fontFamily: 'Londrina Solid', textAlign: 'center' ,fontSize:"2rem",color:"white"}}   className="mb-4">Register</h1>
+      <h1 style={{ fontFamily: 'Teko ', textAlign: 'center' ,fontSize:"2rem",color:"white"}}   className="mb-4">Register</h1>
       <Form onSubmit={submitHandler} style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}>
         
         <Row>
@@ -102,19 +102,13 @@ const RegisterScreen = () => {
 
        
 
-        <Button type="submit" variant="primary" className="mt-3" style={{
-            width: '37%',
-            margin:"0",
-            height:"3rem",
-            marginTop:"1rem",
-            backgroundColor:"#27BE19",
-            borderRadius:"1rem",
-            border:"none"
+        <Button type="submit" variant="primary" className="mt-3 custom-button-reg " style={{
+           
           }}>
           Register
         </Button>
         {isLoading && <Loader />}
-        <div style={{color:"white", fontFamily: 'Londrina Solid'}}> Already have a account? <Link style={{ fontFamily: 'Londrina Solid',color:"#20B0B9"}} to='/login'>Login</Link></div>
+        {/* <div style={{color:"white", fontFamily: 'Londrina Solid'}}> Already have a account? <Link style={{ fontFamily: 'Londrina Solid',color:"#20B0B9"}} to='/login'>Login</Link></div> */}
       </Form>
 
       

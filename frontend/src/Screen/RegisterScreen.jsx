@@ -116,7 +116,7 @@ const RegisterScreen = () => {
         </Button>
         {isLoading && <Loader />}
         </Form>
-        <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"6.2rem", fontFamily: 'Squada One', marginTop:"4rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/login'>Login </Link>now and Unlock Your Access!</div>
+        <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"6.2rem", fontFamily: 'Squada One', marginTop:"4.5rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/login'>Login </Link>now and Unlock Your Access!</div>
       
     </FormRegContainer>
   );
