@@ -1,11 +1,11 @@
 
-
+import '../css/adminHome.css'
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
+import { FaSearch, FaEye } from 'react-icons/fa';
 const TableComponent = ({ users }) => {
   
   const [searchQuery, setSearchQuery] = useState('');
@@ -61,7 +61,61 @@ const TableComponent = ({ users }) => {
 
   return (
     <>
-      <Table striped bordered hover responsive>
+
+
+<div className="topHomeAdmin">
+        <h3>All Users Detailes</h3>
+        <div className="search-bar-Admin">
+          <input type="text" placeholder="Search" value={searchQuery} onChange={handleSearch} />
+          <button><FaSearch /></button>
+        </div>
+      </div>
+
+<div className='TableAdmin'>
+<Table className='tableStyleAdmin' striped bordered hover responsive>
+        <thead className='theadAdmin'>
+          <tr>
+            <th>*</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredUsers.map((user, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td className="text-center">
+                <Link to={`/admin/userProfile?email=${user.email}`}>
+                  <Button style={{boxShadow:"2px 2px 0 0 #ccc",backgroundColor:"#149c64",border:"none" }}>View</Button>
+                </Link>
+                <Button
+                  variant={blockedUsers.includes(user.email) ? "success" : "danger"}
+                  className="ms-2 me-2"
+                  onClick={() => handleBlockToggle(user.email)}
+                  style={{
+                    boxShadow: "2px 2px 0 0 #ccc",
+                    backgroundColor: blockedUsers.includes(user.email) ? "#149c64" : "#dc3545",
+                    border: "none"
+                  }}
+                >
+                  {blockedUsers.includes(user.email) ? "Unblock" : "Block"}
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+</div>
+
+
+
+
+
+      {/* <Table  striped bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
@@ -91,8 +145,8 @@ const TableComponent = ({ users }) => {
             </tr>
           ))}
         </tbody>
-      </Table>
-      <Form>
+      </Table> */}
+      {/* <Form>
         <Form.Group className="mt-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Search</Form.Label>
           <Form.Control
@@ -103,7 +157,7 @@ const TableComponent = ({ users }) => {
             onChange={handleSearch}
           />
         </Form.Group>
-      </Form>
+      </Form> */}
     </>
   );
 };

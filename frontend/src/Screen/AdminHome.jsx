@@ -4,7 +4,8 @@ import axios from "axios";
 import { useEffect,useState } from "react"
 import { toast } from "react-toastify";
 import Loader from "../Components/Loader";
-
+import { FaSearch, FaEye } from 'react-icons/fa';
+import '../css/adminHome.css'
 
 const AdminHomeScreen = () => {
   const [user, setUser] = useState([]);
@@ -28,8 +29,17 @@ const AdminHomeScreen = () => {
   }, []);
 
   return (
-    <div>
+    <div className="viewAllUsers-container">
+
+      <div className='titleViewAdmin'>
       <h1>User Data</h1>
+      </div>
+      
+      
+
+      <div className='proLine'></div>
+
+
       {loading ? <Loader/> : null}
       <TableComponent users={user} />
     </div>
@@ -37,3 +47,17 @@ const AdminHomeScreen = () => {
 };
 
 export default AdminHomeScreen;
+
+
+// import '../css/viewBlog.css';
+
+// const ViewBlog = () => {
+
+//   return (
+//     <div className="viewBlog-container">
+      
+//     </div>
+//   );
+// };
+
+// export default ViewBlog;
