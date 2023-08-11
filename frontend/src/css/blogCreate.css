@@ -1,4 +1,3 @@
-/* blogCreate.css */
 
 /* Larger screens */
 .blog-form-container {
@@ -6,43 +5,83 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    min-height: 84vh;
+    
   }
   
   .blog-input-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 28px;
     width: 100%;
     max-width: 400px;
+    font-family: "Sora";
+    font-size: 0.7rem;
   }
   
+
+
+
   .blog-input-field {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
+    font-size: 0.8rem;
     border-radius: 14px;
+    border-style: solid;
+    box-shadow: -2px 4px 0px 0 #352a2a;
+    background-color: white;
   }
-  
+ /* *-----------------------------------------------------------------------------/ */
   .blog-quill-editor {
     width: 100%;
     max-width: 600px;
     margin-top: 20px;
+    background-color: black;
+    color: white;
+
+   
+  }
+
+  .blog-quill-editor .ql-container {
+    border: none;
+    border-radius: 10px;
+    
   }
   
+  .blog-quill-editor .ql-editor {
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+  }
+
+
+/* *-----------------------------------------------------------------------------/ */
   .blog-post-button {
     padding: 10px 20px;
-    font-size: 18px;
-    background-color: #007bff;
+    font-size: 12px;
+    background-color: #149c64;
     color: #fff;
-    border: none;
+    box-shadow: 2px 2px 0 0 #ccc;
     cursor: pointer;
     margin-top: 20px;
+    border-radius: 4px;
+    font-family: Sora;
+    border: none;
   }
   
   .blog-post-button:hover {
     background-color: #0056b3;
   }
   
+
+
+ 
+ 
+
+  
+
+
   /* Smaller screens */
   @media screen and (max-width: 768px) {
     .blog-input-container {

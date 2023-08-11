@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios'; 
-import { useUpdateUserMutation } from '../slices/UserApiSlice';
-import { setCredentials } from '../slices/AuthSlice';
+import { useLogoutMutation } from '../slices/UserApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faSave, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
-import Cookies from 'js-cookie';
+import { logout } from '../slices/AuthSlice';
 import { useNavigate } from 'react-router-dom'; 
 import '../css/profileScree.css'; // Import the CSS file
 import { Link } from 'react-router-dom';
@@ -20,6 +19,22 @@ const ProfileScreen = () => {
   const [blogs, setBlogs] = useState([]);
   const { userInfo } = useSelector((state) => state.auth);
   const navigate = useNavigate(); // Initialize useHistory
+  const dispatch = useDispatch();
+  const [logoutApiCall] = useLogoutMutation();
+
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
@@ -94,7 +109,10 @@ const [loading, setLoading] = useState(true);
   
 
   return (
-    <div className="profile-container">
+    <div className="profile-container" >
+       <Link onClick={logoutHandler}>
+        <button className="logout-button">Logout</button>
+      </Link>
       <Link to="/editprofile">
         <button className="profile-edit-button">Edit Profile</button>
       </Link>

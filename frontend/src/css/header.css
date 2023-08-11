@@ -41,9 +41,13 @@
   
   .plus-icon {
     margin-right: 10px; /* Adjust the gap size as needed */
+    font-size: 18px
   }
   
-
+  .home-icon {
+    margin-right: 10px; /* Adjust the gap size as needed */
+    font-size: 18px
+  }
   .dropHome{
     font-family: Sora;
    

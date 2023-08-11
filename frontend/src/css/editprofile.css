@@ -4,24 +4,33 @@
   
   .edit-profile-form label {
     margin-bottom: 8px;
+    color: rgb(145, 142, 142);
+    font-family: "Sora";
+    font-size: 0.8rem;
   }
   
   .edit-profile-form input {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 14px;
+    border-style: solid;
+    box-shadow: -2px 4px 0px 0 #352a2a;
+    background-color: white;
+    font-family: "Sora";
+    font-size: 0.7rem;
   }
   
   .edit-profile-button {
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: #149c64;
+    color: #fff;
+    box-shadow: 2px 2px 0 0 #ccc;
     border: none;
     border-radius: 4px;
     padding: 8px 16px;
     font-size: 14px;
     cursor: pointer;
+    margin-top:1rem ;
   }
   
   .edit-profile-button:hover {
@@ -33,7 +42,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px; /* Adjust the padding as needed for space between left and right */
-    background-color: white; /* Set the background color to white */
+    background-color: rgb(57, 62, 64); 
     min-height: 100vh;/* Fill the entire screen height */
     position: relative; /* Add this to make positioning relative for absolute elements */
     border-radius: 1rem;

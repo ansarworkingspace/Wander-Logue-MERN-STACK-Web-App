@@ -4,7 +4,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { FaPlus, FaGoogle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaPlus, FaGoogle,FaHome ,FaComment, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/UserApiSlice';
@@ -19,26 +20,15 @@ const Header = () => {
   const [logoutApiCall] = useLogoutMutation();
   const [cookies] = useCookies(['jwt']);
 
-  const logoutHandler = async () => {
-    try {
-      await logoutApiCall().unwrap();
-      dispatch(logout());
-      navigate('/login');
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
+  // useEffect(() => {
+  //   const jwtToken = cookies.jwt; // Retrieve the JWT token from cookies
 
-
-  useEffect(() => {
-    const jwtToken = cookies.jwt; // Retrieve the JWT token from cookies
-
-    // If JWT token is missing, perform a logout
-    if (!jwtToken ) {
-      logoutHandler();
-    }
-  }, [cookies.jwt]);
+  //   // If JWT token is missing, perform a logout
+  //   if (!jwtToken ) {
+  //     logoutHandler();
+  //   }
+  // }, [cookies.jwt]);
 
   return (
     <header>
@@ -54,7 +44,41 @@ const Header = () => {
                 <>
                   <div className="dp-container">
                   <Nav className='ms-auto'>
+
+                    
+
+                  {userInfo && (
+        
+        <div className="home-icon" onClick={() => navigate('/')}>
+          <Nav.Link>
+            <FaHome />
+          </Nav.Link>
+        </div>
+      )}
+
+
+
+{userInfo && (
+      <div className="home-icon" onClick={() => navigate('/chat')}>
+        <Nav.Link>
+          <FaComment />
+        </Nav.Link>
+      </div>
+    )}
+
+    {userInfo && (
+      <div className="home-icon" onClick={() => navigate('/profile')}>
+        <Nav.Link>
+          <FaUser />
+        </Nav.Link>
+      </div>
+    )}
+
+
+
+
       {userInfo && (
+        
         <div className="plus-icon" onClick={() => navigate('/create')}>
           <Nav.Link>
             <FaPlus />
@@ -68,12 +92,13 @@ const Header = () => {
                       <div className="dp-initials">{userInfo.name ? userInfo.name.charAt(0).toUpperCase() : ''}</div>
                     )}
                   </div>
-                  <NavDropdown className='dropHome'  title="" id='username'>
-                    <LinkContainer to='/profile'>
-                      <NavDropdown.Item >Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
-                  </NavDropdown>
+                  <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.9rem",marginLeft:"0.2rem",marginTop:"0.2rem",color:"#e6e1e1" }} to='/profile'>
+  <Nav.Link>
+    Profile
+  </Nav.Link>
+</LinkContainer>
+
+
                 </>
               ) : (
                 <>

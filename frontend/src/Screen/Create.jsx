@@ -207,7 +207,11 @@ const CreateBlog = () => {
         value={content}
         onChange={handleContentChange}
         className="blog-quill-editor"
+       
       />
+
+
+
       <button
         onClick={handlePostClick}
         className="blog-post-button"
