@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog } from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog,allUsersBlogsInLadning } from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 
 
@@ -30,15 +30,13 @@ router.post('/auth',authUser)
 router.post('/register',registerUser)
 router.post('/logout',logoutUser)
 router.get('/profile',protect,getUserProfile)
-
 router.use('/uploads', express.static('uploads'));
-
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
 router.post('/blogs', protect,upload.single('image'), createBlog);
 router.get('/blogs', protect,getUserBlogs);
-router.get('/allBlogs',protect,allUsersBlogs)
+router.get('/allBlogs',allUsersBlogs)
 router.get('/getOneBlog/:blogId', getOneBlog);
-
+router.get('/allBlogsLanding',allUsersBlogsInLadning)
 
 export default router;
 

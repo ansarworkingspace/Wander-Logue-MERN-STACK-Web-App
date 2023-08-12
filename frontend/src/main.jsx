@@ -25,22 +25,26 @@ import AdminUserPRview from './Screen/AdminUserPRview.jsx';
 import Create from './Screen/Create.jsx'
 import ViewBlog from './Screen/ViewBlog.jsx'
 import ViewBlogAdmin from './Screen/ViewBlogAdmin.jsx';
+import LandingPage from './Screen/LandingPage.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
      
       <Route index={true} path='/' element={<HomeScreen />} />
-  
+      <Route path='/landing' element={<LandingPage />} />
+
+
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} /> 
-
+      <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
 
       <Route path='' element={<PrivateRoute />}>
          <Route path='/profile' element={<ProfileScreen />} />
          <Route path='/editprofile' element={<EditProfile />} />
          <Route path="/create" element={<Create />} />
-         <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
+         {/* <Route path="/allBlogs/:blogId" element={<ViewBlog />} /> */}
       </Route>
 
 

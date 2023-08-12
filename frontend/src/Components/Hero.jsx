@@ -59,31 +59,6 @@ const Hero = () => {
 
 
 
-  // const blogItems = filteredBlogs.length === 0 ? (
-  //   <p style={{color:"white",fontFamily:"Sora",marginTop:"2rem"}}>No blogs found.</p>
-  // ) : (
-  //   filteredBlogs.map((blog) => (
-  //     <div className='eachPost' key={blog._id}>
-  //       <div className='postImage'>
-  //         {/* Display blog image here */}
-  //         {blog.images.length > 0 && (
-  //           <Image
-  //             src={`http://localhost:4000/api/users/${blog.images[0]}`}
-  //             alt='Blog'
-  //             className='postImageOndiv'
-  //           />
-  //         )}
-  //       </div>
-  //       <div className='postContentLanding'>
-  //         {/* Display blog title, summary, and creation date */}
-  //         <h3>{blog.title}</h3>
-  //         <p className='summaryPosted'>{blog.summary}</p>
-  //         <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
-  //         <button className='iconInPostContentLanding'><FaEye /></button>
-  //       </div>
-  //     </div>
-  //   ))
-  // );
 
 
   const blogItems = filteredBlogs.length === 0 ? (
