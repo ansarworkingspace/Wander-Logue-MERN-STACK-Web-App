@@ -32,8 +32,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
      
-      <Route index={true} path='/' element={<HomeScreen />} />
-      <Route path='/landing' element={<LandingPage />} />
+      {/* <Route index={true} path='/' element={<HomeScreen />} /> */}
+   
+
+      <Route path='/landing'  element={<LandingPage />} />
 
 
       <Route path='/login' element={<LoginScreen />} />
@@ -41,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
 
       <Route path='' element={<PrivateRoute />}>
+         <Route index={true}  element={<HomeScreen />} />
          <Route path='/profile' element={<ProfileScreen />} />
          <Route path='/editprofile' element={<EditProfile />} />
          <Route path="/create" element={<Create />} />
