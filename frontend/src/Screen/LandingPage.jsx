@@ -95,6 +95,7 @@ const LandingPage = () => {
     
 
   return (
+
     <div className="fullScreen">
       
     <div className='bannerLanding'>
@@ -123,3 +124,6 @@ const LandingPage = () => {
 }
 
 export default LandingPage
+
+
+

@@ -5,9 +5,11 @@
     padding: 20px;
     background-color: rgb(57, 62, 64);
     position: relative;
-    border-radius: 1rem;
+ border-radius: 5px;
     
   }
+
+ 
   
   .topHome {
     display: flex;
