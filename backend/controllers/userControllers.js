@@ -23,6 +23,7 @@ const authUser = asyncHandler(async (req, res) => {
                 email: user.email,
                 profileImage: user.profileImage,
                 mobile: user.mobile,
+                status:user.status
                 
             });
         } else {
@@ -40,41 +41,79 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 
-const registerUser = asyncHandler(async (req,res)=>{
+// const registerUser = asyncHandler(async (req,res)=>{
 
-    const {name,email,password,mobile} = req.body;
-    const userExists = await User.findOne({email:email})
+//     const {name,email,password,mobile} = req.body;
+//     const userExists = await User.findOne({email:email})
 
-    if(userExists){
-        res.status(400)
-        throw new Error('User already exists');
-    }
+//     if(userExists){
+//         res.status(400)
+//         throw new Error('User already exists');
+//     }
 
-    const user = await User.create({
-        name,
-        email,
-        password,
-        mobile
-    });
+//     const user = await User.create({
+//         name,
+//         email,
+//         password,
+//         mobile
+//     });
 
-    if(user){
-      generateToken(res,user._id)
-        res.status(201).json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
-            mobile:user.mobile
-        })
-    }else{
-        res.status(400)
-        throw new Error('Invalid user data');
-    }
+//     if(user){
+//       generateToken(res,user._id)
+//         res.status(201).json({
+//             _id:user._id,
+//             name:user.name,
+//             email:user.email,
+//             mobile:user.mobile
+//         })
+//     }else{
+//         res.status(400)
+//         throw new Error('Invalid user data');
+//     }
 
     
     
     
    
+// });
+
+
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password, mobile } = req.body;
+  const userExists = await User.findOne({ email: email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('User already exists');
+  }
+
+  if (password.length < 6) {
+    res.status(400);
+    throw new Error('Password must be at least 6 characters long');
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+    mobile,
+  });
+
+  if (user) {
+    generateToken(res, user._id);
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      mobile: user.mobile,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
 });
+
+
 
 const logoutUser = asyncHandler(async (req,res)=>{
     res.cookie('jwt','',{
@@ -231,6 +270,26 @@ const createBlog = asyncHandler(async (req, res) => {
   
 
 
+
+
+   const getUserStatus = asyncHandler(async (req, res) => {
+    const userId = req.params.userId; // Get user ID from the route parameter
+    const user = await User.findById(userId);
+  
+    if (user) {
+      res.status(200).json({ status: user.status }); // Send the user's status
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+
+
+
+
+
+
+
+
 export {
     authUser,
     registerUser,
@@ -241,5 +300,6 @@ export {
     getUserBlogs,
     allUsersBlogs,
     getOneBlog,
-    allUsersBlogsInLadning
+    allUsersBlogsInLadning,
+    getUserStatus
 };
