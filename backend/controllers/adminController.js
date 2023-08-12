@@ -3,6 +3,8 @@ import admin from '../models/adminModels.js'
 import adminJwt from '../utils/userJWT.js'
 import {fetchAllUsers} from '../helpers/adminHelpers.js'
 import user from '../models/userModels.js'
+import Blogs from '../models/createBlog.js'
+
 
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -91,7 +93,51 @@ const getAllUsers = asyncHandler(async (req,res) => {
     }
   });
 
-// ... Other imports
+  const allUsersBlogs = asyncHandler(async (req, res) => {
+    try {
+      const { email } = req.query;
+  
+      // Find the user based on the email
+      const foundUser = await user.findOne({ email });
+  
+      if (!foundUser) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+  
+      // Fetch blogs for the selected user's ObjectId
+      const blogs = await Blogs.find({ author: foundUser._id })
+        .select('title summary createdAt images') // Only select specific fields
+        .sort({ createdAt: -1 }); // Sort by creation date in descending order
+  
+      res.status(200).json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching blogs.' });
+    }
+  });
+
+
+
+
+  
+  const getOneBlogOfUser = async (req, res) => {
+    const blogId = req.params.blogId;
+  
+    try {
+      const blog = await Blogs.findById(blogId)
+        .populate('author', 'name') // Populate author info
+        .exec();
+  
+      if (!blog) {
+        return res.status(404).json({ message: 'Blog not found.' });
+      }
+  
+      res.status(200).json(blog);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching the blog.' });
+    }
+  };
+  
+
 
 const toggleBlockUser = asyncHandler(async (req, res) => {
     const { email } = req.body;
@@ -132,7 +178,9 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     getAllUsers,
     getUserByEmail,
     toggleBlockUser,
-    getBlockedUsers
+    getBlockedUsers,
+    allUsersBlogs,
+    getOneBlogOfUser
   };
   
 

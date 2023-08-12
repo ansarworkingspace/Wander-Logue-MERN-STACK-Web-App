@@ -1,0 +1,310 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Adjust the padding as needed for space between left and right */
+    background-color: rgb(57, 62, 64); /* Set the background color to white */
+     /* Fill the entire screen height */
+    position: relative; /* Add this to make positioning relative for absolute elements */
+    border-radius: 1rem;
+    min-height: 40rem;
+  }
+
+/* 
+  .logout-button {
+    position: absolute;
+    width: 5.3rem;
+    top: 27px;
+    left: 2rem;
+    background-color: #757575;
+    color: #ffffff;
+    padding: 8px 12px;
+    font-family: Sora;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #ccc;
+    font-size: 12px;
+    border: none;
+  } */
+  
+  /* Adjust the image size within the round container */
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain the aspect ratio and cover the container */
+}
+  /* .profile-edit-button {
+    position: absolute;
+    top: 27px;
+    right: 28px;
+    background-color: #757575;
+    color: #ffffff;
+    padding: 8px 12px;
+   font-family: Sora;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #ccc;
+    font-size: 12px;
+    border: none;
+  }
+  
+  .profile-edit-button:hover {
+    background-color: #0056b3;
+  } */
+  
+  .profile-picture {
+    width: 165px;
+    height: 165px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    overflow: hidden; /* Hide any content that goes beyond the circular shape */
+  }
+  
+  /* Add this style for the initials when no profile image */
+  .profile-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .profile-name {
+    margin-top: 10px; /* Add margin to create a gap between the profile picture and the name */
+  }
+  
+  /* Existing styles */
+
+.profile-buttons {
+    display: flex;
+    gap: 15px; /* Adjust the value as needed for the desired gap */
+  }
+  
+  /* Existing styles */
+/* Existing styles */
+
+.profile-counts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .profile-count {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+  }
+  
+  .follofollowingbtn {
+    background-color: #149c64;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #ccc;
+    font-size: 12px;
+    border: none;
+    font-family: Sora;
+  }
+  
+  .follofollowingbtn:hover {
+    background-color: #0056b3;
+  }
+  
+  .count-above-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .count-above-btn .profile-count {
+    margin-bottom: 4px; /* Adjust the margin as needed */
+  }
+  
+  .showcase {
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 2rem;
+    background-color: rgb(57, 62, 64);
+    width: 73%;
+    height: 5rem;
+    font-family: Sora;
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  .icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Style the icon color */
+  .pro {
+    color: white;
+  }
+  .proLike {
+    color: rgb(210, 21, 21);
+  }
+
+  .proChat {
+    color: rgb(103, 210, 21);
+  }
+
+  .icon-text {
+    font-size: 0.8rem;
+    color: white;
+    margin-top: 0.5rem; /* Adjust the margin as needed */
+  }
+  
+  .allPost{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: #242729;
+    width: 100%;
+   
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .proLine{
+    height: 1px;
+    width: 100%;
+    margin: 2rem 0;
+    background: #6f766f;
+  }
+
+  .eachPost{
+    border-width: thin;
+    border-color: #797878;
+    margin-top: 1rem;
+    background-color: #181a1b;
+    width: 80%;
+    height: 13rem;
+    border-radius: 6px;
+    border-style: ridge;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+  
+  }
+
+  .postImage{
+    background-color: rgb(255, 255, 255);
+    width: 20%;
+    
+    border-radius: 5px;
+   
+  }
+  
+
+  .postImageOndiv{
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    
+    height: 10rem;
+    border-radius: 5px;
+    background-size: cover;
+  }
+
+
+  .postContent {
+    background-color: #242729;
+    color: white;
+    width: 60%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0.8rem;
+    position: relative;
+    overflow: hidden;
+    height: 10rem; /* Set a fixed height for the parent div */
+  }
+  
+  .postContent h3 {
+    font-size: 2rem; /* Adjust the font size for h3 */
+    margin-bottom: 0.2rem; /* Add a small margin below h3 */
+    overflow: hidden;
+    font-family: Teko;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .summaryPosted {
+    font-size: 0.8rem; /* Adjust the font size for p */
+    line-height: 1.2; /* Adjust the line height for readability */
+    margin-bottom: 0.2rem; /* Add a small margin below p */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show up to three lines before hiding */
+    -webkit-box-orient: vertical;
+  }
+  
+  
+
+  
+  .datePosted {
+    font-size: 0.5rem;
+    position: absolute;
+    bottom: -6px;
+    left: 0.7rem;
+  }
+  
+
+
+
+
+
+
+.iconInPostContentGroup {
+  position: absolute;
+  bottom: 5px; /* Adjust the bottom position to your preference */
+  left: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly; /* Align buttons horizontally with space between */
+}
+
+.iconInPostContent {
+  background-color: #181a1b00;
+  color: rgb(170, 170, 170);
+  border: none;
+  font-size: smaller;
+  margin: 2px;
+  padding: 2px 5px;
+}
+
+
+.allpostText{
+  color: white;
+ 
+  font-size: 1rem; /* Adjust the font size */
+  font-family: Teko;
+}

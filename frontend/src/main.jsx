@@ -24,6 +24,7 @@ import AdminLoginScreen from './Screen/AdminLoginScreen.jsx'
 import AdminUserPRview from './Screen/AdminUserPRview.jsx';
 import Create from './Screen/Create.jsx'
 import ViewBlog from './Screen/ViewBlog.jsx'
+import ViewBlogAdmin from './Screen/ViewBlogAdmin.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -49,7 +50,7 @@ const router = createBrowserRouter(
 <Route path='' element={<AdminPrivateRoute />}>
       <Route path="/admin/userProfile" element={<AdminUserPRview />} />
       <Route path="/admin/adminHome" element={<AdminHomeScreen />} />
-     
+      <Route path="/admin/viewBlogAdmin/:blogId" element={<ViewBlogAdmin />} />
 </Route>
      
       

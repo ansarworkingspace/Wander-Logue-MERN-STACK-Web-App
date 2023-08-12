@@ -164,22 +164,7 @@ const [loading, setLoading] = useState(true);
 
     <h4 className='allpostText'>Your Tales</h4>
     <div className='allPost'>
-          {/* <div className='eachPost'>
-            <div className='postImage'>
-
-            </div>
-            <div className='postContent'>
-
-
-               <div className='iconInPostContentGroup'>
-              <button className='iconInPostContent'><FaEye /></button>
-              <button className='iconInPostContent'><FaTrash /></button>
-              <button className='iconInPostContent'><FaEdit /></button>
-            </div>
-          </div>
-  
-          </div> */}
-
+          
 
 {blogItems}
 

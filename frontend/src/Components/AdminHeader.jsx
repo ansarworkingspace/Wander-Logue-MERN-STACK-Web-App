@@ -43,12 +43,18 @@ const Header = () => {
             <Nav className='ms-auto'>
               {adminInfo ? (
                 <>
-                  <NavDropdown title={adminInfo.name} id='username'>
+                  {/* <NavDropdown title={adminInfo.name} id='username'>
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
-                  </NavDropdown>
+                  </NavDropdown> */}
+
+<Nav.Link onClick={logoutHandler} style={{ fontFamily: "Sora", fontSize: "0.9rem", marginLeft: "0.2rem", marginTop: "0.2rem", color: "#e6e1e1" }}>
+      Logout
+    </Nav.Link>
+
+
                 </>
               ) : (
                 <>

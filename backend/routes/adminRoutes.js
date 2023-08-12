@@ -1,5 +1,5 @@
 import express from "express";
-import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,getUserByEmail,toggleBlockUser,getBlockedUsers} from '../controllers/adminController.js'
+import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,getUserByEmail,toggleBlockUser,getBlockedUsers,allUsersBlogs,getOneBlogOfUser } from '../controllers/adminController.js'
 
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.get('/adminHome',getAllUsers)
 router.get('/userProfile', getUserByEmail);
 router.post('/toggleBlockUser', toggleBlockUser); // Add this route
 router.get('/getBlockedUsers', getBlockedUsers);
-
-
+router.get('/allBlogs', allUsersBlogs);
+router.get('/getOneBlogOfUser/:blogId', getOneBlogOfUser);
 
 export default router;
