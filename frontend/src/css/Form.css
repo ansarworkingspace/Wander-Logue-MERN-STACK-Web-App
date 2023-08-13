@@ -27,6 +27,23 @@
 
 
 
+
+
+.password-toggle-icon {
+  position: absolute;
+  top: 63%;
+  right: 3.3rem; /* Adjust as needed */
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1rem; /* Adjust as needed */
+  color: #555151; /* Adjust color as needed */
+}
+
+
+
+
+
+
 .custom-regInput {
   width: 13rem;
   height: 3rem;

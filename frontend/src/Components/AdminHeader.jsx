@@ -58,7 +58,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <LinkContainer to='/admin/login'>
+                  {/* <LinkContainer to='/admin/login'>
                     <Nav.Link>
                     <FaGoogle /> Sign In 
                     </Nav.Link>
@@ -67,7 +67,7 @@ const Header = () => {
                     <Nav.Link>
                     <FaGoogle /> Sign Up
                     </Nav.Link>
-                  </LinkContainer>
+                  </LinkContainer> */}
                 </>
               )}
             </Nav>
