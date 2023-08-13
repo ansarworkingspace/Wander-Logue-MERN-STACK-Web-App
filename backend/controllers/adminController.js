@@ -5,6 +5,9 @@ import {fetchAllUsers} from '../helpers/adminHelpers.js'
 import user from '../models/userModels.js'
 import Blogs from '../models/createBlog.js'
 import generateAdminToken from '../utils/adminJwt.js'
+import jwt from 'jsonwebtoken'
+
+
 
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -176,6 +179,29 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     }
   });
 
+
+
+  const adminCheckAuth = async (req, res) => {
+    const token = req.cookies.adminJwt;
+
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        // Perform any necessary checks or queries using decodedToken.userId
+        // ...
+
+        res.status(200).json({ message: 'Authorized' });
+    } catch (error) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+};
+
+
+
+
   export {
     authAdmin,
     registerAdmin,
@@ -185,7 +211,8 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     toggleBlockUser,
     getBlockedUsers,
     allUsersBlogs,
-    getOneBlogOfUser
+    getOneBlogOfUser,
+    adminCheckAuth
   };
   
 
