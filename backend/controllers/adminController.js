@@ -4,14 +4,14 @@ import adminJwt from '../utils/userJWT.js'
 import {fetchAllUsers} from '../helpers/adminHelpers.js'
 import user from '../models/userModels.js'
 import Blogs from '../models/createBlog.js'
-
+import generateAdminToken from '../utils/adminJwt.js'
 
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const foundAdmin = await admin.findOne({ email }); // Rename the variable here
 
     if (foundAdmin && (await foundAdmin.matchPassword(password))) {
-        adminJwt(res, foundAdmin._id);
+      generateAdminToken(res, foundAdmin._id);
         res.status(201).json({
             _id: foundAdmin._id,
             name: foundAdmin.name,
@@ -40,7 +40,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
     });
 
     if (newAdmin) {
-        adminJwt(res, newAdmin._id)
+      generateAdminToken(res, newAdmin._id)
         res.status(201).json({
             _id: newAdmin._id,
             name: newAdmin.name,
@@ -53,8 +53,13 @@ const registerAdmin = asyncHandler(async (req, res) => {
 });
 
 
+
+
+
+
+
 const logoutAdmin = asyncHandler(async (req,res)=>{
-    res.cookie('jwt','',{
+    res.cookie('adminJwt','',{
         httpOnly:true,
         expires:new Date(0)
        })

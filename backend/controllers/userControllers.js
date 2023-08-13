@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModels.js'
 import generateToken from '../utils/userJWT.js'
 import Blog from '../models/createBlog.js';
-
+import jwt from 'jsonwebtoken'
 
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -285,7 +285,23 @@ const createBlog = asyncHandler(async (req, res) => {
 
 
 
+  const checkAuth = async (req, res) => {
+    const token = req.cookies.jwt;
 
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        // Perform any necessary checks or queries using decodedToken.userId
+        // ...
+
+        res.status(200).json({ message: 'Authorized' });
+    } catch (error) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+};
 
 
 
@@ -301,5 +317,6 @@ export {
     allUsersBlogs,
     getOneBlog,
     allUsersBlogsInLadning,
-    getUserStatus
+    getUserStatus,
+    checkAuth
 };
