@@ -305,6 +305,27 @@ const createBlog = asyncHandler(async (req, res) => {
 
 
 
+const deleteBlog = asyncHandler(async (req, res) => {
+  const blogId = req.params.blogId;
+  console.log('Deleting blog with ID:', blogId);
+
+  try {
+    const blog = await Blog.findByIdAndDelete(blogId);
+    console.log('Deleted blog:', blog);
+    if (!blog) {
+      res.status(404).json({ message: 'Blog not found' });
+    } else {
+      res.json({ message: 'Blog deleted successfully' });
+    }
+  } catch (error) {
+    console.error('Error deleting blog:', error);
+    res.status(500).json({ message: 'An error occurred while deleting the blog' });
+  }
+});
+
+
+
+
 
 export {
     authUser,
@@ -318,5 +339,6 @@ export {
     getOneBlog,
     allUsersBlogsInLadning,
     getUserStatus,
-    checkAuth
+    checkAuth,
+    deleteBlog
 };

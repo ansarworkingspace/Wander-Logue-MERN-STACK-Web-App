@@ -1,3 +1,4 @@
+
 // import { useState, useEffect } from 'react';
 // import { useSelector,useDispatch } from 'react-redux';
 // import axios from 'axios'; 
@@ -21,6 +22,35 @@
 //   const navigate = useNavigate(); // Initialize useHistory
 //   const dispatch = useDispatch();
 //   const [logoutApiCall] = useLogoutMutation();
+
+
+
+
+//   useEffect(() => {
+//     const fetchUserStatus = async () => {
+//       try {
+//         const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+//         const data = await response.json();
+
+//         if (data.status) {
+//           await logoutApiCall().unwrap();
+//           dispatch(logout());
+//           navigate('/landing');
+//         }
+//       } catch (error) {
+//         console.error('Fetch user status error:', error);
+//       }
+//     };
+
+//     if (userInfo) {
+//       fetchUserStatus();
+//     }
+//   }, [userInfo, dispatch, logoutApiCall, navigate]);
+
+
+
+
+
 
 
 //   const logoutHandler = async () => {
@@ -187,7 +217,9 @@
   
 // };
 
-// export default ProfileScreen; ORGINAL LATEST WORKING
+// export default ProfileScreen;
+
+
 
 
 
@@ -238,6 +270,29 @@ const ProfileScreen = () => {
       fetchUserStatus();
     }
   }, [userInfo, dispatch, logoutApiCall, navigate]);
+
+
+
+
+
+
+
+
+
+  const handleDeleteBlog = async (blogId) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`,{
+        withCredentials:true
+      });
+      // Remove the deleted blog from the local state
+      setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+    }
+  };
+
+
+
 
 
 
@@ -321,7 +376,9 @@ const [loading, setLoading] = useState(true);
         <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
         <div className='iconInPostContentGroup'>
               <button className='iconInPostContent' onClick={() => navigate(`/allBlogs/${blog._id}`)}  ><FaEye /></button>
-              <button className='iconInPostContent'><FaTrash /></button>
+              <button className='iconInPostContent' onClick={() => handleDeleteBlog(blog._id)}>
+          <FaTrash />
+        </button>
               <button className='iconInPostContent'><FaEdit /></button>
             </div>
       </div>
@@ -410,3 +467,4 @@ const [loading, setLoading] = useState(true);
 };
 
 export default ProfileScreen;
+
