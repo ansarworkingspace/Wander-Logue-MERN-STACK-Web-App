@@ -26,7 +26,7 @@ import Create from './Screen/Create.jsx'
 import ViewBlog from './Screen/ViewBlog.jsx'
 import ViewBlogAdmin from './Screen/ViewBlogAdmin.jsx';
 import LandingPage from './Screen/LandingPage.jsx';
-
+import SavedBlogs from './Screen/SavedBlogs.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +47,7 @@ const router = createBrowserRouter(
          <Route path='/profile' element={<ProfileScreen />} />
          <Route path='/editprofile' element={<EditProfile />} />
          <Route path="/create" element={<Create />} />
+         <Route path="/savedblogs" element={<SavedBlogs />} />
          {/* <Route path="/allBlogs/:blogId" element={<ViewBlog />} /> */}
       </Route>
 

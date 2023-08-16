@@ -307,11 +307,11 @@ const createBlog = asyncHandler(async (req, res) => {
 
 const deleteBlog = asyncHandler(async (req, res) => {
   const blogId = req.params.blogId;
-  console.log('Deleting blog with ID:', blogId);
+  // console.log('Deleting blog with ID:', blogId);
 
   try {
     const blog = await Blog.findByIdAndDelete(blogId);
-    console.log('Deleted blog:', blog);
+    // console.log('Deleted blog:', blog);
     if (!blog) {
       res.status(404).json({ message: 'Blog not found' });
     } else {
@@ -323,6 +323,88 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 });
 
+
+// const saveBlogToUser = asyncHandler(async (req, res) => {
+//   const userId = req.user._id;
+//   const blogId = req.params.blogId;
+
+//   try {
+//     const user = await User.findById(userId); // Use findById instead of find
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     // Check if the blog is already saved, if not, add it
+//     if (!user.savedTales.includes(blogId)) {
+//       user.savedTales.push(blogId);
+//       await user.save();
+//     }
+
+//     res.json({ message: 'Blog saved successfully' });
+//   } catch (error) {
+//     console.error('Error saving blog:', error);
+//     res.status(500).json({ message: 'An error occurred while saving the blog' });
+//   }
+// });
+
+
+const saveBlogToUser = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const blogId = req.params.blogId;
+
+  try {
+    const user = await User.findById(userId); // Find the user
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const blog = await Blog.findById(blogId); // Find the blog
+
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    // Check if the blog is already saved, if not, add it
+    const alreadySaved = user.savedTales.some(savedBlog => savedBlog.blogId.equals(blogId));
+
+    if (!alreadySaved) {
+      user.savedTales.push({
+        blogId: blogId,
+        title: blog.title,
+        summary: blog.summary,
+        createdAt: blog.createdAt,
+        images: blog.images.length > 0 ? [blog.images[0]] : [] // Store the first image URL if available
+      });
+
+      await user.save();
+      res.json({ message: 'Blog saved successfully' });
+    } else {
+      res.json({ message: 'Blog already saved' });
+    }
+  } catch (error) {
+    console.error('Error saving blog:', error);
+    res.status(500).json({ message: 'An error occurred while saving the blog' });
+  }
+});
+
+
+const getSavedBlogs = asyncHandler(async (req, res) => {
+  const userId = req.user._id; // Assuming req.user contains the authenticated user's data
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const savedBlogs = user.savedTales;
+    res.json(savedBlogs);
+  } catch (error) {
+    console.error('Error fetching saved blogs:', error);
+    res.status(500).json({ message: 'An error occurred while fetching saved blogs' });
+  }
+});
 
 
 
@@ -340,5 +422,7 @@ export {
     allUsersBlogsInLadning,
     getUserStatus,
     checkAuth,
-    deleteBlog
+    deleteBlog,
+    saveBlogToUser,
+    getSavedBlogs
 };

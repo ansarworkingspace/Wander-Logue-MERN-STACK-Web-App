@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog,allUsersBlogsInLadning,getUserStatus,checkAuth,deleteBlog } from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog,allUsersBlogsInLadning,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -40,6 +40,8 @@ router.get('/allBlogsLanding',allUsersBlogsInLadning)
 router.get('/status/:userId', getUserStatus);
 router.get('/checkAuth', checkAuth);
 router.delete('/deleteBlog/:blogId',protect, deleteBlog);
+router.post('/saveBlog/:blogId', protect, saveBlogToUser);
+router.get('/getSavedBlogs', protect, getSavedBlogs)
 
 
 export default router;
