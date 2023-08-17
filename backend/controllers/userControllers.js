@@ -251,7 +251,7 @@ const createBlog = asyncHandler(async (req, res) => {
   
 
   const getOneBlog = async (req, res) => {
-    const blogId = req.params.blogId;
+    const { blogId } = req.params;
   
     try {
       const blog = await Blog.findById(blogId)
@@ -430,6 +430,94 @@ const getSavedSingleBlog = async (req, res) => {
 
 
 
+// Delete a saved blog
+const deleteSavedBlog = async (req, res) => {
+  const userId = req.user._id;// Assuming you have the user's ID from authentication
+  const blogId = req.params.blogId;
+
+  try {
+    // Find the user by ID and update the savedTales array
+    const user = await User.findByIdAndUpdate(userId, {
+      $pull: { savedTales: { blogId } }
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'Blog deleted successfully.' });
+  } catch (error) {
+    console.error('Error deleting saved blog:', error);
+    res.status(500).json({ message: 'Error deleting saved blog.' });
+  }
+};
+
+
+//orginal
+// const updateBlog = asyncHandler(async (req, res) => {
+//   const { blogId } = req.params;
+//   const { title, summary, content } = req.body;
+
+//   try {
+//     const updatedBlog = await Blog.findByIdAndUpdate(
+//       blogId,
+//       {
+//         title,
+//         summary,
+//         content,
+//       },
+//       { new: true } // Return the updated document
+//     );
+
+//     if (!updatedBlog) {
+//       return res.status(404).json({ message: 'Blog not found.' });
+//     }
+
+//     res.json({ message: 'Blog updated successfully', updatedBlog });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
+const updateBlog = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+  const { title, summary, content } = req.body;
+
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      blogId,
+      {
+        title,
+        summary,
+        content,
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedBlog) {
+      return res.status(404).json({ message: 'Blog not found.' });
+    }
+
+    // Update the savedTales field in user collection
+    const updatedUsers = await User.updateMany(
+      { 'savedTales.blogId': blogId },
+      { $set: { 'savedTales.$.title': title, 'savedTales.$.summary': summary } }
+    );
+
+    if (updatedUsers.nModified > 0) {
+      // nModified indicates the number of documents modified
+      res.json({ message: 'Blog and savedTales updated successfully', updatedBlog });
+    } else {
+      res.json({ message: 'Blog updated successfully', updatedBlog });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 export {
     authUser,
@@ -447,5 +535,7 @@ export {
     deleteBlog,
     saveBlogToUser,
     getSavedBlogs,
-    getSavedSingleBlog
+    getSavedSingleBlog,
+    deleteSavedBlog,
+    updateBlog
 };

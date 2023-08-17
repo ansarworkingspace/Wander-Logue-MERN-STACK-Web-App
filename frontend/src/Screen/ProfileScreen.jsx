@@ -379,7 +379,7 @@ const [loading, setLoading] = useState(true);
               <button className='iconInPostContent' onClick={() => handleDeleteBlog(blog._id)}>
           <FaTrash />
         </button>
-              <button className='iconInPostContent'><FaEdit /></button>
+              <button className='iconInPostContent'  onClick={() => navigate(`/editBlog/${blog._id}`)} ><FaEdit /></button>
             </div>
       </div>
     </div>

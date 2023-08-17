@@ -51,7 +51,8 @@ const SavedBlogs = () => {
         const response = await axios.get('http://localhost:4000/api/users/getSavedBlogs', {
           withCredentials: true
         });
-        setSavedBlogs(response.data);
+        // setSavedBlogs(response.data);
+        setSavedBlogs(response.data.reverse());
       } catch (error) {
         console.error('Error fetching saved blogs:', error);
       }
@@ -64,6 +65,20 @@ const SavedBlogs = () => {
 
 
 
+  const handleDeleteBlog = async (blogId) => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/api/users/deleteSavedBlog/${blogId}`, {
+        withCredentials: true
+      });
+      if (response.status === 200) {
+        // Blog deleted successfully, update savedBlogs state
+        const updatedSavedBlogs = savedBlogs.filter(blog => blog.blogId !== blogId);
+        setSavedBlogs(updatedSavedBlogs);
+      }
+    } catch (error) {
+      console.error('Error deleting saved blog:', error);
+    }
+  };
 
 
   const blogItems = savedBlogs.map((blog) => (
@@ -87,7 +102,7 @@ const SavedBlogs = () => {
           <button className='iconInPostContent' onClick={() => navigate(`/savedSingleBlogs/${blog.blogId}`)}  >
           <FaEye />
           </button>
-          <button className='iconInPostContent' >
+          <button className='iconInPostContent' onClick={() => handleDeleteBlog(blog.blogId)} >
           <FaTrash />
           </button>
           
