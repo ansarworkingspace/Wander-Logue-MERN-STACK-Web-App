@@ -26,7 +26,9 @@ import Create from './Screen/Create.jsx'
 import ViewBlog from './Screen/ViewBlog.jsx'
 import ViewBlogAdmin from './Screen/ViewBlogAdmin.jsx';
 import LandingPage from './Screen/LandingPage.jsx';
-import SavedBlogs from './Screen/SavedBlogs.jsx';
+import SavedBlogs from './Screen/SavedBlogs.jsx'; 
+import SingleSavedView from './Screen/SingleSavedView..jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +43,8 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} /> 
       <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
+      <Route path="/savedSingleBlogs/:blogId" element={<SingleSavedView />} />
+
 
       <Route path='' element={<PrivateRoute />}>
          <Route index={true}  element={<HomeScreen />} />

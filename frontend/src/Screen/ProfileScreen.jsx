@@ -427,7 +427,8 @@ const [loading, setLoading] = useState(true);
         <span className='icon-text'>Pen</span>
       </div>
       <div className='icon'>
-        <FontAwesomeIcon icon={faSave} size='lg' className='pro' />
+        
+        <FontAwesomeIcon icon={faSave} size='lg' className='pro' onClick={()=>navigate('/savedblogs')} />
         <span className='icon-text'>Save</span>
       </div>
       <div className='icon'>

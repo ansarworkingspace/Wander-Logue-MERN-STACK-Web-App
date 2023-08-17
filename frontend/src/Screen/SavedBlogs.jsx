@@ -84,7 +84,7 @@ const SavedBlogs = () => {
         <p className='summaryPosted summaryExpand'>{blog.summary}</p>
         <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
         <div className='iconInPostContentGroup'>
-          <button className='iconInPostContent' onClick={() => navigate(`/allBlogs/${blog._id}`)}>
+          <button className='iconInPostContent' onClick={() => navigate(`/savedSingleBlogs/${blog.blogId}`)}  >
           <FaEye />
           </button>
           <button className='iconInPostContent' >

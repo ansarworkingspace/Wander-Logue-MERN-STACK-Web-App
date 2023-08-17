@@ -95,6 +95,7 @@ import { FaThumbsUp, FaBookmark, FaComment } from 'react-icons/fa';
 import '../css/viewBlog.css';
 const ViewBlog = () => {
   const { blogId } = useParams();
+ 
   const [selectedBlog, setSelectedBlog] = useState(null); // State to hold the selected blog details
 
 
@@ -124,7 +125,21 @@ const ViewBlog = () => {
       .then((response) => response.json())
       .then((data) => setSelectedBlog(data))
       .catch((error) => console.error(error));
-  }, [blogId]); // Fetch when blogId changes
+  }, [blogId]); // Fetch when blogId changes orginal
+
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:4000/api/users/getOneBlog/${blogId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Fetched data:", data); // Add this line
+  //       setSelectedBlog(data);
+  //     })
+  //     .catch((error) => console.error(error));
+  // }, [blogId]);
+
+  
+
 
   if (!selectedBlog) {
     return <p>Loading...</p>;
