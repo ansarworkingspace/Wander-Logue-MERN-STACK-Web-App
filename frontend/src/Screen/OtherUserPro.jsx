@@ -16,7 +16,8 @@ const OtherUserPro = () => {
   const { userId } = useParams();
   const [userDetails, setUserDetails] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
-
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   const [userBlogs, setUserBlogs] = useState([]);
   const location = useLocation();
@@ -26,21 +27,55 @@ const OtherUserPro = () => {
 
 
 
+  // const handleFollowClick = () => {
+  //   if (isFollowing) {
+  //     // Unfollow logic
+  //     axios.post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
+  //       withCredentials: true,
+  //     });
+  //   } else {
+  //     // Follow logic
+  //     axios.post(`http://localhost:4000/api/users/follow/${userId}`, null, {
+  //       withCredentials: true,
+  //     });
+  //   }
+    
+  //   setIsFollowing(!isFollowing);
+  // };
+
+
   const handleFollowClick = () => {
     if (isFollowing) {
       // Unfollow logic
-      axios.post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
-        withCredentials: true,
-      });
+      axios
+        .post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
+          withCredentials: true,
+        })
+        .then(() => {
+          setIsFollowing(false);
+          setFollowerCount(prevCount => prevCount - 1); // Decrement follower count
+        })
+        .catch(error => {
+          console.error('Error unfollowing:', error);
+        });
     } else {
       // Follow logic
-      axios.post(`http://localhost:4000/api/users/follow/${userId}`, null, {
-        withCredentials: true,
-      });
+      axios
+        .post(`http://localhost:4000/api/users/follow/${userId}`, null, {
+          withCredentials: true,
+        })
+        .then(() => {
+          setIsFollowing(true);
+          setFollowerCount(prevCount => prevCount + 1); // Increment follower count
+        })
+        .catch(error => {
+          console.error('Error following:', error);
+        });
     }
-    
-    setIsFollowing(!isFollowing);
   };
+
+
+
 
 
 
@@ -91,6 +126,26 @@ withCredentials:true
 
  
 
+
+  useEffect(() => {
+    // Fetch follower and following counts
+    axios
+      .get(`http://localhost:4000/api/users/followerFollowingCount/${userId}`, {
+        withCredentials: true,
+      })
+      .then(response => {
+        setFollowerCount(response.data.followerCount);
+        setFollowingCount(response.data.followingCount);
+      })
+      .catch(error => {
+        console.error('Error fetching follower and following counts:', error);
+      });
+
+    // ... other useEffect dependencies ...
+  }, [userId]);
+
+
+
   return (
     <div className="profile-container">
       <Link >
@@ -126,11 +181,11 @@ withCredentials:true
 
       <div className="profile-buttons">
         <div className="count-above-btn">
-          <div className="profile-count">145k</div>
+          <div className="profile-count">{followerCount}</div>
           <button className="follofollowingbtn" style={{width:"7rem"}}>Followers</button>
         </div>
         <div className="count-above-btn">
-          <div className="profile-count">145k</div>
+          <div className="profile-count">{followingCount}</div>
           <button className="follofollowingbtn" style={{width:"7rem"}}>Following</button>
         </div>
       </div>

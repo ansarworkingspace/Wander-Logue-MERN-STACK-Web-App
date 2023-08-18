@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getAuthorBlogs,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -50,17 +50,10 @@ router.get('/countLike/:blogId', getBlogLikeCount);
 router.get('/checkLike/:blogId', protect, checkBlogLikeStatus);
 router.get('/authorProfile/:userId', getAuthorDetailsById);
 router.route('/getUserBlogs/:userId').get(protect, getAuthorBlogs); 
-
-
-// Follow a user
 router.post('/follow/:userId', protect, followUser);
-
-// Unfollow a user
 router.post('/unfollow/:userId', protect, unfollowUser);
-
-// Check if the current user is following the specified user
 router.get('/checkFollowing/:userId', protect, checkFollowing);
-
+router.get('/followerFollowingCount/:userId', protect,getFollowerFollowingCount);
 
 
 
