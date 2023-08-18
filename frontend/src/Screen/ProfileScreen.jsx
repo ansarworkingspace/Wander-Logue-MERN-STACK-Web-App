@@ -24,6 +24,32 @@ const ProfileScreen = () => {
   const dispatch = useDispatch();
   const [logoutApiCall] = useLogoutMutation();
 
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
+
+
+
+
+
+  useEffect(() => {
+    // Fetch follower and following counts
+    axios
+      .get(`http://localhost:4000/api/users/followerFollowingCount/${userInfo._id}`, {
+        withCredentials: true,
+      })
+      .then(response => {
+        setFollowerCount(response.data.followerCount);
+        setFollowingCount(response.data.followingCount);
+      })
+      .catch(error => {
+        console.error('Error fetching follower and following counts:', error);
+      });
+
+    // ... other useEffect dependencies ...
+  }, [userInfo]);
+
+
 
 
 
@@ -204,11 +230,11 @@ const [loading, setLoading] = useState(true);
 
       <div className="profile-buttons">
         <div className="count-above-btn">
-          <div className="profile-count">145k</div>
+          <div className="profile-count">{followerCount}</div>
           <button className="follofollowingbtn">Followers</button>
         </div>
         <div className="count-above-btn">
-          <div className="profile-count">1016</div>
+          <div className="profile-count">{followingCount}</div>
           <button className="follofollowingbtn">Following</button>
         </div>
 
