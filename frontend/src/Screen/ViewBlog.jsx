@@ -11,8 +11,8 @@ const ViewBlog = () => {
  
   const [selectedBlog, setSelectedBlog] = useState(null); // State to hold the selected blog details
   const [liked, setLiked] = useState(false); // State to manage like/unlike
-
-
+  const [likeCount, setLikeCount] = useState(0);
+  
 
 
 
@@ -31,6 +31,31 @@ const ViewBlog = () => {
 
 
 
+  
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/users/countLike/${blogId}`)
+      .then(response => {
+        setLikeCount(response.data.likeCount);
+      })
+      .catch(error => {
+        console.error('Error fetching like count:', error);
+      });
+
+    // Check if the user has liked this blog post
+    axios.get(`http://localhost:4000/api/users/checkLike/${blogId}`, {
+      withCredentials: true,
+    })
+      .then(response => {
+        setLiked(response.data.userLiked);
+      })
+      .catch(error => {
+        console.error('Error checking like status:', error);
+      });
+  }, [blogId]);
+
+
+
 
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId
@@ -42,9 +67,22 @@ const ViewBlog = () => {
 
 
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
+  
+
+  const handleLikeClick = async () => {
+    try {
+      await axios.post(`http://localhost:4000/api/users/likeBlog/${selectedBlog._id}`, null, {
+        withCredentials: true,
+      });
+// Update the like count locally based on like/unlike
+      setLikeCount(prevLikeCount => (liked ? prevLikeCount - 1 : prevLikeCount + 1));
+     
+      setLiked(!liked);
+    } catch (error) {
+      console.error('Error liking/unliking blog:', error);
+    }
   };
+
 
 
   if (!selectedBlog) {
@@ -71,14 +109,14 @@ const ViewBlog = () => {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            color: liked ? '#f93131' : 'white', // Change color based on liked state
+            color: liked ? '#f93131' : 'white',
             cursor: 'pointer',
           }}
           onClick={handleLikeClick} // Call handleLikeClick on click
         >
           <FaThumbsUp />
           <h4  style={{color:"white", fontSize: "0.8rem", marginLeft: "0.7rem", marginTop: "0.2rem" }}>
-           500
+          {likeCount}
           </h4>
         </div>
         <div className="iconWrapper" onClick={handleBookmarkClick}>

@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog,updateBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getOneBlog,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -45,8 +45,9 @@ router.get('/getSavedBlogs', protect, getSavedBlogs)
 router.get('/getSavedSingleBlog/:blogId', getSavedSingleBlog);
 router.delete('/deleteSavedBlog/:blogId',protect, deleteSavedBlog);
 router.put('/updateBlog/:blogId', protect, updateBlog);
-
-
+router.post('/likeBlog/:blogId', protect, likeBlog);
+router.get('/countLike/:blogId', getBlogLikeCount);
+router.get('/checkLike/:blogId', protect, checkBlogLikeStatus);
 
 export default router;
 

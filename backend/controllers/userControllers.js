@@ -519,6 +519,89 @@ const updateBlog = asyncHandler(async (req, res) => {
 });
 
 
+
+
+
+// controllers/userControllers.js
+ const likeBlog = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+  const userId = req.user._id;
+
+  try {
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    const userLikedIndex = blog.likes.indexOf(userId);
+
+    if (userLikedIndex === -1) {
+      // User hasn't liked the blog, add their ID to the likes array
+      blog.likes.push(userId);
+    } else {
+      // User has liked the blog, remove their ID from the likes array
+      blog.likes.splice(userLikedIndex, 1);
+    }
+
+    await blog.save();
+
+    res.json({ message: 'Like/unlike successful' });
+  } catch (error) {
+    console.error('Error liking/unliking blog:', error);
+    res.status(500).json({ message: 'An error occurred while liking/unliking the blog' });
+  }
+});
+
+
+
+// controllers/userControllers.js
+ const getBlogLikeCount = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+
+  try {
+    const blog = await Blog.findById(blogId);
+    
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    const likeCount = blog.likes.length;
+    res.json({ likeCount });
+  } catch (error) {
+    console.error('Error fetching like count:', error);
+    res.status(500).json({ message: 'An error occurred while fetching the like count' });
+  }
+});
+
+
+const checkBlogLikeStatus = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const blogId = req.params.blogId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    const userLiked = blog.likes.includes(userId);
+
+    res.json({ userLiked });
+  } catch (error) {
+    console.error('Error checking like status:', error);
+    res.status(500).json({ message: 'An error occurred while checking like status' });
+  }
+});
+
+
 export {
     authUser,
     registerUser,
@@ -537,5 +620,8 @@ export {
     getSavedBlogs,
     getSavedSingleBlog,
     deleteSavedBlog,
-    updateBlog
+    updateBlog,
+    likeBlog,
+    getBlogLikeCount,
+    checkBlogLikeStatus
 };
