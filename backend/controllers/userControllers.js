@@ -647,6 +647,66 @@ const getAuthorBlogs = asyncHandler(async (req, res) => {
 
 
 
+
+
+// Follow a user
+const followUser = asyncHandler(async (req, res) => {
+  const authorId = req.params.userId;
+  const currentUserId = req.user._id; // Assuming you have the user object in req.user
+
+  try {
+    // Update author's followers
+    await User.findByIdAndUpdate(authorId, { $addToSet: { followers: currentUserId } });
+
+    // Update current user's following
+    await User.findByIdAndUpdate(currentUserId, { $addToSet: { following: authorId } });
+
+    res.status(200).json({ message: 'Followed successfully' });
+  } catch (error) {
+    console.error('Error following user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Unfollow a user
+const unfollowUser = asyncHandler(async (req, res) => {
+  const authorId = req.params.userId;
+  const currentUserId = req.user._id; // Assuming you have the user object in req.user
+
+  try {
+    // Update author's followers
+    await User.findByIdAndUpdate(authorId, { $pull: { followers: currentUserId } });
+
+    // Update current user's following
+    await User.findByIdAndUpdate(currentUserId, { $pull: { following: authorId } });
+
+    res.status(200).json({ message: 'Unfollowed successfully' });
+  } catch (error) {
+    console.error('Error unfollowing user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Check if the current user is following the specified user
+const checkFollowing = asyncHandler(async (req, res) => {
+  const currentUserId = req.user._id; // Assuming you've set req.user from the authentication middleware
+  const targetUserId = req.params.userId;
+
+  try {
+    const currentUser = await User.findById(currentUserId);
+    if (!currentUser) {
+      return res.status(404).json({ message: 'Current user not found' });
+    }
+
+    const isFollowing = currentUser.following.includes(targetUserId);
+    res.json({ isFollowing });
+  } catch (error) {
+    console.error('Error checking following status:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 export {
     authUser,
     registerUser,
@@ -670,5 +730,8 @@ export {
     getBlogLikeCount,
     checkBlogLikeStatus,
     getAuthorDetailsById,
-    getAuthorBlogs
+    getAuthorBlogs,
+    unfollowUser,
+    followUser,
+    checkFollowing
 };

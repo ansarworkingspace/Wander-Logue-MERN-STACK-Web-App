@@ -15,12 +15,49 @@ const OtherUserPro = () => {
 
   const { userId } = useParams();
   const [userDetails, setUserDetails] = useState(null);
-
+  const [isFollowing, setIsFollowing] = useState(false);
 
 
   const [userBlogs, setUserBlogs] = useState([]);
   const location = useLocation();
   const navigate = useNavigate(); 
+
+
+
+
+
+  const handleFollowClick = () => {
+    if (isFollowing) {
+      // Unfollow logic
+      axios.post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
+        withCredentials: true,
+      });
+    } else {
+      // Follow logic
+      axios.post(`http://localhost:4000/api/users/follow/${userId}`, null, {
+        withCredentials: true,
+      });
+    }
+    
+    setIsFollowing(!isFollowing);
+  };
+
+
+
+  useEffect(() => {
+    // Check if current user is following the author
+    axios.get(`http://localhost:4000/api/users/checkFollowing/${userId}`, {
+      withCredentials: true,
+    })
+    .then(response => {
+      setIsFollowing(response.data.isFollowing);
+    })
+    .catch(error => {
+      console.error('Error checking following status:', error);
+    });
+  }, [userId]);
+
+
 
 
   useEffect(() => {
@@ -51,8 +88,16 @@ withCredentials:true
 
   }, [userId]);
 
+
+ 
+
   return (
     <div className="profile-container">
+      <Link >
+      <button className=" logout-button" onClick={handleFollowClick}>
+        {isFollowing ? 'Unfollow' : 'Follow'}
+      </button>
+      </Link>
       <Link to="/chatToUser">
         <button className="profile-edit-button">message</button>
       </Link>
@@ -82,7 +127,11 @@ withCredentials:true
       <div className="profile-buttons">
         <div className="count-above-btn">
           <div className="profile-count">145k</div>
-          <button className="follofollowingbtn" style={{width:"7rem"}}>Follow</button>
+          <button className="follofollowingbtn" style={{width:"7rem"}}>Followers</button>
+        </div>
+        <div className="count-above-btn">
+          <div className="profile-count">145k</div>
+          <button className="follofollowingbtn" style={{width:"7rem"}}>Following</button>
         </div>
       </div>
 
