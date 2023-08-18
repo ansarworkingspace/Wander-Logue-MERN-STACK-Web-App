@@ -29,10 +29,7 @@ import LandingPage from './Screen/LandingPage.jsx';
 import SavedBlogs from './Screen/SavedBlogs.jsx'; 
 import SingleSavedView from './Screen/SingleSavedView..jsx';
 import EditBlog from './Screen/EditBlog.jsx';
-
-
-
-
+import OtherUserPro from './Screen/OtherUserPro.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,6 +54,7 @@ const router = createBrowserRouter(
          <Route path="/create" element={<Create />} />
          <Route path="/savedblogs" element={<SavedBlogs />} />
          <Route path="/editBlog/:blogId" element={<EditBlog />} />
+         <Route path="/otherUserPro/:userId" element={<OtherUserPro />} />
       </Route>
 
 
@@ -75,6 +73,9 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>

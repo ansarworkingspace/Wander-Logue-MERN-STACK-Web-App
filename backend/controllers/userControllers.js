@@ -602,6 +602,51 @@ const checkBlogLikeStatus = asyncHandler(async (req, res) => {
 });
 
 
+
+
+const getAuthorDetailsById = asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const foundUser = await User.findById(userId);
+
+    if (!foundUser) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    res.status(200).json({
+      _id: foundUser._id,
+      name: foundUser.name,
+      email: foundUser.email,
+      profileImage: foundUser.profileImage,
+      // Include other user details as needed
+    });
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+const getAuthorBlogs = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Fetch blogs with the given user ID
+    const blogs = await Blog.find({ author: userId })
+      .select('title summary createdAt images') // Only select specific fields
+      .sort({ createdAt: -1 }); // Sort by creation date in descending order
+
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching blogs.' });
+  }
+});
+
+
+
 export {
     authUser,
     registerUser,
@@ -623,5 +668,7 @@ export {
     updateBlog,
     likeBlog,
     getBlogLikeCount,
-    checkBlogLikeStatus
+    checkBlogLikeStatus,
+    getAuthorDetailsById,
+    getAuthorBlogs
 };

@@ -6,8 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminHeader from "./Components/AdminHeader";
 
-
-
 const App = () => {
 
   const location = useLocation()
