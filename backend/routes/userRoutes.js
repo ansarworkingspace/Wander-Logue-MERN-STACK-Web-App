@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,googleAuth,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -55,9 +55,8 @@ router.post('/unfollow/:userId', protect, unfollowUser);
 router.get('/checkFollowing/:userId', protect, checkFollowing);
 router.get('/followerFollowingCount/:userId', protect,getFollowerFollowingCount);
 
-
-
-
+//google signupAndIn
+router.post('/googleAuth',googleAuth)
 
 export default router;
 

@@ -82,19 +82,6 @@ const ProfileScreen = () => {
 
 
 
-  // const handleDeleteBlog = async (blogId) => {
-  //   try {
-  //     await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`,{
-  //       withCredentials:true
-  //     });
-  //     // Remove the deleted blog from the local state
-  //     setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
-  //   } catch (error) {
-  //     console.error('Error deleting blog:', error);
-  //   }
-  // };
-
-
 
 
   const handleDeleteBlog = async (blogId) => {
@@ -179,7 +166,7 @@ const [loading, setLoading] = useState(true);
       <div className='postImage'>
         {/* Display blog image here */}
         {blog.images.length > 0 && (
-          // <Image src={`http://localhost:4000/api/users/${blog.images[0]}`} alt='Blog' />
+        
 
           <Image
           src={`http://localhost:4000/api/users/${blog.images[0]}`}

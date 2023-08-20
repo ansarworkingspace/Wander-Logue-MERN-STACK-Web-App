@@ -3,7 +3,12 @@ import User from '../models/userModels.js'
 import generateToken from '../utils/userJWT.js'
 import Blog from '../models/createBlog.js';
 import jwt from 'jsonwebtoken'
+import axios from 'axios';
 
+
+
+
+// Orginal sign in
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -39,45 +44,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 
-
-
-// const registerUser = asyncHandler(async (req,res)=>{
-
-//     const {name,email,password,mobile} = req.body;
-//     const userExists = await User.findOne({email:email})
-
-//     if(userExists){
-//         res.status(400)
-//         throw new Error('User already exists');
-//     }
-
-//     const user = await User.create({
-//         name,
-//         email,
-//         password,
-//         mobile
-//     });
-
-//     if(user){
-//       generateToken(res,user._id)
-//         res.status(201).json({
-//             _id:user._id,
-//             name:user.name,
-//             email:user.email,
-//             mobile:user.mobile
-//         })
-//     }else{
-//         res.status(400)
-//         throw new Error('Invalid user data');
-//     }
-
-    
-    
-    
-   
-// });
-
-
+// Orginal register
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, mobile } = req.body;
   const userExists = await User.findOne({ email: email });
@@ -113,6 +80,59 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+
+//^----------------GOOGLE-AUTH-----------------------------------------
+
+const googleAuth = asyncHandler(async (req, res) => {
+  const {  user_id, name, email, profileImage } = req.body; // Assuming these fields are part of the user object from Google Sign-In
+console.log(user_id,name,email,profileImage);
+  // Check if the user already exists
+  let user = await User.findOne({ email });
+
+  if (user) {
+    if (user.status) {
+      res.status(401);
+      throw new Error('Your account is temporarily blocked');
+    }
+
+    // User exists, generate token and send success response
+    generateToken(res, user._id);
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      profileImage: user.profileImage,
+      status: user.status
+    });
+  } else {
+    // User doesn't exist, create a new user
+    user = await User.create({
+    
+      name,
+      email,
+      profileImage,
+     
+    });
+
+    if (user) {
+      generateToken(res, user._id);
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileImage,
+     
+      
+      });
+    } else {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
+  }
+});
+
+
+//^--------------------------------------------------------------------
 
 
 const logoutUser = asyncHandler(async (req,res)=>{
@@ -323,29 +343,6 @@ const deleteBlog = asyncHandler(async (req, res) => {
   }
 });
 
-
-// const saveBlogToUser = asyncHandler(async (req, res) => {
-//   const userId = req.user._id;
-//   const blogId = req.params.blogId;
-
-//   try {
-//     const user = await User.findById(userId); // Use findById instead of find
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Check if the blog is already saved, if not, add it
-//     if (!user.savedTales.includes(blogId)) {
-//       user.savedTales.push(blogId);
-//       await user.save();
-//     }
-
-//     res.json({ message: 'Blog saved successfully' });
-//   } catch (error) {
-//     console.error('Error saving blog:', error);
-//     res.status(500).json({ message: 'An error occurred while saving the blog' });
-//   }
-// });
 
 
 const saveBlogToUser = asyncHandler(async (req, res) => {
@@ -732,6 +729,12 @@ const getFollowerFollowingCount = asyncHandler(async (req, res) => {
 
 
 
+
+
+
+
+
+
 export {
     authUser,
     registerUser,
@@ -759,5 +762,9 @@ export {
     unfollowUser,
     followUser,
     checkFollowing,
-    getFollowerFollowingCount
+    getFollowerFollowingCount,
+
+
+    googleAuth
+   
 };

@@ -1,5 +1,4 @@
 
-
 // import React from 'react';
 // import { useEffect } from 'react';
 // import { useLocation } from 'react-router-dom';
@@ -13,6 +12,9 @@
 // import { logout } from '../slices/AuthSlice';
 // import { useCookies } from 'react-cookie'; // Import the hook
 // import '../css/header.css';
+// import jwt_decode from "jwt-decode";
+
+
 
 // const Header = () => {
 //   const { userInfo } = useSelector((state) => state.auth);
@@ -22,14 +24,9 @@
 //   const [cookies] = useCookies(['jwt']);
 //   const location = useLocation();
 
-//   // useEffect(() => {
-//   //   const jwtToken = cookies.jwt; // Retrieve the JWT token from cookies
+//   const isLandingRoute = location.pathname === '/landing';
 
-//   //   // If JWT token is missing, perform a logout
-//   //   if (!jwtToken ) {
-//   //     logoutHandler();
-//   //   }
-//   // }, [cookies.jwt]);
+
 
 //   return (
 //     <header>
@@ -102,17 +99,28 @@
 
 //                 </>
 //               ) : (
+
 //                 <>
-//                   <LinkContainer style={{fontFamily:"Preahvihear",fontSize:"0.9rem"}} to='/login'>
-//                     <Nav.Link>
-//                       <FaGoogle /> Sign In
-//                     </Nav.Link>
-//                   </LinkContainer>
-//                   <LinkContainer style={{fontFamily:"Preahvihear",fontSize:"0.9rem"}} to='/register'>
-//                     <Nav.Link>
-//                       <FaGoogle /> Sign Up
-//                     </Nav.Link>
-//                   </LinkContainer>
+//                   {isLandingRoute ? (
+//                     <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.8rem" }} to='/login'>
+//                       <Nav.Link>
+//                         <FaUser /> Sign In
+//                       </Nav.Link>
+//                     </LinkContainer>
+//                   ) : (
+//                     <>
+//                       <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.8rem" }} to='/login'>
+//                         <Nav.Link>
+//                           <FaGoogle /> Sign In
+//                         </Nav.Link>
+//                       </LinkContainer>
+//                       <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.8rem" }} to='/register'>
+//                         <Nav.Link>
+//                           <FaGoogle /> Sign Up
+//                         </Nav.Link>
+//                       </LinkContainer>
+//                     </>
+//                   )}
 //                 </>
 //               )}
 //             </Nav>
@@ -128,39 +136,31 @@
 
 
 
-
 import React from 'react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Image, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaPlus, FaGoogle,FaHome ,FaComment, FaUser } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
+import { setCredentials } from '../slices/AuthSlice';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/UserApiSlice';
 import { logout } from '../slices/AuthSlice';
 import { useCookies } from 'react-cookie'; // Import the hook
 import '../css/header.css';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [logoutApiCall] = useLogoutMutation();
-  const [cookies] = useCookies(['jwt']);
   const location = useLocation();
-
+  
   const isLandingRoute = location.pathname === '/landing';
 
-  // useEffect(() => {
-  //   const jwtToken = cookies.jwt; // Retrieve the JWT token from cookies
-
-  //   // If JWT token is missing, perform a logout
-  //   if (!jwtToken ) {
-  //     logoutHandler();
-  //   }
-  // }, [cookies.jwt]);
+ 
 
   return (
     <header>
@@ -243,16 +243,11 @@ const Header = () => {
                     </LinkContainer>
                   ) : (
                     <>
-                      <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.8rem" }} to='/login'>
-                        <Nav.Link>
-                          <FaGoogle /> Sign In
-                        </Nav.Link>
-                      </LinkContainer>
-                      <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.8rem" }} to='/register'>
-                        <Nav.Link>
-                          <FaGoogle /> Sign Up
-                        </Nav.Link>
-                      </LinkContainer>
+                    
+                         
+
+                     
+
                     </>
                   )}
                 </>
@@ -266,4 +261,6 @@ const Header = () => {
 };
 
 export default Header;
+
+
 

@@ -1,3 +1,4 @@
+
 // import { useState,useEffect } from 'react';
 // import { Link,useNavigate } from 'react-router-dom';
 // import { Form,Container,Button, Row, Col } from 'react-bootstrap';
@@ -7,7 +8,8 @@
 // import { setCredentials } from '../slices/AuthSlice';
 // import { toast } from 'react-toastify';
 // import Loader from '../Components/Loader';
-
+// import { FaEye, FaEyeSlash } from 'react-icons/fa';
+// import {GoogleLogin,googleLogout} from '@react-oauth/google'
 
 
 // const LoginScreen = () => {
@@ -20,6 +22,15 @@
 //   const [login, { isLoading }] = useLoginMutation();
 
 //   const { userInfo } = useSelector((state) => state.auth);
+//   const [showPassword, setShowPassword] = useState(false); 
+
+
+
+
+//   const togglePasswordVisibility = () => {
+//     setShowPassword(!showPassword); // Toggle the state
+//   };
+
 
 
 
@@ -65,19 +76,34 @@
 
 //         <Form.Group className='my-2 parentOfInput '  controlId='password'>
        
-//           <Form.Control  className='custom-input'
-//             type='password'
+//         <Form.Control className='custom-input'
+//             type={showPassword ? 'text' : 'password'}
 //             placeholder='Enter password'
 //             value={password}
 //             onChange={(e) => setPassword(e.target.value)}
 //           ></Form.Control>
+
+
+// <span
+//     className='password-toggle-icon'
+//     onClick={togglePasswordVisibility}
+//   >
+//     {showPassword ? (
+//     <FaEyeSlash /> 
+//   ) : (
+//     <FaEye /> 
+//   )}
+//   </span>
+
+
+
 //         </Form.Group>
 
 //         <Button
 //           disabled={isLoading}
 //           type='submit'
 //           variant='primary'
-//           className='mt-3 custom-button'
+//           className='mt-3 custom-button custom-margin-top'
           
 //         >
 //           Sign In
@@ -100,16 +126,21 @@
 
 
 
+
 import { useState,useEffect } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import { Form,Container,Button, Row, Col } from 'react-bootstrap';
 import FormContainer from '../Components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation } from '../slices/UserApiSlice';
+import { useLoginMutation ,useGoogleLoginMutation} from '../slices/UserApiSlice';
 import { setCredentials } from '../slices/AuthSlice';
 import { toast } from 'react-toastify';
 import Loader from '../Components/Loader';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import {GoogleLogin,googleLogout} from '@react-oauth/google'
+import jwt_decode from 'jwt-decode'
+import axios from 'axios';
+
 
 
 
@@ -132,9 +163,6 @@ const LoginScreen = () => {
     setShowPassword(!showPassword); // Toggle the state
   };
 
-
-
-
   useEffect(() => {
     if (userInfo) {
       navigate('/');
@@ -154,9 +182,53 @@ const LoginScreen = () => {
     }
   };
 
+
+
+
+
+
+
+ // const CLIENT_ID='371699086011-b1v5e2sgo6lmpua1h067jebh42t5dk0q.apps.googleusercontent.com'
+ 
+
+
+ const [googleLogin] = useGoogleLoginMutation();
+
+
+ const handleGoogleSignInSuccess = async (response) => {
+  const decoded = jwt_decode(response.credential); // Decode the Google response
+  const { sub, name, email, picture } = decoded;
+
+  try {
+    const googleLoginData = {
+      user_id: sub,
+      name: name,
+      email: email,
+      profileImage: picture,
+    };
+
+    // Use the useGoogleLoginMutation to perform the Google login
+    const res = await googleLogin(googleLoginData).unwrap();
+    console.log(res);
+    // Dispatch the user credentials to update authentication status
+    dispatch(setCredentials({ ...res }));
+
+    // Redirect to the desired route
+    navigate('/');
+  } catch (error) {
+    console.error('Error during Google sign-in:', error);
+    // Handle the error, show a toast, etc.
+  }
+};
+
+
+
+
+
+
+
   return (
 
-   
     <FormContainer >
 
       <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}} className=' mx-auto'>Sign In</h1>
@@ -212,14 +284,28 @@ const LoginScreen = () => {
 
       </Form>
 
-      <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"-1.8rem", fontFamily: 'Squada One', marginTop:"6rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
-      
+     
+<div className='googleAuth' style={{marginTop:"4rem",marginLeft:"2.6rem"}}>
+<GoogleLogin
+                      onSuccess={handleGoogleSignInSuccess}
+                      onError={()=>console.log("error")}
+                      />
+
+</div>
+
+
+      <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"-0.8rem", fontFamily: 'Squada One', marginTop:"2rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
+     
       {isLoading && <Loader />}
 
-
+      
     </FormContainer>
-    
+ 
   );
 };
 
 export default LoginScreen;
+
+
+
+

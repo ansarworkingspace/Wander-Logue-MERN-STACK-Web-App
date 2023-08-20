@@ -1,3 +1,7 @@
+
+
+
+
 // import mongoose from "mongoose";
 // import bcrypt from 'bcryptjs'
 // import asyncHandler from 'express-async-handler';
@@ -33,10 +37,18 @@
 //         type: [Schema.Types.ObjectId],
 //         required: false
 //     },
-//     savedTales: {
-//         type: [Schema.Types.ObjectId],
-//         required: false
-//     },
+//     savedTales: [
+//         {
+//             blogId: {
+//                 type: Schema.Types.ObjectId,
+//                 ref: 'Blog'
+//             },
+//             title: String,
+//             summary: String,
+//             createdAt: Date,
+//             images: [String], // Change 'image' to 'images'
+//         }
+//     ],
 //     role: {
 //         type: String
 //     },
@@ -72,6 +84,9 @@
 
 
 
+
+
+
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler';
@@ -90,14 +105,14 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     profileImage: {
         type: String
     },
     mobile: {
         type: String,
-        required: true
+        required: false
     },
     followers: {
         type: [Schema.Types.ObjectId],
