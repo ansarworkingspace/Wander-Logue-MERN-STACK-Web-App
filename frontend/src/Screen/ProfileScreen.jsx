@@ -32,6 +32,41 @@ const ProfileScreen = () => {
 
 
 
+
+
+//check jwt
+useEffect(() => {
+  const checkAuth = async () => {
+      try {
+          const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+              credentials: 'include' // Include cookies in the request
+          });
+          if (!response.ok) {
+              await logoutApiCall().unwrap();
+              dispatch(logout());
+              navigate('/landing');
+          }
+      } catch (error) {
+          console.error('Check auth error:', error);
+      }
+  };
+
+  if (userInfo) {
+      checkAuth();
+  }
+}, [userInfo, dispatch, logoutApiCall, navigate]);
+
+
+
+
+
+
+
+
+
+
+
+//user following count
   useEffect(() => {
     // Fetch follower and following counts
     axios
@@ -52,7 +87,7 @@ const ProfileScreen = () => {
 
 
 
-
+//check user status
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
@@ -126,7 +161,7 @@ const ProfileScreen = () => {
 
 
 
-
+//fetch image
 const userImage = userInfo.profileImage
 ? `http://localhost:4000/api/users/uploads/${userInfo.profileImage}`
 : userInfo.profileGoogleImage // Use the Google profile image link here
@@ -136,6 +171,8 @@ const userImage = userInfo.profileImage
 const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
+  //fetch blog
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
