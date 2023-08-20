@@ -110,6 +110,9 @@ const userSchema = new Schema({
     profileImage: {
         type: String
     },
+    profileGoogleImage: {
+        type: String
+    },
     mobile: {
         type: String,
         required: false

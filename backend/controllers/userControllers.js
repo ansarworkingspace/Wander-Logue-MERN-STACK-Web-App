@@ -84,8 +84,8 @@ const registerUser = asyncHandler(async (req, res) => {
 //^----------------GOOGLE-AUTH-----------------------------------------
 
 const googleAuth = asyncHandler(async (req, res) => {
-  const {  user_id, name, email, profileImage } = req.body; // Assuming these fields are part of the user object from Google Sign-In
-console.log(user_id,name,email,profileImage);
+  const {  user_id, name, email, profileGoogleImage } = req.body; // Assuming these fields are part of the user object from Google Sign-In
+
   // Check if the user already exists
   let user = await User.findOne({ email });
 
@@ -102,6 +102,7 @@ console.log(user_id,name,email,profileImage);
       name: user.name,
       email: user.email,
       profileImage: user.profileImage,
+      profileGoogleImage: user.profileGoogleImage,
       status: user.status
     });
   } else {
@@ -110,7 +111,7 @@ console.log(user_id,name,email,profileImage);
     
       name,
       email,
-      profileImage,
+      profileGoogleImage,
      
     });
 
@@ -120,7 +121,7 @@ console.log(user_id,name,email,profileImage);
         _id: user._id,
         name: user.name,
         email: user.email,
-        profileImage: user.profileImage,
+        profileGoogleImage: user.profileGoogleImage,
      
       
       });

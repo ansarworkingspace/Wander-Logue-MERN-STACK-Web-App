@@ -161,6 +161,7 @@ const Header = () => {
   const isLandingRoute = location.pathname === '/landing';
 
  
+  
 
   return (
     <header>
@@ -218,11 +219,22 @@ const Header = () => {
         </div>
       )}
     </Nav>
-                    {userInfo.profileImage ? (
+                    {/* {userInfo.profileImage ? (
                       <Image src={`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
                     ) : (
                       <div className="dp-initials">{userInfo.name ? userInfo.name.charAt(0).toUpperCase() : ''}</div>
-                    )}
+                    )} */}
+
+
+
+{userInfo.profileImage ? (
+    <Image src={`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
+  ) : userInfo.profileGoogleImage ? (
+    <Image src={userInfo.profileGoogleImage} alt="Google Display Picture" className="dp-image rounded-circle" />
+  ) : (
+    <div className="dp-initials">{userInfo.name ? userInfo.name.charAt(0).toUpperCase() : ''}</div>
+  )}
+
                   </div>
                   <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.9rem",marginLeft:"0.2rem",marginTop:"0.2rem",color:"#e6e1e1" }} to='/profile'>
   <Nav.Link>

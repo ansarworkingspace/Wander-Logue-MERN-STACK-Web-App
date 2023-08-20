@@ -204,7 +204,7 @@ const LoginScreen = () => {
       user_id: sub,
       name: name,
       email: email,
-      profileImage: picture,
+      profileGoogleImage: picture,
     };
 
     // Use the useGoogleLoginMutation to perform the Google login
