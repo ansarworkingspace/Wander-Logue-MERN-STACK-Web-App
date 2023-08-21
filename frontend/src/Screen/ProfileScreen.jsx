@@ -201,17 +201,32 @@ const [loading, setLoading] = useState(true);
   }
   const blogItems = blogs.map((blog) => (
     <div className='eachPost' key={blog._id}>
-      <div className='postImage'>
-        {/* Display blog image here */}
-        {blog.images.length > 0 && (
-        
+      <div className='postImage' style={{backgroundColor:"#181a1b"}}>
+       
 
+
+
+{blog.images.length > 0 && (
+        getFileExtension(blog.images[0]) === 'mp4' ? (
+          <video
+            src={`http://localhost:4000/api/users/${blog.images[0]}`}
+            controls
+            className='postVideoOndiv'
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : (
           <Image
-          src={`http://localhost:4000/api/users/${blog.images[0]}`}
-          alt='Blog'
-          className='postImageOndiv'
-        />
-        )}
+            src={`http://localhost:4000/api/users/${blog.images[0]}`}
+            alt='Blog'
+            className='postImageOndiv'
+          />
+        )
+      )}
+
+
+
+
       </div>
       <div className='postContent'>
         {/* Display blog title, summary, and creation date */}
@@ -229,7 +244,10 @@ const [loading, setLoading] = useState(true);
     </div>
     
   ));
-  
+  // Function to get the file extension from a filename
+function getFileExtension(filename) {
+  return filename.split('.').pop();
+}
 
   return (
     <div className="profile-container" >

@@ -24,6 +24,9 @@ const SingleSavedView = () => {
   }
 
 
+  function getFileExtension(filename) {
+    return filename.split('.').pop();
+  }
 
   return (
     <div className="viewBlog-container">
@@ -54,11 +57,32 @@ const SingleSavedView = () => {
 
       <div className='imageView'>
         {selectedBlog.images.length > 0 && (
-        <Image
-          src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
-          alt='Blog'
-          className='viewImageOndiv'
-        />
+        // <Image
+        //   src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+        //   alt='Blog'
+        //   className='viewImageOndiv'
+        // />
+
+
+
+        getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
+          <video
+            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            controls
+            className='viewImageOndiv'
+          >
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <Image
+            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            alt='Blog'
+            className='viewImageOndiv'
+          />
+        )
+
+
+
         )}
       </div>
 

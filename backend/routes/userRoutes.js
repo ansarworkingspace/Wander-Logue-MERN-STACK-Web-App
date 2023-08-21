@@ -34,7 +34,7 @@ router.use('/uploads', express.static('uploads'));
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
 router.post('/blogs', protect,upload.single('image'), createBlog);//----ORG---------------------preventing blockeduser
 
-// router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
+router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
 
 
 router.get('/blogs', protect,getUserBlogs);

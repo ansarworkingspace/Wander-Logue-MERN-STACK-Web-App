@@ -83,14 +83,34 @@ const SavedBlogs = () => {
 
   const blogItems = savedBlogs.map((blog) => (
     <div className='eachPost' key={blog._id}>
-      <div className='postImage'>
+      <div className='postImage' style={{backgroundColor:"#181a1b"}}>
         {/* Display blog image here */}
         {blog.images.length > 0 && (
-          <Image
-            src={`http://localhost:4000/api/users/${blog.images[0]}`}
-            alt='Blog'
-            className='postImageOndiv'
-          />
+          // <Image
+          //   src={`http://localhost:4000/api/users/${blog.images[0]}`}
+          //   alt='Blog'
+          //   className='postImageOndiv'
+          // />
+
+
+          getFileExtension(blog.images[0]) === 'mp4' ? (
+            <video
+              src={`http://localhost:4000/api/users/${blog.images[0]}`}
+              controls
+              className='postVideoOndiv'
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <Image
+              src={`http://localhost:4000/api/users/${blog.images[0]}`}
+              alt='Blog'
+              className='postImageOndiv'
+            />
+          )
+
+
+
         )}
       </div>
       <div className='postContent'>
@@ -114,7 +134,10 @@ const SavedBlogs = () => {
 
 
 
-
+  function getFileExtension(filename) {
+    return filename.split('.').pop();
+  }
+  
 
   return (
     <div className="savedBlog-container">
