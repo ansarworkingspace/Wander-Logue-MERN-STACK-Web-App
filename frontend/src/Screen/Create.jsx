@@ -1,7 +1,5 @@
 
 
-
-
 // import React, { useState , useEffect} from 'react';
 // import ReactQuill from 'react-quill';
 // import { useSelector,useDispatch } from 'react-redux'; // Import useSelector from Redux
@@ -103,10 +101,11 @@
 //       setContent(value);
 //     };
   
-//     const handleImageChange = (event) => {
-//       setImage(event.target.files[0]);
-//     };
+    // const handleImageChange = (event) => {
+    //   setImage(event.target.files[0]);
+    // };
   
+
 
 //     const handleSuccess = () => {
 //         setTitle('');
@@ -178,9 +177,10 @@
 //         />
 //         <input
 //           type="file"
-//           accept="image/*"
+//           accept="image/*,video/*"
 //           onChange={handleImageChange}
 //           className="blog-input-field"
+//          
 //         />
 //       </div>
 //       <ReactQuill
@@ -214,6 +214,11 @@
 
 
 
+
+
+
+
+
 import React, { useState , useEffect} from 'react';
 import ReactQuill from 'react-quill';
 import { useSelector,useDispatch } from 'react-redux'; // Import useSelector from Redux
@@ -232,7 +237,7 @@ const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
-    const [image, setImage] = useState(null);
+    const [images, setImages] = useState([]);
     const [isSuccess, setIsSuccess] = useState(false); // State to track success
     // Access user info from the Redux store
     const { userInfo } = useSelector((state) => state.auth);
@@ -270,11 +275,6 @@ useEffect(() => {
 
 
 
-
-
-
-
-    
 
 
     useEffect(() => {
@@ -315,18 +315,18 @@ useEffect(() => {
       setContent(value);
     };
   
+    
     const handleImageChange = (event) => {
-      setImage(event.target.files[0]);
+      setImages([...images, ...event.target.files]); // Add selected files to the images array
     };
-  
 
     const handleSuccess = () => {
-        setTitle('');
-        setSummary('');
-        setContent('');
-        setImage(null);
-        setIsSuccess(true); // Set success state to show the message
-      };
+      setTitle('');
+      setSummary('');
+      setContent('');
+      setImages([]); // Clear the images array
+      setIsSuccess(true); // Set success state to show the message
+    };
 
       useEffect(() => {
         if (isSuccess) {
@@ -340,27 +340,29 @@ useEffect(() => {
         }
       }, [isSuccess]);
 
-    const handlePostClick = async () => {
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('summary', summary);
-      formData.append('content', content);
-      formData.append('image', image);
-  
-      // Use the user ID from the Redux store
-      formData.append('author', userInfo._id);
-  
-      try {
-        const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-        await axios.post('http://localhost:4000/api/users/blogs', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true, // Include cookies in the request
+      const handlePostClick = async () => {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('summary', summary);
+        formData.append('content', content);
       
-    });
-   
+        for (let i = 0; i < images.length; i++) {
+          formData.append('images', images[i]); // Append each selected file to the 'images' field
+        }
+      
+        // Use the user ID from the Redux store
+        formData.append('author', userInfo._id);
+      
+        try {
+          const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+          await axios.post('http://localhost:4000/api/users/blogs', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true, // Include cookies in the request,
+          });
+      
     
      handleSuccess();
      navigate('/profile'); // Navigate to the /profile route
@@ -393,6 +395,7 @@ useEffect(() => {
           accept="image/*,video/*"
           onChange={handleImageChange}
           className="blog-input-field"
+          multiple 
         />
       </div>
       <ReactQuill
@@ -421,3 +424,6 @@ useEffect(() => {
 };
 
 export default CreateBlog;
+
+
+

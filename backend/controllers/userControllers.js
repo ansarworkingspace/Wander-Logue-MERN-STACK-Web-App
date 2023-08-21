@@ -351,29 +351,61 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // Create a new blog
 // blogControllers.js
 
-const createBlog = asyncHandler(async (req, res) => {
-    try {
-      const { title, summary, content, author } = req.body; // Retrieve author (user ID) from request body
+// const createBlog = asyncHandler(async (req, res) => {
+//     try {
+//       const { title, summary, content, author } = req.body; // Retrieve author (user ID) from request body
      
-      const image = req.file ? req.file.path : '';
+//       const image = req.file ? req.file.path : '';
   
-      const newBlog = new Blog({
-        title,
-        summary,
-        content,
-        images: [image],
-        author: author, // Use the provided user ID
-      });
+//       const newBlog = new Blog({
+//         title,
+//         summary,
+//         content,
+//         images: [image],
+//         author: author, // Use the provided user ID
+//       });
   
-      const createdBlog = await newBlog.save();
+//       const createdBlog = await newBlog.save();
   
-      res.status(201).json(createdBlog);
-    } catch (error) {
-      res.status(500).json({ message: 'Blog creation failed.' });
-    }
-  });
+//       res.status(201).json(createdBlog);
+//     } catch (error) {
+//       res.status(500).json({ message: 'Blog creation failed.' });
+//     }
+//   });
   
   
+
+
+
+const createBlog = asyncHandler(async (req, res) => {
+  try {
+    // console.log(req.body); // Check the received body
+    // console.log(req.files);
+    const { title, summary, content, author } = req.body;
+    
+    const files = req.files.map(file => file.path); // Get an array of file paths
+    console.log('Uploaded Files:', files);
+
+    const newBlog = new Blog({
+      title,
+      summary,
+      content,
+      images: files,
+      author,
+    });
+  
+    const createdBlog = await newBlog.save();
+  
+    res.status(201).json(createdBlog);
+  } catch (error) {
+    res.status(500).json({ message: 'Blog creation failed.' });
+  }
+});
+
+
+
+
+
 
   const getUserBlogs = asyncHandler(async (req, res) => {
     try {

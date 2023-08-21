@@ -342,11 +342,7 @@ const ViewBlog = () => {
 
       <div className='imageView'>
         {selectedBlog.images.length > 0 && (
-        // <Image
-        //   src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
-        //   alt='Blog'
-        //   className='viewImageOndiv'
-        // />
+     
 
         getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
           <video

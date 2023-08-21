@@ -32,10 +32,10 @@ router.post('/logout',logoutUser)
 router.get('/profile',protect,getUserProfile)//--------------------------------preventing blockeduser
 router.use('/uploads', express.static('uploads'));
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
-router.post('/blogs', protect,upload.single('image'), createBlog);//----ORG---------------------preventing blockeduser
+// router.post('/blogs', protect,upload.single('image'), createBlog);//----ORG---------------------preventing blockeduser
+// router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
 
-router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
-
+router.post('/blogs', protect, upload.array('images',10), createBlog);
 
 router.get('/blogs', protect,getUserBlogs);
 router.get('/allBlogs',allUsersBlogs)
