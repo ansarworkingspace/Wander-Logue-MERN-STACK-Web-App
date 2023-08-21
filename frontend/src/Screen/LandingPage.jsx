@@ -78,7 +78,7 @@ const LandingPage = () => {
             <h3>{blog.title}</h3>
             <p className='summaryPosted'>{blog.summary}</p>
             <p className='datePosted'>Created on: {new Date(blog.createdAt).toLocaleDateString()}</p>
-            <button className='iconInPostContentLanding' onClick={() => navigate(`/allBlogs/${blog._id}`)}>
+            <button className='iconInPostContentLanding' onClick={() => navigate(`/onlyView/${blog._id}`)}>
               <FaEye />
             </button>
           </div>

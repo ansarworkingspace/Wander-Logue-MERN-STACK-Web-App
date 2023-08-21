@@ -16,13 +16,70 @@ import axios from 'axios';
 
 
 const Otpverification = () => {
+
+
   const [email, setEmail] = useState('');
-const [otp,setOtp] = useState('')
+  const [otp,setOtp] = useState('')
+  const [isTimerExpired, setIsTimerExpired] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(60); // 2 minutes in seconds
 
 const navigate = useNavigate(); // Initialize the navigate function
 const dispatch = useDispatch();
-
 const [verifyOTP] = useVerifyOTPMutation();
+
+
+
+useEffect(() => {
+  if (remainingTime > 0) {
+    const timer = setTimeout(() => {
+      setRemainingTime(remainingTime - 1);
+    }, 1000); // Update every second
+    return () => clearTimeout(timer);
+  } else {
+    setIsTimerExpired(true);
+  }
+}, [remainingTime]);
+
+
+
+
+// const handleResendClick = async () => {
+//   try {
+// // Send a request to backend to resend OTP
+// await axios.get('http://localhost:4000/api/users/resendOtp', {
+//   withCredentials: true, 
+// });
+
+//     // Reset timer and enable submit button
+//     setRemainingTime(20);
+//     setIsTimerExpired(false);
+//   } catch (error) {
+//     console.error('Error while resending OTP:', error);
+//   }
+// };
+
+
+
+const handleResendClick = async () => {
+  try {
+    // Send a request to backend to resend OTP
+    const res = await axios.get('http://localhost:4000/api/users/resendOtp', {
+      withCredentials: true,
+    });
+
+    if (res.status === 200) { // Check if the response status is 200 (success)
+      // Reset timer and enable submit button
+      setRemainingTime(60);
+      setIsTimerExpired(false);
+    } else {
+      console.error('Error while resending OTP:', res.data.message);
+    }
+  } catch (error) {
+    console.error('Error while resending OTP:', error);
+  }
+};
+
+
 
 
 
@@ -42,9 +99,29 @@ const handleOtpSubmit = async (e) => {
 
   } catch (error) {
 
-    console.error('OTP verification failed:', error);
+    // console.error('OTP verification failed:', error);
+  // Display toast error message
+  toast.error(error?.data?.message || error.message);
+
   }
 };
+
+
+
+
+
+const handleFormSubmit = async (e) => {
+  e.preventDefault();
+
+  if (isTimerExpired) {
+    await handleResendClick();
+  } else {
+    await handleOtpSubmit(e);
+  }
+};
+
+
+
 
 
   return (
@@ -53,7 +130,7 @@ const handleOtpSubmit = async (e) => {
 
       <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}} className=' mx-auto'>Otp Verification</h1>
 
-      <Form onSubmit={handleOtpSubmit}
+      <Form onSubmit={handleFormSubmit}
       style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}
       
       >
@@ -78,7 +155,7 @@ const handleOtpSubmit = async (e) => {
 
         </Form.Group>
 
-        <Button
+        {/* <Button
           
           type='submit'
           variant='primary'
@@ -86,13 +163,23 @@ const handleOtpSubmit = async (e) => {
           
         >
           Submit 
-        </Button>
+        </Button> */}
+
+
+{isTimerExpired ? (
+          <Button type='submit' variant='primary' className='mt-3 custom-button custom-margin-top'  >Resend</Button>
+        ) : (
+          <Button type='submit' variant='primary' className='mt-3 custom-button custom-margin-top' >Verify</Button>
+        )}
+ <div className='timer' style={{ color: 'white', marginLeft: '1.7rem', marginTop: '0.5rem', fontFamily: 'Sora' }}>{Math.floor(remainingTime / 60)} min {remainingTime % 60} sec</div>
+
+
+      
+
 
       </Form>
 
-      {/* <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"-0.8rem", fontFamily: 'Squada One', marginTop:"2rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
-      */}
-      
+    
 
       
     </FormContainer>

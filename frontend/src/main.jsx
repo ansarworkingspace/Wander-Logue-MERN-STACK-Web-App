@@ -123,7 +123,7 @@ import EditBlog from './Screen/EditBlog.jsx';
 import OtherUserPro from './Screen/OtherUserPro.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Otpverification from './Screen/Otpverification.jsx';
-
+import OnlyView from './Screen/OnlyView.jsx'
 
 
 const router = createBrowserRouter(
@@ -141,7 +141,7 @@ const router = createBrowserRouter(
       <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
       <Route path="/otpverification" element={<Otpverification />} />
       <Route path="/savedSingleBlogs/:blogId" element={<SingleSavedView />} />
-
+      <Route path="/onlyView/:blogId" element={<OnlyView />} />
 
       <Route path='' element={<PrivateRoute />}>
          <Route index={true}  element={<HomeScreen />} />

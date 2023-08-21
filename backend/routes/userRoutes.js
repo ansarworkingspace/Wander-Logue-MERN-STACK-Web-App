@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -32,7 +32,11 @@ router.post('/logout',logoutUser)
 router.get('/profile',protect,getUserProfile)//--------------------------------preventing blockeduser
 router.use('/uploads', express.static('uploads'));
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
-router.post('/blogs', protect,upload.single('image'), createBlog);//-------------------------preventing blockeduser
+router.post('/blogs', protect,upload.single('image'), createBlog);//----ORG---------------------preventing blockeduser
+
+// router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
+
+
 router.get('/blogs', protect,getUserBlogs);
 router.get('/allBlogs',allUsersBlogs)
 router.get('/getOneBlog/:blogId', getOneBlog);
@@ -60,6 +64,8 @@ router.post('/googleAuth',googleAuth)
 
 
 router.post('/verifyOtp', verifyOTP);
+router.get('/resendOtp',protect,resendOtp)
+
 
 export default router;
 

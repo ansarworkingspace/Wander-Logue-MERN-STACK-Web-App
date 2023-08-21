@@ -98,7 +98,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
   // Compare the user's stored OTP with the provided OTP
   if (user.otp === otp) {
     
-    generateToken(res, user._id);
+    // generateToken(res, user._id);
          
     res.status(201).json({
         _id: user._id,
@@ -112,7 +112,45 @@ const verifyOTP = asyncHandler(async (req, res) => {
   } else {
     res.status(400).json({ message: 'Invalid OTP' });
   }
+
+
+
 });
+
+
+
+//resendOtp
+
+const resendOtp = asyncHandler(async(req,res)=>{
+  try {
+    const userId = req.user._id; // Assuming you have access to the user ID from the authenticated session
+    // console.log("---------");
+    // console.log(userId);
+    // console.log("-------------");
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate a new OTP
+    const newOtp = Math.floor(1000 + Math.random() * 9000);
+    
+    // Update the user's OTP in the database
+    user.otp = newOtp;
+    await user.save();
+
+    // Send the new OTP to the user's email
+    await sendOTPByEmail(user.email, newOtp);
+
+    res.status(200).json({ message: 'OTP resent successfully' });
+  } catch (error) {
+    console.error('Error while resending OTP:', error);
+    res.status(500).json({ message: 'An error occurred while resending OTP' });
+  }
+})
+
+
 
 
 
@@ -177,7 +215,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
   if (user) {
-    // generateToken(res, user._id);
+    generateToken(res, user._id);
     res.status(201).json({
       message: 'User registered successfully',
     });
@@ -846,8 +884,6 @@ const getFollowerFollowingCount = asyncHandler(async (req, res) => {
 
 
 
-
-
 export {
     authUser,
     registerUser,
@@ -876,7 +912,7 @@ export {
     followUser,
     checkFollowing,
     getFollowerFollowingCount,
-
+    resendOtp,
     verifyOTP,
     googleAuth
    
