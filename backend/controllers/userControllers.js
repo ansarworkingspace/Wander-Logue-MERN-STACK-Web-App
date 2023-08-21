@@ -4,6 +4,7 @@ import generateToken from '../utils/userJWT.js'
 import Blog from '../models/createBlog.js';
 import jwt from 'jsonwebtoken'
 import axios from 'axios';
+import nodemailer from 'nodemailer'
 
 
 
@@ -45,6 +46,104 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 // Orginal register
+// const registerUser = asyncHandler(async (req, res) => {
+//   const { name, email, password, mobile } = req.body;
+//   const userExists = await User.findOne({ email: email });
+
+//   if (userExists) {
+//     res.status(400);
+//     throw new Error('User already exists');
+//   }
+
+//   if (password.length < 6) {
+//     res.status(400);
+//     throw new Error('Password must be at least 6 characters long');
+//   }
+
+//   const user = await User.create({
+//     name,
+//     email,
+//     password,
+//     mobile,
+//   });
+
+//   if (user) {
+//     generateToken(res, user._id);
+//     res.status(201).json({
+//       _id: user._id,
+//       name: user.name,
+//       email: user.email,
+//       mobile: user.mobile,
+//     });
+//   } else {
+//     res.status(400);
+//     throw new Error('Invalid user data');
+//   }
+// });
+
+//^----------------testing-otp----------------------------------------
+//verification
+
+
+const verifyOTP = asyncHandler(async (req, res) => {
+  const { email, otp } = req.body;
+
+  // Find the user by email
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(400).json({ message: 'User not found' });
+  }
+
+  // Compare the user's stored OTP with the provided OTP
+  if (user.otp === otp) {
+    
+    generateToken(res, user._id);
+         
+    res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        profileImage: user.profileImage,
+        status:user.status
+        
+    });
+    
+  } else {
+    res.status(400).json({ message: 'Invalid OTP' });
+  }
+});
+
+
+
+
+
+//?--------------------------------------------------------------------------------
+const sendOTPByEmail = async (email, otp) => {
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+      user: process.env.SENDER_EMAIL,
+      pass: process.env.GENARATE_ETHREAL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.SENDER_EMAIL,
+    to: email,
+    subject: 'OTP Verification',
+    text: `Your OTP for verification is: ${otp}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+
+
+
+
+// tesing for otp register
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, mobile } = req.body;
   const userExists = await User.findOne({ email: email });
@@ -59,26 +158,39 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('Password must be at least 6 characters long');
   }
 
+
+ // Generate OTP
+ const otp = Math.floor(1000 + Math.random() * 9000);
+
+ // Send OTP to user's email
+ await sendOTPByEmail(email, otp);
+
+
   const user = await User.create({
     name,
     email,
     password,
     mobile,
+    otp,
   });
 
+
+
   if (user) {
-    generateToken(res, user._id);
+    // generateToken(res, user._id);
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      mobile: user.mobile,
+      message: 'User registered successfully',
     });
   } else {
     res.status(400);
     throw new Error('Invalid user data');
   }
 });
+
+
+
+
+
 
 
 //^----------------GOOGLE-AUTH-----------------------------------------
@@ -765,7 +877,7 @@ export {
     checkFollowing,
     getFollowerFollowingCount,
 
-
+    verifyOTP,
     googleAuth
    
 };

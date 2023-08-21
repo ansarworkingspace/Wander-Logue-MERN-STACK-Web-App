@@ -107,6 +107,11 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
+
+    otp: {
+        type: String, // Assuming OTP is a string
+      },
+
     profileImage: {
         type: String
     },

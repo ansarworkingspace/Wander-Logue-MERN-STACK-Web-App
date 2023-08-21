@@ -122,6 +122,9 @@ import SingleSavedView from './Screen/SingleSavedView..jsx';
 import EditBlog from './Screen/EditBlog.jsx';
 import OtherUserPro from './Screen/OtherUserPro.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Otpverification from './Screen/Otpverification.jsx';
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -136,6 +139,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} /> 
       <Route path="/allBlogs/:blogId" element={<ViewBlog />} />
+      <Route path="/otpverification" element={<Otpverification />} />
       <Route path="/savedSingleBlogs/:blogId" element={<SingleSavedView />} />
 
 
