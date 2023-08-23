@@ -28,6 +28,11 @@ const SingleSavedView = () => {
     return filename.split('.').pop();
   }
 
+
+
+  const secondImageOrVideoExists = selectedBlog.images.length > 1;
+
+
   return (
     <div className="viewBlog-container">
 
@@ -91,7 +96,29 @@ const SingleSavedView = () => {
       <p>{selectedBlog.summary}</p>
       </div>
 
-      <div className='proLine'></div>
+   
+      {secondImageOrVideoExists && (
+        <div className='imageView'>
+          {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
+            <video
+              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              controls
+              className='viewImageOndiv'
+            >
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <Image
+              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              alt='Blog'
+              className='viewImageOndiv'
+            />
+          )}
+        </div>
+      )}
+
+      {!secondImageOrVideoExists && <div className='proLine'></div>}
+
 
       <div className='contentView' dangerouslySetInnerHTML={{ __html: selectedBlog.content }} />
       
