@@ -171,6 +171,8 @@ import { Image } from 'react-bootstrap';
 import { FaThumbsUp, FaBookmark, FaComment } from 'react-icons/fa'; 
 import '../css/viewBlog.css';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const ViewBlog = () => {
 
@@ -190,12 +192,13 @@ const ViewBlog = () => {
   
 
 
-
   const handleBookmarkClick = async () => {
     try {
       await axios.post(`http://localhost:4000/api/users/saveBlog/${selectedBlog._id}`, null, {
   withCredentials: true,
 });
+
+  toast.success('This blog saved in your collection!')
 
     } catch (error) {
       console.error('Error saving blog:', error);
