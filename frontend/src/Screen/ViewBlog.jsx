@@ -172,6 +172,7 @@ import { FaThumbsUp, FaBookmark, FaComment } from 'react-icons/fa';
 import '../css/viewBlog.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 
 const ViewBlog = () => {
@@ -329,9 +330,13 @@ const ViewBlog = () => {
           onClick={handleLikeClick} // Call handleLikeClick on click
         >
           <FaThumbsUp />
+       
           <h4  style={{color:"white", fontSize: "0.8rem", marginLeft: "0.7rem", marginTop: "0.2rem" }}>
-          {likeCount}
+          {likeCount} 
           </h4>
+      
+          
+         
         </div>
         <div className="iconWrapper" onClick={handleBookmarkClick}>
           <FaBookmark />
@@ -340,7 +345,10 @@ const ViewBlog = () => {
           <FaComment />
         </div>
       </div>
-
+         <Link to={`/LikeUsers/${selectedBlog._id}`} style={{ textDecoration: 'none' }}>
+<div className='likedText' style={{marginRight:"28rem"}}><h4 style={{fontFamily:"Sora",fontSize:"0.7rem",color:'white'}}>( liked users )</h4></div> 
+         </Link>
+   
       <div className='proLine'></div>
 
       <div className='imageView'>

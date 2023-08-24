@@ -128,6 +128,11 @@ import FollowingList from './Screen/FollowingList.jsx'
 import FollowersList from './Screen/FollowersList.jsx'
 import OtherUserFollowersList from './Screen/OtherUserFollowersList.jsx';
 import OtherUserFollowingList from './Screen/OtherUserFollowingList.jsx';
+import LikeUsers from './Screen/LikeUsers.jsx'
+
+
+
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -158,6 +163,7 @@ const router = createBrowserRouter(
          <Route path="/followersList" element={<FollowersList />} />
          <Route path="/OtherUserFollowersList/:OtherUserId" element={<OtherUserFollowersList />} />
          <Route path="/OtherUserFollowingList/:OtherUserId" element={<OtherUserFollowingList />} />
+         <Route path="/LikeUsers/:blogId" element={<LikeUsers />} />
       </Route>
 
 

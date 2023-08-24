@@ -1017,6 +1017,33 @@ const getOtherUserFollowingList = asyncHandler(async (req, res) => {
 
 
 
+const LikedUsers = asyncHandler(async (req, res) => {
+  const blogId = req.params.blogId; // Get the blog ID from the URL parameter
+
+  try {
+    // Find the blog by ID
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      res.status(404);
+      throw new Error('Blog not found');
+    }
+
+    // Fetch the liked users based on their IDs in the 'likes' array of the blog
+    const likedUserIds = blog.likes; // Array of user IDs who liked the blog
+    const likedUsers = await User.find({ _id: { $in: likedUserIds } })
+      .select('profileImage profileGoogleImage name') // Select the desired fields
+      .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+    res.json(likedUsers);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
+  }
+});
+
+
+
 
 export {
     authUser,
@@ -1052,5 +1079,6 @@ export {
     followingList,
     followersList,
     getOtherUserFollowersList,
-    getOtherUserFollowingList
+    getOtherUserFollowingList,
+    LikedUsers
 };
