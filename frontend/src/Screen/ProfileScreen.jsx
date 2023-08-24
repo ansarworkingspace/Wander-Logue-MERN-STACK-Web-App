@@ -274,11 +274,15 @@ function getFileExtension(filename) {
       <div className="profile-buttons">
         <div className="count-above-btn">
           <div className="profile-count">{followerCount}</div>
+          <Link to='/followersList'>
           <button className="follofollowingbtn">Followers</button>
+          </Link>
         </div>
         <div className="count-above-btn">
           <div className="profile-count">{followingCount}</div>
+          <Link to='/followingList'>
           <button className="follofollowingbtn">Following</button>
+          </Link>
         </div>
 
 

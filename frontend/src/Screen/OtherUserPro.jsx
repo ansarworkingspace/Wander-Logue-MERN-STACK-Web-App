@@ -27,23 +27,6 @@ const OtherUserPro = () => {
 
 
 
-  // const handleFollowClick = () => {
-  //   if (isFollowing) {
-  //     // Unfollow logic
-  //     axios.post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
-  //       withCredentials: true,
-  //     });
-  //   } else {
-  //     // Follow logic
-  //     axios.post(`http://localhost:4000/api/users/follow/${userId}`, null, {
-  //       withCredentials: true,
-  //     });
-  //   }
-    
-  //   setIsFollowing(!isFollowing);
-  // };
-
-
   const handleFollowClick = () => {
     if (isFollowing) {
       // Unfollow logic
@@ -185,11 +168,17 @@ withCredentials:true
       <div className="profile-buttons">
         <div className="count-above-btn">
           <div className="profile-count">{followerCount}</div>
+          <Link  to={`/OtherUserFollowersList/${userDetails._id}`}>
           <button className="follofollowingbtn" style={{width:"7rem"}}>Followers</button>
+          </Link>
+          
         </div>
         <div className="count-above-btn">
           <div className="profile-count">{followingCount}</div>
+          <Link  to={`/OtherUserFollowingList/${userDetails._id}`}>
           <button className="follofollowingbtn" style={{width:"7rem"}}>Following</button>
+          </Link>
+     
         </div>
       </div>
 
@@ -202,12 +191,7 @@ withCredentials:true
                 <div className='postImage'  style={{backgroundColor:"#181a1b"}} >
                   {/* Display blog image here */}
                   {blog.images.length > 0 && (
-                    // <Image
-                    //   src={`http://localhost:4000/api/users/${blog.images[0]}`}
-                    //   alt='Blog'
-                    //   className='postImageOndiv'
-                    // />
-
+               
 
                     getFileExtension(blog.images[0]) === 'mp4' ? (
                       <video

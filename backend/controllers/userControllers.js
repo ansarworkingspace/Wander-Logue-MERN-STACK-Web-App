@@ -99,6 +99,7 @@ const verifyOTP = asyncHandler(async (req, res) => {
   if (user.otp === otp) {
     
     // generateToken(res, user._id);
+   
          
     res.status(201).json({
         _id: user._id,
@@ -204,7 +205,7 @@ const registerUser = asyncHandler(async (req, res) => {
  await sendOTPByEmail(email, otp);
 
 
-  const user = await User.create({
+  const user = await User.create({  //eldho rise signin issue
     name,
     email,
     password,
@@ -911,6 +912,107 @@ const getFollowerFollowingCount = asyncHandler(async (req, res) => {
 
 
 
+const followingList = asyncHandler(async (req, res) => {
+  const currentUserID = req.user._id; // User object attached by the authentication middleware
+
+  try {
+    // Find the current user by their ID
+    const currentUser = await User.findById(currentUserID);
+
+    if (!currentUser) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Fetch the following list of the current user with profileImage and name
+    const followingList = await User.find({ _id: { $in: currentUser.following } })
+      .select('profileImage profileGoogleImage name')
+      .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+    res.json(followingList);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
+  }
+});
+
+const followersList = asyncHandler(async (req, res) => {
+  const currentUserID = req.user._id; // User object attached by the authentication middleware
+
+  try {
+    // Find the current user by their ID
+    const currentUser = await User.findById(currentUserID);
+
+    if (!currentUser) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Fetch the following list of the current user with profileImage and name
+    const followersList = await User.find({ _id: { $in: currentUser.followers } })
+      .select('profileImage profileGoogleImage name')
+      .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+    res.json(followersList);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
+  }
+});
+
+
+
+
+const getOtherUserFollowersList = asyncHandler(async (req, res) => {
+  const userId = req.params.OtherUserId; // Get the user ID from the URL parameter
+
+  try {
+    // Find the user by ID
+    const otheruser = await User.findById(userId);
+
+    if (!otheruser) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Fetch the followers list of the other user with profileImage and name
+    const followersList = await User.find({ _id: { $in: otheruser.followers } })
+      .select('profileImage profileGoogleImage name')
+      .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+    res.json(followersList);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
+  }
+});
+
+
+
+const getOtherUserFollowingList = asyncHandler(async (req, res) => {
+  const userId = req.params.OtherUserId; // Get the user ID from the URL parameter
+
+  try {
+    // Find the user by ID
+    const otheruser = await User.findById(userId);
+
+    if (!otheruser) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Fetch the followers list of the other user with profileImage and name
+    const followingList = await User.find({ _id: { $in: otheruser.following } })
+      .select('profileImage profileGoogleImage name')
+      .lean(); // Convert Mongoose documents to plain JavaScript objects
+
+    res.json(followingList);
+  } catch (error) {
+    res.status(500);
+    throw new Error('Server error');
+  }
+});
+
 
 
 
@@ -946,6 +1048,9 @@ export {
     getFollowerFollowingCount,
     resendOtp,
     verifyOTP,
-    googleAuth
-   
+    googleAuth,
+    followingList,
+    followersList,
+    getOtherUserFollowersList,
+    getOtherUserFollowingList
 };

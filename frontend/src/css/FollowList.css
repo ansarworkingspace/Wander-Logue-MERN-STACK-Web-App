@@ -1,0 +1,64 @@
+.FollowList-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Adjust the padding as needed for space between left and right */
+    background-color: rgb(57, 62, 64); 
+    min-height: 100vh;/* Fill the entire screen height */
+    position: relative; /* Add this to make positioning relative for absolute elements */
+    border-radius: 1rem;
+    color: white;
+    
+  }
+
+  .listContainer{
+    width: 58%;
+    background-color: #181d1b;
+    min-height: 40rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .followingBox{
+    width: 80%;
+    background-color: gray;
+    height: 4rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .imageONbox{
+   width: 23%;
+   height: 4rem;
+   
+  }
+  .nameOfFollowingUser{
+    width: 50%;
+    height: 4rem;
+    margin-top: 1.5rem;
+    font-family: "Sora";
+    font-size: 0.8rem;
+    margin-left: 1rem;
+  }
+  .unfollowBtn{
+    width: 30%;
+    height: 4rem;
+    margin-top: 0.8rem;
+    font-family: "Sora";
+    /* background-color: rgb(74, 51, 51); */
+  }
+
+
+  .followingImage{
+    width: 53%;
+    height: 86%;
+    margin-left: 0.7rem;
+    margin-top: 0.3rem;
+    object-fit: cover;
+  }

@@ -124,7 +124,10 @@ import OtherUserPro from './Screen/OtherUserPro.jsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Otpverification from './Screen/Otpverification.jsx';
 import OnlyView from './Screen/OnlyView.jsx'
-
+import FollowingList from './Screen/FollowingList.jsx'
+import FollowersList from './Screen/FollowersList.jsx'
+import OtherUserFollowersList from './Screen/OtherUserFollowersList.jsx';
+import OtherUserFollowingList from './Screen/OtherUserFollowingList.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -151,6 +154,10 @@ const router = createBrowserRouter(
          <Route path="/savedblogs" element={<SavedBlogs />} />
          <Route path="/editBlog/:blogId" element={<EditBlog />} />
          <Route path="/otherUserPro/:userId" element={<OtherUserPro />} />
+         <Route path="/followingList" element={<FollowingList />} />
+         <Route path="/followersList" element={<FollowersList />} />
+         <Route path="/OtherUserFollowersList/:OtherUserId" element={<OtherUserFollowersList />} />
+         <Route path="/OtherUserFollowingList/:OtherUserId" element={<OtherUserFollowingList />} />
       </Route>
 
 
