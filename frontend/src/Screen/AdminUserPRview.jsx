@@ -72,7 +72,10 @@ import { Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faSave, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
-import axios from 'axios'; // Don't forget to import axios
+import axios from 'axios'; 
+import { useSelector,useDispatch } from "react-redux";
+import {useAdminLogoutMutation  } from '../adminSlice/AdminApiSlice';
+import {adminLogout } from '../adminSlice/AdminAuthSlice';
 import '../css/adminUserPRO.css';
 
 const AdminUserPRview = () => {
@@ -80,29 +83,88 @@ const AdminUserPRview = () => {
   const [userBlogs, setUserBlogs] = useState([]);
   const location = useLocation();
   const navigate = useNavigate(); 
+  const { adminInfo } = useSelector((state) => state.adminAuth);
+  const dispatch = useDispatch();
+  const [logoutApi] = useAdminLogoutMutation();
+ 
+  useEffect(() => {
+    const adminCheckAuth = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+                credentials: 'include' // Include cookies in the request
+            });
+            if (!response.ok) {
+                await logoutApi().unwrap();
+                dispatch(adminLogout());
+                navigate('/admin/login');
+            }
+        } catch (error) {
+            console.error('Check auth error:', error);
+        }
+    };
+
+    if (adminInfo) {
+        adminCheckAuth();
+    }
+}, [adminInfo, dispatch, logoutApi, navigate]);
+
+
+
+
+  // useEffect(() => {
+  //   const userEmail = new URLSearchParams(location.search).get('email');
+
+  //   // Fetch user's details
+  //   fetch(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`)
+
+  //     .then((response) => response.json())
+  //     .then((userData) => {
+  //       setUserDetails(userData);
+
+  //       // Fetch user's blogs using the same email
+  //       axios
+  //         .get(`http://localhost:4000/api/admin/allBlogs?email=${userEmail}`)
+          
+  //         .then((response) => {
+  //           setUserBlogs(response.data);
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error fetching blogs:', error);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching user details:', error);
+  //     });
+  // }, [location.search]);
+
+//passing admin jwt
   useEffect(() => {
     const userEmail = new URLSearchParams(location.search).get('email');
-
+  
     // Fetch user's details
-    fetch(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`)
-      .then((response) => response.json())
-      .then((userData) => {
-        setUserDetails(userData);
-
-        // Fetch user's blogs using the same email
-        axios
-          .get(`http://localhost:4000/api/admin/allBlogs?email=${userEmail}`)
-          .then((response) => {
-            setUserBlogs(response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching blogs:', error);
-          });
+    axios.get(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`, {
+      withCredentials: true, // Send credentials with the request
+    })
+    .then((response) => {
+      const userData = response.data;
+      setUserDetails(userData);
+  
+      // Fetch user's blogs using the same email
+      axios.get(`http://localhost:4000/api/admin/allBlogs?email=${userEmail}`, {
+        withCredentials: true, // Send credentials with the request
+      })
+      .then((response) => {
+        setUserBlogs(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching blogs:', error);
       });
+    })
+    .catch((error) => {
+      console.error('Error fetching user details:', error);
+    });
   }, [location.search]);
+
 
 
   function getFileExtension(filename) {

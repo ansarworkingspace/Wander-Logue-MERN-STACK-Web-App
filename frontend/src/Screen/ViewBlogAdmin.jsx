@@ -3,17 +3,89 @@ import { useEffect, useState } from 'react'; // Import the useState and useEffec
 import { Image } from 'react-bootstrap';
 import { FaThumbsUp, FaBookmark, FaComment } from 'react-icons/fa'; 
 import '../css/viewBlog.css';
+import axios from 'axios';
+import { useSelector,useDispatch } from "react-redux";
+import {useAdminLogoutMutation  } from '../adminSlice/AdminApiSlice';
+import {adminLogout } from '../adminSlice/AdminAuthSlice';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
+
+
 const ViewBlog = () => {
   const { blogId } = useParams();
   const [selectedBlog, setSelectedBlog] = useState(null); // State to hold the selected blog details
 
+
+  const navigate = useNavigate(); 
+  const { adminInfo } = useSelector((state) => state.adminAuth);
+  const dispatch = useDispatch();
+  const [logoutApi] = useAdminLogoutMutation();
+ 
+  useEffect(() => {
+    const adminCheckAuth = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+                credentials: 'include' // Include cookies in the request
+            });
+            if (!response.ok) {
+                await logoutApi().unwrap();
+                dispatch(adminLogout());
+                navigate('/admin/login');
+            }
+        } catch (error) {
+            console.error('Check auth error:', error);
+        }
+    };
+
+    if (adminInfo) {
+        adminCheckAuth();
+    }
+}, [adminInfo, dispatch, logoutApi, navigate]);
+
+
+
+
+
+
+
+
+  // useEffect(() => {
+  //   // Fetch the selected blog details using the provided blogId
+  //   fetch(`http://localhost:4000/api/admin/getOneBlogOfUser/${blogId}`)
+    
+    
+  //   // Adjust the API route accordingly
+  //     .then((response) => response.json())
+  //     .then((data) => setSelectedBlog(data))
+  //     .catch((error) => console.error(error));
+  // }, [blogId]); // Fetch when blogId changes
+
+
+
+
+
+
+
+
+  //give admin jwt
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId
-    fetch(`http://localhost:4000/api/admin/getOneBlogOfUser/${blogId}`) // Adjust the API route accordingly
-      .then((response) => response.json())
-      .then((data) => setSelectedBlog(data))
-      .catch((error) => console.error(error));
+    axios.get(`http://localhost:4000/api/admin/getOneBlogOfUser/${blogId}`, {
+      withCredentials: true, // Send credentials with the request
+    })
+    .then((response) => {
+      const data = response.data;
+      setSelectedBlog(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }, [blogId]); // Fetch when blogId changes
+
 
   if (!selectedBlog) {
     return <p>Loading...</p>;
