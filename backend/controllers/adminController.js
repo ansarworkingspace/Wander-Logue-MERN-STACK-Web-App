@@ -6,7 +6,7 @@ import user from '../models/userModels.js'
 import Blogs from '../models/createBlog.js'
 import generateAdminToken from '../utils/adminJwt.js'
 import jwt from 'jsonwebtoken'
-
+import Banner from '../models/bannerSchema.js';
 
 
 const authAdmin = asyncHandler(async (req, res) => {
@@ -199,7 +199,32 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     }
 };
 
+const uploadBanner = async (req, res) => {
+  try {
+    const { path } = req.file;
 
+    const newBanner = new Banner({
+      media: path,
+    });
+
+    const createdBanner = await newBanner.save();
+
+    res.status(201).json(createdBanner);
+  } catch (error) {
+    res.status(500).json({ message: 'Banner upload failed.' });
+  }
+}
+
+
+
+const getBanners = async (req, res) => {
+  try {
+    const banners = await Banner.find();
+    res.status(200).json(banners);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching banners.' });
+  }
+};
 
 
   export {
@@ -212,7 +237,9 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     getBlockedUsers,
     allUsersBlogs,
     getOneBlogOfUser,
-    adminCheckAuth
+    adminCheckAuth,
+    uploadBanner,
+    getBanners
   };
   
 

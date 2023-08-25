@@ -1,10 +1,24 @@
 import express from "express";
-import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,getUserByEmail,toggleBlockUser,getBlockedUsers,allUsersBlogs,getOneBlogOfUser,adminCheckAuth } from '../controllers/adminController.js'
+import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,uploadBanner,getBanners,getUserByEmail,toggleBlockUser,getBlockedUsers,allUsersBlogs,getOneBlogOfUser,adminCheckAuth } from '../controllers/adminController.js'
 import { protect } from '../middleware/adminAuthMiddleware.js';
-
+import multer from 'multer';
 const router = express.Router();
 
+// Configure Multer storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads'); // Destination folder for uploaded images
+    },
+    filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      cb(null, uniqueSuffix + '-' + file.originalname);
+    },
+  });
+  
 
+
+
+  const upload = multer({ storage: storage });
 
 router.post('/auth',authAdmin)
 router.post('/register',registerAdmin)
@@ -16,7 +30,7 @@ router.get('/getBlockedUsers', getBlockedUsers);
 router.get('/allBlogs',protect, allUsersBlogs);
 router.get('/getOneBlogOfUser/:blogId',protect, getOneBlogOfUser);
 router.get('/adminCheckAuth', adminCheckAuth);
-
-
+router.post('/uploadBanner', upload.single('media'), uploadBanner);
+router.get('/banners', getBanners);
 
 export default router;

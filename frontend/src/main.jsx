@@ -129,7 +129,7 @@ import FollowersList from './Screen/FollowersList.jsx'
 import OtherUserFollowersList from './Screen/OtherUserFollowersList.jsx';
 import OtherUserFollowingList from './Screen/OtherUserFollowingList.jsx';
 import LikeUsers from './Screen/LikeUsers.jsx'
-
+import AdminBanner from './Screen/AdminBanner.jsx'
 
 
 
@@ -164,6 +164,7 @@ const router = createBrowserRouter(
          <Route path="/OtherUserFollowersList/:OtherUserId" element={<OtherUserFollowersList />} />
          <Route path="/OtherUserFollowingList/:OtherUserId" element={<OtherUserFollowingList />} />
          <Route path="/LikeUsers/:blogId" element={<LikeUsers />} />
+        
       </Route>
 
 
@@ -174,6 +175,7 @@ const router = createBrowserRouter(
       <Route path="/admin/userProfile" element={<AdminUserPRview />} />
       <Route path="/admin/adminHome" element={<AdminHomeScreen />} />
       <Route path="/admin/viewBlogAdmin/:blogId" element={<ViewBlogAdmin />} />
+      <Route path="/admin/adminBanner" element={<AdminBanner />} />
 </Route>
      
       

@@ -10,6 +10,8 @@ const FollowingList = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [searchQuery, setSearchQuery] = useState(''); 
 
+
+  
   useEffect(() => {
     async function fetchFollowingList() {
       try {
