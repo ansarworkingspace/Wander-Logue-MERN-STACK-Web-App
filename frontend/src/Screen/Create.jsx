@@ -219,7 +219,7 @@
 
 
 
-import React, { useState , useEffect} from 'react';
+import React, { useState , useEffect , useRef} from 'react';
 import ReactQuill from 'react-quill';
 import { useSelector,useDispatch } from 'react-redux'; // Import useSelector from Redux
 import 'react-quill/dist/quill.snow.css'; // Import the CSS for the Quill editor style
@@ -229,7 +229,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/UserApiSlice';
 import { logout } from '../slices/AuthSlice';
-
+import { toast } from 'react-toastify';
 
 
 
@@ -244,8 +244,9 @@ const CreateBlog = () => {
     const dispatch = useDispatch();
     const [logoutApiCall] = useLogoutMutation();
     const navigate = useNavigate();
+    const [hasError, setHasError] = useState(false);
 
-
+    const fileInputRef = useRef(null);
 
 
 
@@ -340,7 +341,37 @@ useEffect(() => {
         }
       }, [isSuccess]);
 
+
+
+      useEffect(() => {
+        if (hasError) {
+          toast.error('Please add JPG or MP4 files.');
+         
+          setImages([]);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Reset the file input
+          }
+        }
+      }, [hasError, navigate]); // Add 'navigate' to the dependency array
+    
+
+
+
       const handlePostClick = async () => {
+
+        const invalidFiles = images.filter(file => !['image/jpeg', 'video/mp4'].includes(file.type));
+
+        if (invalidFiles.length > 0) {
+          setHasError(true);
+    return;
+        }
+
+
+        if (invalidFiles.length > 0) {
+          setHasError(true);
+    return;
+        }
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('summary', summary);
@@ -395,6 +426,7 @@ useEffect(() => {
           accept="image/*,video/*"
           onChange={handleImageChange}
           className="blog-input-field"
+          ref={fileInputRef}
           multiple 
         />
       </div>
