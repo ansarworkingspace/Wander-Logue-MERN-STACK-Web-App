@@ -20,6 +20,11 @@ const authUser = asyncHandler(async (req, res) => {
             throw new Error('Your account is temporarily blocked');
         }
 
+        if (!user.verified) {
+          res.status(401);
+          throw new Error('Your account is not verified');
+        }
+
         if (await user.matchPassword(password)) {
           generateToken(res, user._id);
          
@@ -98,7 +103,11 @@ const verifyOTP = asyncHandler(async (req, res) => {
   // Compare the user's stored OTP with the provided OTP
   if (user.otp === otp) {
     
-    // generateToken(res, user._id);
+     // Update the verified field to true
+     user.verified = true;
+    
+     // Save the user object with the updated verified field
+     await user.save();
    
          
     res.status(201).json({
@@ -106,8 +115,8 @@ const verifyOTP = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         profileImage: user.profileImage,
-        status:user.status
-        
+        status:user.status,
+        verified: user.verified
     });
     
   } else {
@@ -241,6 +250,13 @@ const googleAuth = asyncHandler(async (req, res) => {
   let user = await User.findOne({ email });
 
   if (user) {
+
+    if (!user.verified) {
+      res.status(401);
+      throw new Error('Your account is not verified');
+    }
+
+
     if (user.status) {
       res.status(401);
       throw new Error('Your account is temporarily blocked');
@@ -263,7 +279,7 @@ const googleAuth = asyncHandler(async (req, res) => {
       name,
       email,
       profileGoogleImage,
-     
+      verified: true,
     });
 
     if (user) {
