@@ -88,6 +88,115 @@ const [banner, setBanner] = useState(null);
 
 
 
+  const handleDeleteBanner = async (bannerId) => {
+    try {
+      const token = document.cookie.replace(
+        /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      );
+
+      await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+
+      toast.success('Banner deleted successfully.');
+      // Fetch banners again to update the list
+      const response = await axios.get('http://localhost:4000/api/admin/banners');
+      setBanners(response.data);
+    } catch (error) {
+      toast.error('Error deleting banner.');
+    }
+  };
+  
+
+
+
+
+
+
+  // const handleSelectBanner = async (bannerId) => {
+  //   try {
+  //     const token = document.cookie.replace(
+  //       /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
+  //       '$1'
+  //     );
+  
+  //     const response = await axios.post(
+  //       `http://localhost:4000/api/admin/selectBanner/${bannerId}`,
+  //       null,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         withCredentials: true,
+  //       }
+  //     );
+  
+  //     if (response.data.success) {
+  //       toast.success('Banner selected successfully.');
+  //       // Fetch banners again to update the list
+  //       const updatedBanners = banners.map((banner) => {
+  //         if (banner._id === bannerId) {
+  //           return { ...banner, selected: true };
+  //         } else {
+  //           return { ...banner, selected: false };
+  //         }
+  //       });
+  //       setBanners(updatedBanners);
+  //     } else {
+  //       toast.error('You have already selected this banner.');
+  //     }
+  //   } catch (error) {
+  //     toast.error('Error selecting banner.');
+  //   }
+  // };
+  
+
+// Inside your component
+const handleSelectBanner = async (bannerId) => {
+  try {
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    );
+
+    const response = await axios.post(
+      `http://localhost:4000/api/admin/selectBanner/${bannerId}`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+
+    if (response.data.message === 'Banner selection successful') {
+      toast.success('Banner selected successfully.');
+      // Fetch banners again to update the list
+      const updatedBanners = banners.map((banner) => {
+        if (banner._id === bannerId) {
+          return { ...banner, selected: true };
+        } else {
+          return { ...banner, selected: false };
+        }
+      });
+      setBanners(updatedBanners);
+    } else {
+      toast.error('You have already selected this banner.');
+    }
+  } catch (error) {
+    toast.error('Error selecting banner.');
+  }
+};
+
+
+
+
+
 
   return (
     <div className="banner-container">
@@ -131,12 +240,13 @@ const [banner, setBanner] = useState(null);
 
 
 
-      <div className='BmanagerContainer'>
+      {/* <div className='BmanagerContainer'>
        
 
           
       {banners.map((banner, index) => (
-          <div className='bannerBox' key={index}>
+        <>
+          <div className='bannerBox' key={banner._id}>
             <div className='videoONbox'>
             <video style={{borderRadius:"1rem"}}
           src={`http://localhost:4000/api/users/${banner.media}`}
@@ -152,17 +262,49 @@ const [banner, setBanner] = useState(null);
               <Button variant="primary" className="unfollow-button">Select</Button>
             </div>
             <div className='bannerDel'>
-              <Button variant="danger" className="unfollow-button">Delete</Button>
+              <Button variant="danger" className="unfollow-button" onClick={() => handleDeleteBanner(banner._id)} >Delete</Button>
             </div>
          
           </div>
-          
+          <div className='proLine'></div>
+          </>
         ))}
          
       
+      </div> */}
+
+
+<div className='BmanagerContainer'>
+        {banners.map((banner) => (
+          <div className='coverDiv' style={{width:"82%"}} key={banner._id}>
+            <div className='bannerBox'>
+              <div className='videoONbox'>
+                <video style={{ borderRadius: "1rem" }}
+                  src={`http://localhost:4000/api/users/${banner.media}`}
+                  controls
+                  className='viewImageOndiv'
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div className='nameOfBanner'></div>
+
+              <div className='bannerUse'>
+                <Button variant="primary" className="unfollow-button" onClick={() => handleSelectBanner(banner._id)} >Select</Button>
+              </div>
+              <div className='bannerDel'>
+                <Button variant="danger" className="unfollow-button" onClick={() => handleDeleteBanner(banner._id)}>Delete</Button>
+              </div>
+            </div>
+
+            {/* Place the proLine here */}
+            <div className='proLine'></div>
+          </div>
+        ))}
       </div>
 
 
+      <div className='proLine'></div>
 
     </div>
   );

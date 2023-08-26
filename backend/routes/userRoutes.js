@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,LikedUsers,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,LikedUsers,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -74,6 +74,7 @@ router.get('/followersList',protect,followersList)
 router.get('/otherUserfollowersList/:OtherUserId', getOtherUserFollowersList);
 router.get('/otherUserfollowingList/:OtherUserId', getOtherUserFollowingList);
 router.get('/LikedUsers/:blogId', LikedUsers);
+router.get('/selectedBanner', getSelectedBanner);
 
 
 export default router;

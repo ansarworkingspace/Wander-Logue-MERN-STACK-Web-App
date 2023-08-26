@@ -57,6 +57,8 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
+   
+    margin-left: 4rem;
   }
 
   .videoONbox{

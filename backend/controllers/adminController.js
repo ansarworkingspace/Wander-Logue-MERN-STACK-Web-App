@@ -227,6 +227,97 @@ const getBanners = async (req, res) => {
 };
 
 
+
+
+const deleteBanner = async (req, res) => {
+  try {
+    const bannerId = req.params.id;
+    const deletedBanner = await Banner.findByIdAndDelete(bannerId);
+
+    if (!deletedBanner) {
+      return res.status(404).json({ message: 'Banner not found.' });
+    }
+
+    res.status(200).json({ message: 'Banner deleted successfully.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting banner.' });
+  }
+};
+
+
+
+
+// const selectBanner = async (req, res) => {
+//   const bannerId = req.params.id // Get the bannerId from the request parameters
+
+//   try {
+//     // Find the banner by its ID
+//     const selectedBanner = await Banner.findById(bannerId);
+
+//     // If the banner doesn't exist, return an error response
+//     if (!selectedBanner) {
+//       return res.status(404).json({ message: 'Banner not found' });
+//     }
+
+//     // If the selected banner is already selected, return a response
+//     if (selectedBanner.selected) {
+//       return res.status(200).json({ message: 'You have already selected this banner' });
+//     }
+
+//     // Find and update the banner that is currently selected (if any)
+//     const currentSelectedBanner = await Banner.findOne({ selected: true });
+//     if (currentSelectedBanner) {
+//       currentSelectedBanner.selected = false;
+//       await currentSelectedBanner.save();
+//     }
+
+//     // Update the selected banner's selected field and save the changes
+//     selectedBanner.selected = true;
+//     await selectedBanner.save();
+
+//     // Return a success response
+//     res.status(200).json({ message: 'Banner selection successful' });
+//   } catch (error) {
+//     console.error('Error selecting banner:', error);
+//     res.status(500).json({ message: 'Error selecting banner' });
+//   }
+// };
+
+const selectBanner = async (req, res) => {
+  const bannerId = req.params.id;
+
+  try {
+    const selectedBanner = await Banner.findById(bannerId);
+
+    if (!selectedBanner) {
+      return res.status(404).json({ message: 'Banner not found' });
+    }
+
+    if (selectedBanner.selected) {
+      return res.status(200).json({ message: 'You have already selected this banner' });
+    }
+
+    const currentSelectedBanner = await Banner.findOne({ selected: true });
+    if (currentSelectedBanner) {
+      currentSelectedBanner.selected = false;
+      await currentSelectedBanner.save();
+    }
+
+    selectedBanner.selected = true;
+    await selectedBanner.save();
+
+    const message = 'Banner selection successful'; // Always show success message
+
+    res.status(200).json({ message });
+  } catch (error) {
+    console.error('Error selecting banner:', error);
+    res.status(500).json({ message: 'Error selecting banner' });
+  }
+};
+
+
+
+
   export {
     authAdmin,
     registerAdmin,
@@ -239,7 +330,9 @@ const getBanners = async (req, res) => {
     getOneBlogOfUser,
     adminCheckAuth,
     uploadBanner,
-    getBanners
+    getBanners,
+    deleteBanner,
+    selectBanner
   };
   
 

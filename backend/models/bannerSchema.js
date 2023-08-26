@@ -7,6 +7,10 @@ const bannerSchema = new Schema({
     type: String, // Store the file path or URL of the image or video
     required: true,
   },
+  selected: {
+    type: Boolean,
+    default: false
+},
 }
 ,
   {

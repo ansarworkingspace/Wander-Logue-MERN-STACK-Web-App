@@ -5,7 +5,7 @@ import Blog from '../models/createBlog.js';
 import jwt from 'jsonwebtoken'
 import axios from 'axios';
 import nodemailer from 'nodemailer'
-
+import Banner from '../models/bannerSchema.js';
 
 
 
@@ -1062,6 +1062,23 @@ const LikedUsers = asyncHandler(async (req, res) => {
 
 
 
+const getSelectedBanner = asyncHandler(async (req, res) => {
+  try {
+    const selectedBanner = await Banner.findOne({ selected: true });
+    if (!selectedBanner) {
+      // return res.status(404).json({ message: 'No selected banner found' });
+      return res.status(200).send();
+    }
+
+    res.status(200).json(selectedBanner);
+  } catch (error) {
+    console.error('Error fetching selected banner:', error);
+    res.status(500).json({ message: 'Error fetching selected banner' });
+  }
+});
+
+
+
 
 
 export {
@@ -1099,5 +1116,6 @@ export {
     followersList,
     getOtherUserFollowersList,
     getOtherUserFollowingList,
-    LikedUsers
+    LikedUsers,
+    getSelectedBanner
 };
