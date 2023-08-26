@@ -317,6 +317,58 @@ const selectBanner = async (req, res) => {
 
 
 
+const getReportedBlogs = async (req, res) => {
+  try {
+    const reportedBlogs = await Blogs.aggregate([
+      { $unwind: '$reportBlog' },
+      {
+        $group: {
+          _id: {
+            blogId: '$_id',
+            reason: '$reportBlog.reason'
+          },
+          reportCount: { $sum: 1 }
+        }
+      },
+      { $match: { reportCount: { $gte: 1 } } },
+      {
+        $project: {
+          _id: '$_id.blogId',
+          reportReason: '$_id.reason',
+          reportCount: 1
+        }
+      },
+      { $sort: { reportCount: -1 } }
+    ]);
+// console.log(reportedBlogs);
+    res.status(200).json(reportedBlogs);
+  } catch (error) {
+    console.error('Error fetching reported blogs:', error);
+    res.status(500).json({ message: 'Error fetching reported blogs' });
+  }
+};
+
+
+
+const deleteBlog = async (req, res) => {
+  const { blogId } = req.params;
+
+  try {
+    const deletedBlog = await Blogs.findByIdAndDelete(blogId);
+
+    if (!deletedBlog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    res.status(200).json({ message: 'Blog deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting blog:', error);
+    res.status(500).json({ message: 'Error deleting blog' });
+  }
+};
+
+
+
 
   export {
     authAdmin,
@@ -332,7 +384,9 @@ const selectBanner = async (req, res) => {
     uploadBanner,
     getBanners,
     deleteBanner,
-    selectBanner
+    selectBanner,
+    getReportedBlogs,
+    deleteBlog
   };
   
 

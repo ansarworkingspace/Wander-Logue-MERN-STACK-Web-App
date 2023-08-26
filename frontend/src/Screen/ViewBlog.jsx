@@ -278,7 +278,9 @@ const ViewBlog = () => {
 
   return (
     <div className="viewBlog-container">
-
+<Link to={`/reportBlog/${selectedBlog._id}`}>
+        <button className="profile-edit-button" >Report Blog</button>
+      </Link>
       <div className='titleView'>
       <h2>{selectedBlog.title}</h2>
       </div>

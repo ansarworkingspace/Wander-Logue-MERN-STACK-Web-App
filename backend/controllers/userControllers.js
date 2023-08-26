@@ -1079,7 +1079,37 @@ const getSelectedBanner = asyncHandler(async (req, res) => {
 
 
 
+const reportBlog = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+  const { reason } = req.body;
+  const userId = req.user._id;
 
+  try {
+
+ 
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    const hasReported = blog.reportBlog.some(
+      (report) => report.userId.toString() === userId.toString()
+    );
+
+    if (hasReported) {
+      return res.status(400).json({ message: 'You have already reported this blog' });
+    }
+
+    blog.reportBlog.push({ userId, reason });
+    await blog.save();
+
+    res.status(200).json({ message: 'Blog reported successfully' });
+  } catch (error) {
+    console.error('Error reporting blog:', error);
+    res.status(500).json({ message: 'Error reporting blog' });
+  }
+});
 
 export {
     authUser,
@@ -1117,5 +1147,6 @@ export {
     getOtherUserFollowersList,
     getOtherUserFollowingList,
     LikedUsers,
-    getSelectedBanner
+    getSelectedBanner,
+    reportBlog
 };

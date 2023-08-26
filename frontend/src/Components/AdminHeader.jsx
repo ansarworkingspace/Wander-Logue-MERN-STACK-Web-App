@@ -50,6 +50,14 @@ const Header = () => {
                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown> */}
 
+<Nav.Link onClick={()=>navigate('/admin/adminHome')} style={{ fontFamily: "Sora", fontSize: "0.9rem", marginLeft: "0.2rem", marginTop: "0.2rem", color: "#e6e1e1" }}>
+      Home 
+    </Nav.Link>
+
+<Nav.Link onClick={()=>navigate('/admin/adminReportList')} style={{ fontFamily: "Sora", fontSize: "0.9rem", marginLeft: "0.2rem", marginTop: "0.2rem", color: "#e6e1e1" }}>
+      Report 
+    </Nav.Link>
+
 <Nav.Link onClick={()=>navigate('/admin/adminBanner')} style={{ fontFamily: "Sora", fontSize: "0.9rem", marginLeft: "0.2rem", marginTop: "0.2rem", color: "#e6e1e1" }}>
       Banner
     </Nav.Link>
