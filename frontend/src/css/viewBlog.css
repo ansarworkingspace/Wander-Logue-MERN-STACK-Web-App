@@ -96,3 +96,57 @@
    font-size: 0.8;
    margin-top: 0.8rem;
   }
+
+  .commentBox{
+    width: 53%;
+    min-height: 25rem;
+    max-height: 35rem;
+    background-color: black;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .inputCover{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-right: 8rem;
+  }
+
+  .commentArea{
+    background-color: #e9e9e9;
+    min-height: 3rem;
+    width: 30%;
+    min-width: 30%;
+    margin-left: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  .commentContainer{
+    margin-right: 0.7rem;
+    margin-bottom: 2.7rem;
+  }
+  .commentH3{
+    font-size: 0.9rem;
+    font-family: 'Sora';
+    margin-left: 1rem;
+    color: #494848;
+  }
+
+
+.commentH4{
+  font-size:0.7rem ;
+  color: #807474;
+  margin-left: 1rem;
+  cursor: pointer;
+  font-family: "Sora";
+}
+.commentH5{
+  font-size:0.5rem ;
+  color: #807474;
+  margin-left: 1rem;
+  font-family: "Sora";
+}
+
+  /* style={{fontSize:"0.7rem",color:"#807474",marginLeft:"1rem",cursor:"pointer"}} */

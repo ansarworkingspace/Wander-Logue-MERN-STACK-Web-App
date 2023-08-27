@@ -6,6 +6,10 @@ import jwt from 'jsonwebtoken'
 import axios from 'axios';
 import nodemailer from 'nodemailer'
 import Banner from '../models/bannerSchema.js';
+import Comment from '../models/commentBlog.js'
+
+import { formatDistanceToNow } from 'date-fns'
+
 
 
 
@@ -1111,6 +1115,124 @@ const reportBlog = asyncHandler(async (req, res) => {
   }
 });
 
+
+
+
+// const postComment = asyncHandler(async (req, res) => {
+//   const { blogId } = req.params;
+//   const { text } = req.body;
+//   const userId = req.user._id;
+
+//   const comment = new Comment({
+//     user: userId,
+//     content: text,
+//     blog: blogId
+//   });
+
+//   try {
+//     const savedComment = await comment.save();
+//     const blog = await Blog.findById(blogId);
+
+//     if (blog) {
+//       blog.comments.push(savedComment._id);
+//       await blog.save();
+//       res.status(201).json(savedComment);
+//     } else {
+//       res.status(404);
+//       throw new Error('Blog not found');
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: 'Comment could not be added' });
+//   }
+// });
+
+
+
+
+const postComment = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+  const { text } = req.body;
+  const userId = req.user._id;
+
+  // console.log(blogId, text, userId);
+
+  const comment = new Comment({
+    user: userId,
+    content: text,
+    blog: blogId
+  });
+
+  try {
+    const savedComment = await comment.save();
+    res.status(201).json(savedComment);
+  } catch (error) {
+    res.status(500).json({ message: 'Comment could not be added' });
+  }
+});
+
+
+//orginal
+// const getComments = asyncHandler(async (req, res) => {
+//   const { blogId } = req.params;
+//   try {
+//     const comments = await Comment.find({ blog: blogId })
+//       .populate('user', 'name') // Populate user and select the 'name' field
+//       .select('content createdAt user'); // Select the desired fields from the Comment collection
+//     console.log('Fetched comments:', comments); // Check the fetched comments
+//     res.json({ comments });
+//   } catch (error) {
+//     console.error('Error fetching comments:', error); // Log any errors
+//     res.status(500).json({ message: 'Error fetching comments' });
+//   }
+// });
+
+
+
+
+
+const getComments = asyncHandler(async (req, res) => {
+  const { blogId } = req.params;
+  const currentUserId = req.user._id; // Assuming req.user is properly populated
+
+  try {
+    let comments = await Comment.find({ blog: blogId })
+      .populate('user', 'name')
+      .select('content createdAt user');
+
+    const currentUserComments = [];
+    const otherComments = [];
+
+    // Separate comments made by the current user and other comments
+    comments.forEach(comment => {
+      if (comment.user._id.toString() === currentUserId.toString()) {
+        currentUserComments.push(comment);
+      } else {
+        otherComments.push(comment);
+      }
+    });
+
+    // Sort the comments array: current user's comments first, then by createdAt for other comments
+    comments = [...currentUserComments, ...otherComments.sort((a, b) => b.createdAt - a.createdAt)];
+
+
+
+ // Format the createdAt field to a readable date and time
+ comments.forEach(comment => {
+  comment.createdAt = formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true });
+});
+
+
+    // console.log('Fetched comments:', comments);
+    res.json({ comments });
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    res.status(500).json({ message: 'Error fetching comments' });
+  }
+});
+
+
+
+
 export {
     authUser,
     registerUser,
@@ -1148,5 +1270,7 @@ export {
     getOtherUserFollowingList,
     LikedUsers,
     getSelectedBanner,
-    reportBlog
+    reportBlog,
+    postComment,
+    getComments
 };

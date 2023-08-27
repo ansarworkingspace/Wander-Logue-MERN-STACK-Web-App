@@ -50,6 +50,11 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+
+
+
+
+
 const blogSchema = new Schema(
   {
     title: {
@@ -74,12 +79,6 @@ const blogSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'User'  // Reference to the User collection (assumption: users who liked the blog)
-      }
-    ],
-    comments: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'  // Reference to the Comment collection
       }
     ],
     keywords: [String] , // Add a field to store keywords associated with the blog
