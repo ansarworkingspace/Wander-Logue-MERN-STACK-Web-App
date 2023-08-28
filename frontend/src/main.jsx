@@ -132,6 +132,11 @@ import LikeUsers from './Screen/LikeUsers.jsx'
 import AdminBanner from './Screen/AdminBanner.jsx'
 import ReportBlog from './Screen/ReportBlog.jsx';
 import AdminReportList from './Screen/AdminReportList.jsx'
+import AllFollowing from './Screen/AllFollowing.jsx'
+import ChatRoom from './Screen/ChatRoom.jsx'
+
+
+
 
 
 const router = createBrowserRouter(
@@ -165,6 +170,8 @@ const router = createBrowserRouter(
          <Route path="/OtherUserFollowingList/:OtherUserId" element={<OtherUserFollowingList />} />
          <Route path="/LikeUsers/:blogId" element={<LikeUsers />} />
          <Route path="/reportBlog/:blogId" element={<ReportBlog />} />
+         <Route path="/allFollowing" element={<AllFollowing />} />
+         <Route path="/ChatRoom" element={<ChatRoom />} />
       </Route>
 
 

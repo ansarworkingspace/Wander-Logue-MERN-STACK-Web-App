@@ -192,7 +192,7 @@ const Header = () => {
 
 
 {userInfo && (
-      <div className="home-icon" onClick={() => navigate('/chat')}>
+      <div className="home-icon" onClick={() => navigate('/ChatRoom')}>
         <Nav.Link  style={{color:"white"}}>
           <FaComment />
         </Nav.Link>
@@ -200,8 +200,8 @@ const Header = () => {
     )}
 
     {userInfo && (
-      <div className="home-icon" onClick={() => navigate('/profile')}>
-        <Nav.Link  style={{color:"white"}}>
+      <div className="home-icon" onClick={() => navigate('/allFollowing')}>
+        <Nav.Link   style={{color:"white"}}>
           <FaUser />
         </Nav.Link>
       </div>
