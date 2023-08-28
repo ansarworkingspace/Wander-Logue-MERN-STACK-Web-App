@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px; /* Adjust the padding as needed for space between left and right */
-    background-color: rgb(57, 62, 64); 
+    background-color: #7EAA92; 
     min-height: 100vh;/* Fill the entire screen height */
     position: relative; /* Add this to make positioning relative for absolute elements */
     border-radius: 1rem;
@@ -13,7 +13,7 @@
 
   .listContainer{
     width: 58%;
-    background-color: #181d1b;
+    background-color: #C8E4B2;
     min-height: 40rem;
     margin-top: 2rem;
     border-radius: 1rem;
@@ -25,7 +25,7 @@
 
   .followingBox{
     width: 80%;
-    background-color: rgb(57, 62, 64);
+    background-color: rgb(5, 80, 73);
     height: 4rem;
     margin-top: 2rem;
     border-radius: 1rem;
@@ -51,6 +51,7 @@
     height: 4rem;
     margin-top: 0.8rem;
     font-family: "Sora";
+  
     /* background-color: rgb(74, 51, 51); */
   }
 

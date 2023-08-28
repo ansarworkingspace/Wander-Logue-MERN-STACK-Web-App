@@ -84,7 +84,7 @@ const filteredFollowingUsers = followingUsers.filter((user) =>
               <div className='unfollowBtn'>
                 {/* Use React Bootstrap Button component with color variant */}
                
-                <Button variant="danger" className="unfollow-button"  onClick={() => userPro(user._id)}>Profile </Button>
+                <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none"}}  onClick={() => userPro(user._id)}>Profile </Button>
               </div>
             </div>
           );

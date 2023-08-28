@@ -133,8 +133,8 @@ const CommentComponent = ({ blogId }) => {
 
   return (
     <div className='commentBox'>
-      <div className="topHomeLanding" style={{ width: "86%", marginLeft: "3rem" }}>
-        <h3>Comment Section</h3>
+      <div className="topHomeLanding" style={{ width: "86%", marginLeft: "3rem",backgroundColor:"#7EAA92" }}>
+        <h3 style={{color:"rgb(5, 80, 73)"}}>Comment Section</h3>
       </div>
       <div className='inputCover'>
         <input
@@ -145,7 +145,7 @@ const CommentComponent = ({ blogId }) => {
           value={commentText}
           onChange={e => setCommentText(e.target.value)}
         />
-        <button  type="button" className='buttonReportBox' style={{ height: "2rem", marginTop: "2.2rem" }}   onClick={handleCommentSubmit}>Submit</button>
+        <button  type="button" className='buttonReportBox' style={{ height: "2rem", marginTop: "2.2rem",backgroundColor:"#C8E4B2",color:"rgb(5, 80, 73)" }}   onClick={handleCommentSubmit}>Submit</button>
       </div>
       <div className='proLine'></div>
       <div className='commentContainer' style={{ maxHeight: "400px", overflowY: "scroll" }}>

@@ -1,7 +1,7 @@
 .fullScreen{
     width: 100%;
     min-height: 50rem;
-    background-color: rgb(57, 62, 64);
+    background-color: #7EAA92;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,7 +100,7 @@ font-size: 0.8rem;
     align-items: center;
     width: 98%;
     padding: 10px;
-    background-color: #181d1b;
+    background-color: rgb(5, 80, 73);
     border-radius: 0.5rem ;
     height: 3rem;
     margin-top: 1rem;
@@ -146,15 +146,15 @@ font-size: 0.8rem;
   
 
   .allPostLandingpage{
-    border-width: thin;
-    border-color: #797878;
+    /* border-width: thin;
+    border-color: #797878; */
     margin-top: 1rem;
-    background-color: rgb(57, 62, 64);
+    background-color: #7EAA92;
     width: 90%;
-   
+   border: none;
     margin-bottom: 1rem;
     border-radius: 6px;
-    border-style: ridge;
+    /* border-style: ridge; */
     display: flex;
     flex-direction: column;
     align-items: center;

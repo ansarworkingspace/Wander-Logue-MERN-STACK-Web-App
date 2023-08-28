@@ -65,7 +65,7 @@ const Hero = () => {
     <p style={{ color: "white", fontFamily: "Sora", marginTop: "2rem" }}>No blogs found.</p>
   ) : (
     filteredBlogs.map((blog) => (
-      <div className='eachPost' key={blog._id}>
+      <div className='eachPost' style={{backgroundColor:"#C8E4B2",border:"none"}} key={blog._id}>
         <div className='postImage' style={{backgroundColor:"#181a1b"}} >
           {/* Display blog image here */}
           {blog.images.length > 0 && (

@@ -96,7 +96,7 @@ const navigateToUserProfile = (userId) => {
               <div className='unfollowBtn'>
                 {/* Use React Bootstrap Button component with color variant */}
                
-                <Button variant="danger" className="unfollow-button"   onClick={() => navigateToUserProfile(user._id)}>Profile </Button>
+                <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none"}}  onClick={() => navigateToUserProfile(user._id)}>Profile </Button>
               </div>
             </div>
           );

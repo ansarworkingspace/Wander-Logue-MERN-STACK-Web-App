@@ -165,7 +165,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar style={{ backgroundColor: '#181a1b' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
+      <Navbar style={{ backgroundColor: '#055049' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand className='navbar-brand-custom'>WANDER<span style={{color:"#e8f32b"}}>LOGUE</span></Navbar.Brand>
@@ -183,7 +183,7 @@ const Header = () => {
                   {userInfo && (
         
         <div className="home-icon" onClick={() => navigate('/')}>
-          <Nav.Link>
+          <Nav.Link style={{color:"white"}}>
             <FaHome />
           </Nav.Link>
         </div>
@@ -193,7 +193,7 @@ const Header = () => {
 
 {userInfo && (
       <div className="home-icon" onClick={() => navigate('/chat')}>
-        <Nav.Link>
+        <Nav.Link  style={{color:"white"}}>
           <FaComment />
         </Nav.Link>
       </div>
@@ -201,7 +201,7 @@ const Header = () => {
 
     {userInfo && (
       <div className="home-icon" onClick={() => navigate('/profile')}>
-        <Nav.Link>
+        <Nav.Link  style={{color:"white"}}>
           <FaUser />
         </Nav.Link>
       </div>
@@ -213,7 +213,7 @@ const Header = () => {
       {userInfo && (
         
         <div className="plus-icon" onClick={() => navigate('/create')}>
-          <Nav.Link>
+          <Nav.Link style={{color:"white"}}>
             <FaPlus />
           </Nav.Link>
         </div>
@@ -236,8 +236,8 @@ const Header = () => {
   )}
 
                   </div>
-                  <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.9rem",marginLeft:"0.2rem",marginTop:"0.2rem",color:"#e6e1e1" }} to='/profile'>
-  <Nav.Link>
+                  <LinkContainer style={{ fontFamily: "Sora", fontSize: "0.9rem",marginLeft:"0.2rem",marginTop:"0.2rem",color:"rgb(255 255 255)" }} to='/profile'>
+  <Nav.Link >
     Profile
   </Nav.Link>
 </LinkContainer>

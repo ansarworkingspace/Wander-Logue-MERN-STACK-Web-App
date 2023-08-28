@@ -95,6 +95,7 @@ const filteredFollowingUsers = followingUsers.filter((user) =>
                 <Button
                   variant="danger"
                   className="unfollow-button"
+                  style={{backgroundColor:"#7EAA92",border:"none"}}
                   onClick={() => navigateToUserProfile(user._id)}
                 >
                   Profile

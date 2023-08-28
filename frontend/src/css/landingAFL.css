@@ -3,11 +3,24 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: rgb(57, 62, 64);
+    background-color: #7EAA92;
     position: relative;
  border-radius: 5px;
     
   }
+
+/* 
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-image: url('https://i.pinimg.com/564x/77/f7/20/77f720c640b5beca37dbd9917f245120.jpg'); 
+    background-size: cover; 
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    border-radius: 5px;
+} */
 
  
   
@@ -17,8 +30,8 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    background-color: #333;
-    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #055049;
+    border-radius: 1rem;
     height: 3rem;
   }
   
@@ -54,14 +67,14 @@
   }
   
   .allPostLanding{
-    border-width: thin;
-    border-color: #797878;
+    /* border-width: thin;
+    border-color: #797878; */
     margin-top: 1rem;
-    background-color: rgb(57, 62, 64);
+    background-color: #7EAA92;
     width: 100%;
    
-    border-radius: 6px;
-    border-style: ridge;
+    border-radius: 0.8rem;
+    /* border-style: ridge; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,14 +88,14 @@
   }
 
   .eachPost{
-    border-width: thin;
-    border-color: #797878;
+    /* border-width: thin;
+    border-color: #797878; */
     margin-top: 1rem;
-    background-color: #181a1b;
+    background-color: #C8E4B2;
     width: 80%;
     height: 13rem;
-    border-radius: 6px;
-    border-style: ridge;
+    border-radius: 0.8rem;
+    /* border-style: ridge; */
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -107,7 +120,7 @@
   }
 
 .postContentLanding{
-   background-color: #242729;
+   background-color: #055049;
     color: white;
     width: 60%;
     border-radius: 5px;
@@ -119,12 +132,13 @@
     height: 10rem; /* Set a fixed height for the parent div */
   }
   .postContentLanding h3 {
-    font-size: 2rem; /* Adjust the font size for h3 */
+    font-size: 1.6rem; /* Adjust the font size for h3 */
     margin-bottom: 0.2rem; /* Add a small margin below h3 */
     overflow: hidden;
-    font-family: Teko;
+    font-family: Phudu;
     text-overflow: ellipsis;
     white-space: nowrap;
+    letter-spacing: 0.2rem;
   }
   .iconInPostContentLanding {
     background-color: #181a1b00;

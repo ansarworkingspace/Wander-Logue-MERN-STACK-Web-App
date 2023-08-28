@@ -231,7 +231,7 @@ const LoginScreen = () => {
 
     <FormContainer >
 
-      <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}} className=' mx-auto'>Sign In</h1>
+      <h1 style={{ fontFamily: 'Phudu', textAlign: 'center' ,fontSize:"1.6rem",color:"rgb(5, 80, 73)"}} className=' mx-auto'>Sign In</h1>
 
       <Form onSubmit={submitHandler} 
       style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}
@@ -243,6 +243,7 @@ const LoginScreen = () => {
             type='email'
             placeholder='Enter email'
             value={email}
+            style={{color:"black"}}
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -285,7 +286,7 @@ const LoginScreen = () => {
       </Form>
 
      
-<div className='googleAuth' style={{marginTop:"4rem",marginLeft:"2.6rem"}}>
+<div className='googleAuth' style={{marginTop:"4rem",marginLeft:"-2.4rem"}}>
 <GoogleLogin
                       onSuccess={handleGoogleSignInSuccess}
                       onError={()=>console.log("error")}
@@ -294,7 +295,7 @@ const LoginScreen = () => {
 </div>
 
 
-      <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"-0.8rem", fontFamily: 'Squada One', marginTop:"2rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
+      <div style={{color:"rgb(5, 80, 73)",letterSpacing:"1.1px",marginLeft:"-2.8rem", fontFamily: 'Phudu', marginTop:"2rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/register'>Register  </Link>now and Unlock Your Access!</div>
      
       {isLoading && <Loader />}
 

@@ -28,7 +28,6 @@
 
 
 
-
 .password-toggle-icon {
   position: absolute;
   top: 63%;
@@ -68,7 +67,7 @@
 
 
 
-.formParent {
+/* .formParent {
   font-family: 'Sora', sans-serif;
   border-style: solid;
   border-radius: 3rem;
@@ -79,7 +78,23 @@
   border: none;
   animation: shadowMove 3s infinite alternate;
   box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
+} */
+
+
+
+
+.formParent{
+  font-family: 'Sora', sans-serif;
+  border-style: solid;
+  border-radius: 1rem;
+  background-color: #C8E4B2;
+  backdrop-filter: blur(15px);
+  width: 21rem;
+  height: 23rem;
+  border-color: rgb(5, 80, 73);
 }
+
+
 
 @keyframes shadowMove {
   0%, 100% {
@@ -101,9 +116,10 @@
   border-style: solid;
   box-shadow: 2px 2px 0 0 #ccc;
   font-size: 12px;
+  font-family: "phudu";
   padding-left: 19px;
   margin-left: 5.5rem;
-  background-color: green;
+  background-color: rgb(5, 80, 73);
     border: none;
 }
 
@@ -112,13 +128,14 @@
   border-style: solid;
   /* box-shadow: 2px 1px 0 0 #ccc; */
   border-radius: 3rem;
-  background-color: #181a1b;
+  background-color: #C8E4B2;
   backdrop-filter: blur(15px);
   width: 33rem;
   height: 24rem;
-  border: none;
+  border-color: rgb(5, 80, 73);
+  /* border: none;
   animation: shadowMove 3s infinite alternate;
-  box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 1px 0 0 rgba(0, 0, 0, 0.5); */
 }
 
 @keyframes shadowMove {
@@ -142,7 +159,8 @@
   font-size: 12px;
   padding-left: 19px;
   margin-left: 11rem;
-  background-color: green;
+  background-color: rgb(5, 80, 73);
+  font-family: "phudu";
     border: none;
 }
 

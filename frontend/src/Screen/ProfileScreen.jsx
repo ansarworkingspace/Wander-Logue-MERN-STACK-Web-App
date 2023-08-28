@@ -268,8 +268,8 @@ function getFileExtension(filename) {
           )}
         </div>
       </div>
-      <h3 className="profile-name" style={{fontFamily:"Squada One",color:"white",fontSize:"1.4rem"}}>{name}</h3>
-      <h5 style={{color:"gray",fontSize:"0.6rem"}}>travel blogger</h5>
+      <h3 className="profile-name" style={{fontFamily:"Phudu",color:"white",fontSize:"1rem"}}>{name}</h3>
+      {/* <h5 style={{color:"gray",fontSize:"0.6rem"}}>travel blogger</h5> */}
 
       <div className="profile-buttons">
         <div className="count-above-btn">

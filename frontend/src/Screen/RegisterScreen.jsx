@@ -69,7 +69,7 @@ const RegisterScreen = () => {
 
   return (
     <FormRegContainer>
-      <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}}   className="mb-4">Register</h1>
+      <h1 style={{ fontFamily: 'phudu', textAlign: 'center' ,fontSize:"1.6rem",color:"rgb(5, 80, 73)"}}   className="mb-4">Register</h1>
       <Form onSubmit={submitHandler} style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}>
         
         <Row>
@@ -137,7 +137,7 @@ const RegisterScreen = () => {
         </Button>
         {isLoading && <Loader />}
         </Form>
-        <div style={{color:"white",letterSpacing:"1.1px",marginLeft:"6.2rem", fontFamily: 'Squada One', marginTop:"4.5rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/login'>Login </Link>now and Unlock Your Access!</div>
+        <div style={{color:"rgb(5, 80, 73)",letterSpacing:"1.1px",marginLeft:"6.2rem",  fontFamily: 'Phudu', marginTop:"4.5rem",fontSize:"0.8rem",width:"23rem"}}> Ready to Join? <Link style={{ fontFamily: 'Squada One',color:"#20B0B9"}} to='/login'>Login </Link>now and Unlock Your Access!</div>
       
     </FormRegContainer>
   );

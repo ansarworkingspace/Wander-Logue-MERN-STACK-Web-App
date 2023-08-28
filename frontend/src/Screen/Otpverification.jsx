@@ -128,7 +128,7 @@ const handleFormSubmit = async (e) => {
 
     <FormContainer >
 
-      <h1 style={{ fontFamily: 'Squada One', textAlign: 'center' ,fontSize:"1.6rem",color:"white"}} className=' mx-auto'>Otp Verification</h1>
+      <h1 style={{ fontFamily: 'phudu', textAlign: 'center' ,fontSize:"1.6rem",color:"rgb(5, 80, 73)"}} className=' mx-auto'>Otp Verification</h1>
 
       <Form onSubmit={handleFormSubmit}
       style={{ display:"flex",flexDirection:"column",gap:"0.45rem",alignItems:"center"}}
@@ -167,11 +167,11 @@ const handleFormSubmit = async (e) => {
 
 
 {isTimerExpired ? (
-          <Button type='submit' variant='primary' className='mt-3 custom-button custom-margin-top'  >Resend</Button>
+          <Button type='submit' variant='primary' className='mt-3 custom-button custom-margin-top'style={{paddingLeft:"16px"}}  >Resend</Button>
         ) : (
           <Button type='submit' variant='primary' className='mt-3 custom-button custom-margin-top' >Verify</Button>
         )}
- <div className='timer' style={{ color: 'white', marginLeft: '1.7rem', marginTop: '0.5rem', fontFamily: 'Sora' }}>{Math.floor(remainingTime / 60)} min {remainingTime % 60} sec</div>
+ <div className='timer' style={{color:"rgb(5, 80, 73)", marginLeft: '1.7rem', marginTop: '0.5rem', fontFamily: 'Sora' }}>{Math.floor(remainingTime / 60)} min {remainingTime % 60} sec</div>
 
 
       

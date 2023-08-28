@@ -442,7 +442,7 @@ useEffect(() => {
       <button
         onClick={handlePostClick}
         className="blog-post-button"
-        style={{ marginTop: '5rem', borderRadius: '10px' }}
+        style={{ marginTop: '5rem',backgroundColor:"rgb(5, 80, 73) ", borderRadius: '10px' }}
       >
         Create Tale
       </button>
