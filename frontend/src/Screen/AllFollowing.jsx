@@ -105,7 +105,7 @@ const AllFollowing = () => {
       );
   
       // Navigate to chat page with chat roomID
-      navigate(`/ChatRoom/${response.data.chatRoomId}`);
+      navigate(`/ChatRoomWithDirect/${response.data.chatRoomId}`);
     } catch (error) {
       console.error('Error creating or getting chat room:', error);
     }

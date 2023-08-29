@@ -8,6 +8,7 @@ import nodemailer from 'nodemailer'
 import Banner from '../models/bannerSchema.js';
 import Comment from '../models/commentBlog.js'
 import ChatRoom from '../models/chatRoom.js';
+import ChatMessage from '../models/chatArea.js'
 import { formatDistanceToNow } from 'date-fns'
 
 
@@ -1262,6 +1263,59 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 
 
 
+const chatRooms = asyncHandler(async(req,res)=>{
+
+  try {
+    const currentUser = req.user._id;
+
+    // Find chat rooms where the current user is a participant
+    const chatRooms = await ChatRoom.find({ participants: currentUser });
+
+    const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
+      const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
+      const otherParticipant = await User.findById(otherParticipantId, 'name profileImage');
+
+      return {
+        _id: chatRoom._id,
+        otherParticipant,
+      };
+    }));
+
+    res.json({ chatRooms: chatRoomsData });
+  } catch (error) {
+    console.error('Error fetching chat rooms:', error);
+    res.status(500).json({ message: 'Error fetching chat rooms' });
+  }
+
+})
+
+
+
+
+
+const chatSend = asyncHandler(async (req, res) => {
+  try {
+    const { content } = req.body;
+    const chatRoomId = req.params.chatRoomId;
+    const senderId = req.user._id; // Assuming you have the user's ID from authentication
+
+    // Create a new chat message
+    const newChatMessage = new ChatMessage({
+      room: chatRoomId,
+      sender: senderId,
+      content: content
+    });
+
+    // Save the message to the database
+    await newChatMessage.save();
+
+    res.status(201).json({ message: 'Message sent successfully' });
+  } catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).json({ message: 'Error sending message' });
+  }
+});
+
 
 
 
@@ -1307,5 +1361,7 @@ export {
     reportBlog,
     postComment,
     getComments,
-    createOrGetChatRoom
+    createOrGetChatRoom,
+    chatRooms,
+    chatSend
 };

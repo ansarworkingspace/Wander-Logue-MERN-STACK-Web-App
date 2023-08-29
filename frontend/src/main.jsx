@@ -134,7 +134,7 @@ import ReportBlog from './Screen/ReportBlog.jsx';
 import AdminReportList from './Screen/AdminReportList.jsx'
 import AllFollowing from './Screen/AllFollowing.jsx'
 import ChatRoom from './Screen/ChatRoom.jsx'
-
+import ChatRoomWithDirect from './Screen/ChatRoomWithDirect.jsx'
 
 
 
@@ -171,7 +171,8 @@ const router = createBrowserRouter(
          <Route path="/LikeUsers/:blogId" element={<LikeUsers />} />
          <Route path="/reportBlog/:blogId" element={<ReportBlog />} />
          <Route path="/allFollowing" element={<AllFollowing />} />
-         <Route path="/ChatRoom/:chatRoomId" element={<ChatRoom />} />
+         <Route path="/ChatRoomWithDirect/:chatRoomId" element={<ChatRoom />} />
+         <Route path="/ChatRoom" element={<ChatRoom />} />
       </Route>
 
 
