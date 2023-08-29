@@ -92,6 +92,30 @@ const AllFollowing = () => {
     user.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+
+
+
+
+  const handleChatButtonClick = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/users/createOrGetChatRoom/${userId}`,
+        
+        { withCredentials: true }
+      );
+  
+      // Navigate to chat page with chat room ID
+      navigate(`/ChatRoom/${response.data.chatRoomId}`);
+    } catch (error) {
+      console.error('Error creating or getting chat room:', error);
+    }
+  };
+
+
+
+
+
+
   return (
     <div className="FollowList-container">
       <div className="topHomeLanding">
@@ -129,7 +153,7 @@ const AllFollowing = () => {
               </div>
               <div className='unfollowBtn' style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginLeft: "1rem", paddingRight: "1rem", height: "2.5rem" }}>
                 <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none" }} onClick={() => userPro(user._id)}>Profile</Button>
-                <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none" }}>Chat</Button>
+                <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none" }} onClick={() => handleChatButtonClick(user._id)}  >Chat</Button>
               </div>
             </div>
           );

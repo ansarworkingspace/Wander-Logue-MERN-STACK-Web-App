@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,createOrGetChatRoom,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -80,6 +80,15 @@ router.post('/reportBlog/:blogId',protect, reportBlog);
 // Route to create a new comment for a blog post
 router.post('/postComment/:blogId', protect, postComment);
 router.get('/getComments/:blogId', protect, getComments);
+
+
+//chat Set up
+router.get('/createOrGetChatRoom/:userId', protect ,createOrGetChatRoom)
+
+
+
+
+
 
 
 export default router;

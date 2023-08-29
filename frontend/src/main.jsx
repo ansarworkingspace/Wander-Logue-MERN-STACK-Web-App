@@ -171,7 +171,7 @@ const router = createBrowserRouter(
          <Route path="/LikeUsers/:blogId" element={<LikeUsers />} />
          <Route path="/reportBlog/:blogId" element={<ReportBlog />} />
          <Route path="/allFollowing" element={<AllFollowing />} />
-         <Route path="/ChatRoom" element={<ChatRoom />} />
+         <Route path="/ChatRoom/:chatRoomId" element={<ChatRoom />} />
       </Route>
 
 

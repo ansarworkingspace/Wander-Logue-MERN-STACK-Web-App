@@ -7,7 +7,7 @@ import axios from 'axios';
 import nodemailer from 'nodemailer'
 import Banner from '../models/bannerSchema.js';
 import Comment from '../models/commentBlog.js'
-
+import ChatRoom from '../models/chatRoom.js';
 import { formatDistanceToNow } from 'date-fns'
 
 
@@ -1233,6 +1233,40 @@ const getComments = asyncHandler(async (req, res) => {
 
 
 
+
+const createOrGetChatRoom = asyncHandler(async(req,res)=>{
+  try {
+    const currentUser = req.user._id; // Current user's ID
+    const otherUser = req.params.userId; // Selected user's ID
+
+    // Check if a chat room exists for the two users
+    let chatRoom = await ChatRoom.findOne({
+      participants: { $all: [currentUser, otherUser] },
+    });
+
+    // If no chat room exists, create a new one
+    if (!chatRoom) {
+      chatRoom = new ChatRoom({
+        participants: [currentUser, otherUser],
+        messages: [], // Initialize with no messages
+      });
+      await chatRoom.save();
+    }
+
+    res.json({ chatRoomId: chatRoom._id });
+  } catch (error) {
+    console.error('Error creating or getting chat room:', error);
+    res.status(500).json({ message: 'Error creating or getting chat room' });
+  }
+})
+
+
+
+
+
+
+
+
 export {
     authUser,
     registerUser,
@@ -1272,5 +1306,6 @@ export {
     getSelectedBanner,
     reportBlog,
     postComment,
-    getComments
+    getComments,
+    createOrGetChatRoom
 };

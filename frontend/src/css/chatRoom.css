@@ -22,7 +22,7 @@
     height: 35rem;
 
   }
-
+/* 
   .chatPageContainer{
     width: 54%;
     background-color: #C8E4B2;
@@ -33,10 +33,21 @@
     flex-direction: column;
     align-items: center;
     margin-left: 2rem;
-    /* background-image: url('https://w0.peakpx.com/wallpaper/220/854/HD-wallpaper-whatsapp-black-abstract-abstract-digital-abstraction-abstracts-background-digital-pattern-texture.jpg'); 
-    background-size: cover;  */
+  
 
+  } */
+
+  .chatPageContainer {
+    width: 54%;
+    background-color: #C8E4B2;
+    min-height: 35rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
   }
+
 
   .fullChatDiv{
     display: flex;
@@ -44,4 +55,22 @@
   }
 
 
-  
+  .chatBYother{
+    background-color: #e9e9e9;
+    min-height: 3rem;
+    width: 30%;
+    min-width: 30%;
+    margin-left: 3rem;
+    border-radius: 1rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .chatBYme{
+    background-color: #e9e9e9;
+    min-height: 3rem;
+    width: 30%;
+    min-width: 30%;
+    margin-left: 24rem;
+    border-radius: 1rem;
+    margin-bottom: 1.4rem;
+  }
