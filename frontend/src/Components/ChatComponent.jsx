@@ -67,7 +67,7 @@
 // export default ChatComponent;
 
 
-import React, { useState,useEffect }  from 'react';
+import React, { useState,useEffect,useRef }  from 'react';
 import { Image, Button } from 'react-bootstrap'; // Assuming you are using Bootstrap components
 import '../css/chatRoom.css'
 import '../css/viewBlog.css'
@@ -75,35 +75,39 @@ import '../css/profileScree.css'; // Import the CSS file
 import axios from 'axios'; // Import Axios for making API requests
 import { useSelector } from 'react-redux';
 
+
+
+
+
 const ChatComponent = ({ chatRoomId }) => {
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const { userInfo } = useSelector((state) => state.auth);
-
-
-
-
-
+  const chatContentRef = useRef(null);
 
 
   useEffect(() => {
-    async function fetchMessages() {
-      try {
-        const response = await axios.get(`http://localhost:4000/api/users/chatMessages/${chatRoomId}`, {
-          withCredentials: true,
-        });
-
-        setMessages(response.data.messages);
-      } catch (error) {
-        console.error('Error fetching chat messages:', error);
-      }
-    }
-
     fetchMessages();
   }, [chatRoomId]);
 
 
+
+
+
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/api/users/chatMessages/${chatRoomId}`, {
+        withCredentials: true,
+      });
+
+      setMessages(response.data.messages);
+      // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    } catch (error) {
+      console.error('Error fetching chat messages:', error);
+    }
+  };
 
 
 
@@ -125,16 +129,24 @@ const ChatComponent = ({ chatRoomId }) => {
       );
       // Clear the input after sending the message
       setMessage('');
+
+    
+
+      fetchMessages();
+      // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+
     } catch (error) {
       console.error('Error sending message:', error);
     }
   };
 
 
-
+  useEffect(() => {
+    chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+  }, [messages]);
 
   return (
-    <div className='chatPageContainer' style={{ maxHeight: "400px", position: "relative" }}>
+    <div className='chatPageContainer'  style={{ maxHeight: "400px", position: "relative" }}>
       <div className='followingBox' style={{ width: "77%", marginLeft: "4rem", marginTop: "1rem", height: "3rem" }}>
         <div className='imageONbox' style={{ height: "3rem" }}>
           <Image alt="Profile" className="followingImage" roundedCircle />
@@ -147,7 +159,7 @@ const ChatComponent = ({ chatRoomId }) => {
         </div>
       </div>
 
-      <div className="chatContent" style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
+      <div className="chatContent" ref={chatContentRef}   style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
         {messages.map((msg) => (
           <div key={msg._id} className={msg.sender === userInfo._id ? 'chatBYme' : 'chatBYother'}>
             <div className='userName' style={{ paddingTop: "0.4rem" }}>
