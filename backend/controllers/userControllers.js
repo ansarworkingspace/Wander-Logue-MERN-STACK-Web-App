@@ -1320,6 +1320,30 @@ const chatSend = asyncHandler(async (req, res) => {
 
 
 
+const chatMessages = asyncHandler(async(req,res)=>{
+  try {
+    const chatRoomId = req.params.chatRoomId;
+    const messages = await ChatMessage.find({ room: chatRoomId }).sort({ createdAt: 1 }).populate('sender');
+
+    const messagesWithSenderNames = messages.map((msg) => {
+      return {
+        _id: msg._id,
+        sender: msg.sender._id,
+        senderName: msg.sender.name,
+        content: msg.content,
+        createdAt: msg.createdAt,
+      };
+    });
+
+    res.json({ messages: messagesWithSenderNames });
+  } catch (error) {
+    console.error('Error fetching chat messages:', error);
+    res.status(500).json({ message: 'Error fetching chat messages' });
+  }
+})
+
+
+
 
 export {
     authUser,
@@ -1363,5 +1387,6 @@ export {
     getComments,
     createOrGetChatRoom,
     chatRooms,
-    chatSend
+    chatSend,
+    chatMessages
 };

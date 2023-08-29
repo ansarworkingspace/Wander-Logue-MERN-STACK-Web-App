@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,chatRooms,chatSend,createOrGetChatRoom,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,chatMessages,chatRooms,chatSend,createOrGetChatRoom,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -86,7 +86,7 @@ router.get('/getComments/:blogId', protect, getComments);
 router.get('/createOrGetChatRoom/:userId', protect ,createOrGetChatRoom)
 router.get('/chatRooms',protect,chatRooms)
 router.post('/chatSend/:chatRoomId', protect, chatSend);
-
+router.get('/chatMessages/:chatRoomId', protect,chatMessages)
 
 
 

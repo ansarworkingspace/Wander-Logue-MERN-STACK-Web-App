@@ -67,17 +67,44 @@
 // export default ChatComponent;
 
 
-import React, { useState }  from 'react';
+import React, { useState,useEffect }  from 'react';
 import { Image, Button } from 'react-bootstrap'; // Assuming you are using Bootstrap components
 import '../css/chatRoom.css'
 import '../css/viewBlog.css'
 import '../css/profileScree.css'; // Import the CSS file
 import axios from 'axios'; // Import Axios for making API requests
-
+import { useSelector } from 'react-redux';
 
 const ChatComponent = ({ chatRoomId }) => {
 
   const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const { userInfo } = useSelector((state) => state.auth);
+
+
+
+
+
+
+
+  useEffect(() => {
+    async function fetchMessages() {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/users/chatMessages/${chatRoomId}`, {
+          withCredentials: true,
+        });
+
+        setMessages(response.data.messages);
+      } catch (error) {
+        console.error('Error fetching chat messages:', error);
+      }
+    }
+
+    fetchMessages();
+  }, [chatRoomId]);
+
+
+
 
 
 
@@ -121,29 +148,19 @@ const ChatComponent = ({ chatRoomId }) => {
       </div>
 
       <div className="chatContent" style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
-        {/* Your chat content goes here */}
-        <div className='chatBYother'>
-          <div className='userName' style={{ paddingTop: "0.4rem" }}>
-            <h4 className='commentH4' >Ansar</h4>
+        {messages.map((msg) => (
+          <div key={msg._id} className={msg.sender === userInfo._id ? 'chatBYme' : 'chatBYother'}>
+            <div className='userName' style={{ paddingTop: "0.4rem" }}>
+              <h4 className='commentH4'>{msg.sender === userInfo._id ? 'Me' : msg.senderName}</h4>
+            </div>
+            <div className='commentText'>
+              <h3 className='commentH3'>{msg.content}</h3>
+            </div>
+            <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
+              <h5 className='commentH5'>4.20pm</h5>
+            </div>
           </div>
-          <div className='commentText'>
-            <h3 className='commentH3'>hello man</h3>
-          </div>
-          <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
-            <h5 className='commentH5'>4.20pm</h5>
-          </div>
-        </div>
-        <div className='chatBYme'>
-          <div className='userName' style={{ paddingTop: "0.4rem" }}>
-            <h4 className='commentH4' >Me</h4>
-          </div>
-          <div className='commentText'>
-            <h3 className='commentH3'>hi bro</h3>
-          </div>
-          <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
-            <h5 className='commentH5'>4.20pm</h5>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className="inputContainer" style={{ position: "sticky", bottom: 0, backgroundColor: "rgb(5, 80, 73)", padding: "1rem", display: "flex", alignItems: "center" }}>
