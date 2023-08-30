@@ -1293,6 +1293,30 @@ const chatRooms = asyncHandler(async(req,res)=>{
 
 
 
+// const chatSend = asyncHandler(async (req, res) => {  //orginal
+//   try {
+//     const { content } = req.body;
+//     const chatRoomId = req.params.chatRoomId;
+//     const senderId = req.user._id; // Assuming you have the user's ID from authentication
+
+//     // Create a new chat message
+//     const newChatMessage = new ChatMessage({
+//       room: chatRoomId,
+//       sender: senderId,
+//       content: content
+//     });
+
+//     // Save the message to the database
+//     await newChatMessage.save();
+
+//     // res.status(201).json({ message: 'Message sent successfully' });
+//     res.status(201).json({ newChatMessage });
+//   } catch (error) {
+//     console.error('Error sending message:', error);
+//     res.status(500).json({ message: 'Error sending message' });
+//   }
+// });
+
 const chatSend = asyncHandler(async (req, res) => {
   try {
     const { content } = req.body;
@@ -1303,19 +1327,30 @@ const chatSend = asyncHandler(async (req, res) => {
     const newChatMessage = new ChatMessage({
       room: chatRoomId,
       sender: senderId,
-      content: content
+      content: content,
     });
 
     // Save the message to the database
     await newChatMessage.save();
 
-    res.status(201).json({ message: 'Message sent successfully' });
+    // Fetch the newly created message along with sender and chat info
+    const message = await ChatMessage.findById(newChatMessage._id)
+      .populate('sender', 'name pic')
+      .populate({
+        path: 'room',
+        populate: {
+          path: 'participants',
+          select: 'name pic email',
+        },
+      })
+      .exec();
+
+    res.status(201).json({ newChatMessage: message });
   } catch (error) {
     console.error('Error sending message:', error);
     res.status(500).json({ message: 'Error sending message' });
   }
 });
-
 
 
 

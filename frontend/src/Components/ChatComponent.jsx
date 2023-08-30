@@ -1,18 +1,84 @@
-// import React from 'react';
+
+// import React, { useState,useEffect,useRef }  from 'react';
 // import { Image, Button } from 'react-bootstrap'; // Assuming you are using Bootstrap components
 // import '../css/chatRoom.css'
 // import '../css/viewBlog.css'
 // import '../css/profileScree.css'; // Import the CSS file
 // import axios from 'axios'; // Import Axios for making API requests
+// import { useSelector } from 'react-redux';
 
 
-// const ChatComponent = () => {
+
+
+
+// const ChatComponent = ({ chatRoomId }) => {
 
 //   const [message, setMessage] = useState('');
+//   const [messages, setMessages] = useState([]);
+//   const { userInfo } = useSelector((state) => state.auth);
+//   const chatContentRef = useRef(null);
 
+
+//   useEffect(() => {
+//     fetchMessages();
+//   }, [chatRoomId]);
+
+
+
+
+
+//   const fetchMessages = async () => {
+//     try {
+//       const response = await axios.get(`http://localhost:4000/api/users/chatMessages/${chatRoomId}`, {
+//         withCredentials: true,
+//       });
+
+//       setMessages(response.data.messages);
+//       // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+//       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+//     } catch (error) {
+//       console.error('Error fetching chat messages:', error);
+//     }
+//   };
+
+
+
+
+
+
+//   const handleSendMessage = async () => {
+//     if (message.trim() === '') return; // Don't send empty messages
+
+//     try {
+//       await axios.post(
+//         `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
+//         {
+//           content: message
+//         },
+//         {
+//           withCredentials: true // Include cookies in the request
+//         }
+//       );
+//       // Clear the input after sending the message
+//       setMessage('');
+
+    
+
+//       fetchMessages();
+//       // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+
+//     } catch (error) {
+//       console.error('Error sending message:', error);
+//     }
+//   };
+
+
+//   useEffect(() => {
+//     chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+//   }, [messages]);
 
 //   return (
-//     <div className='chatPageContainer' style={{ maxHeight: "400px", position: "relative" }}>
+//     <div className='chatPageContainer'  style={{ maxHeight: "400px", position: "relative" }}>
 //       <div className='followingBox' style={{ width: "77%", marginLeft: "4rem", marginTop: "1rem", height: "3rem" }}>
 //         <div className='imageONbox' style={{ height: "3rem" }}>
 //           <Image alt="Profile" className="followingImage" roundedCircle />
@@ -25,30 +91,20 @@
 //         </div>
 //       </div>
 
-//       <div className="chatContent" style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
-//         {/* Your chat content goes here */}
-//         <div className='chatBYother'>
-//           <div className='userName' style={{ paddingTop: "0.4rem" }}>
-//             <h4 className='commentH4' >Ansar</h4>
+//       <div className="chatContent" ref={chatContentRef}   style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
+//         {messages.map((msg) => (
+//           <div key={msg._id} className={msg.sender === userInfo._id ? 'chatBYme' : 'chatBYother'}>
+//             <div className='userName' style={{ paddingTop: "0.4rem" }}>
+//               <h4 className='commentH4'>{msg.sender === userInfo._id ? 'Me' : msg.senderName}</h4>
+//             </div>
+//             <div className='commentText'>
+//               <h3 className='commentH3'>{msg.content}</h3>
+//             </div>
+//             <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
+//               <h5 className='commentH5'>4.20pm</h5>
+//             </div>
 //           </div>
-//           <div className='commentText'>
-//             <h3 className='commentH3'>hello man</h3>
-//           </div>
-//           <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
-//             <h5 className='commentH5'>4.20pm</h5>
-//           </div>
-//         </div>
-//         <div className='chatBYme'>
-//           <div className='userName' style={{ paddingTop: "0.4rem" }}>
-//             <h4 className='commentH4' >Me</h4>
-//           </div>
-//           <div className='commentText'>
-//             <h3 className='commentH3'>hi bro</h3>
-//           </div>
-//           <div className='commentTime' style={{ paddingBottom: "0.1rem" }}>
-//             <h5 className='commentH5'>4.20pm</h5>
-//           </div>
-//         </div>
+//         ))}
 //       </div>
 
 //       <div className="inputContainer" style={{ position: "sticky", bottom: 0, backgroundColor: "rgb(5, 80, 73)", padding: "1rem", display: "flex", alignItems: "center" }}>
@@ -57,14 +113,24 @@
 //           type="text"
 //           placeholder="Enter your message"
 //           className="blog-input-field"
+//           value={message}
+//           onChange={(e) => setMessage(e.target.value)}
 //         />
-//         <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem" }}>SEND</Button>
+//         <Button
+//           variant="danger"
+//           className="unfollow-button"
+//           style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem" }}
+//           onClick={handleSendMessage}
+//         >
+//           Chat
+//         </Button>
 //       </div>
 //     </div>
 //   );
 // }
 
 // export default ChatComponent;
+
 
 
 import React, { useState,useEffect,useRef }  from 'react';
@@ -74,10 +140,10 @@ import '../css/viewBlog.css'
 import '../css/profileScree.css'; // Import the CSS file
 import axios from 'axios'; // Import Axios for making API requests
 import { useSelector } from 'react-redux';
+import io from 'socket.io-client'
 
-
-
-
+const ENDPOINT = 'http://localhost:4000';
+var socket , selectedChatCompare;
 
 const ChatComponent = ({ chatRoomId }) => {
 
@@ -85,11 +151,47 @@ const ChatComponent = ({ chatRoomId }) => {
   const [messages, setMessages] = useState([]);
   const { userInfo } = useSelector((state) => state.auth);
   const chatContentRef = useRef(null);
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [selectedChat, setSelectedChat] = useState();
 
 
-  useEffect(() => {
-    fetchMessages();
-  }, [chatRoomId]);
+  useEffect(()=>{
+    socket = io(ENDPOINT)
+    socket.emit("setup",userInfo)
+    socket.on("connection",()=>setSocketConnected(true))
+ },[])
+ 
+
+
+
+useEffect(() => {
+  fetchMessages();
+}, [chatRoomId]);
+
+
+// useEffect(() => {//WORKED REAL TIME
+//   socket.on('message received', (newMessageRecived) => {
+//     console.log("Received new message IN FREND:", newMessageRecived);
+//     if (!chatRoomId || chatRoomId !== newMessageRecived.room._id) {
+//       // Add notification logic here if needed
+//     } else {
+//       setMessages((prevMessages) => [...prevMessages, newMessageRecived]);
+//     }
+//   });
+// }, [chatRoomId]);
+
+useEffect(() => {
+  socket.on('message received', (newMessageRecived) => {
+    // console.log("Received new message IN FREND:", newMessageRecived);
+    if (newMessageRecived.sender._id !== userInfo._id) {
+      if (!chatRoomId || chatRoomId !== newMessageRecived.room._id) {
+        // Add notification logic here if needed
+      } else {
+        setMessages([...messages, newMessageRecived]);
+      }
+    }
+  });
+});
 
 
 
@@ -97,12 +199,16 @@ const ChatComponent = ({ chatRoomId }) => {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/users/chatMessages/${chatRoomId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `http://localhost:4000/api/users/chatMessages/${chatRoomId}`,
+        {
+          withCredentials: true,
+        }
+      );
 
       setMessages(response.data.messages);
-      // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+      socket.emit('join chat', chatRoomId);
+
       chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
     } catch (error) {
       console.error('Error fetching chat messages:', error);
@@ -114,32 +220,77 @@ const ChatComponent = ({ chatRoomId }) => {
 
 
 
+  // const handleSendMessage = async () => {
+  //   if (message.trim() === '') return;
+
+  //   try {
+  //     const { data } = await axios.post(
+  //       `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
+  //       {
+  //         content: message,
+  //       },
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+    
+  //     // console.log(data); // Print the data to see its structure
+    
+  //     const newMessage = data.newChatMessage; // Access the newChatMessage field
+    
+  //     socket.emit("new message", {
+  //       room: chatRoomId,
+  //       sender: newMessage.sender, // Sender information
+  //       ...newMessage, // Other message content
+  //     });
+
+  //     setMessage('');
+  //     fetchMessages();
+  //   } catch (error) {
+  //     console.error('Error sending message:', error);
+  //   }
+  // };
+
+
+  
+
+
   const handleSendMessage = async () => {
-    if (message.trim() === '') return; // Don't send empty messages
+    if (message.trim() === '') return;
 
     try {
-      await axios.post(
+      const { data } = await axios.post(
         `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
         {
-          content: message
+          content: message,
         },
         {
-          withCredentials: true // Include cookies in the request
+          withCredentials: true,
         }
       );
-      // Clear the input after sending the message
+
+      const newMessage = data.newChatMessage;
+
+      // socket.emit('new message', {
+      //   room: chatRoomId,
+      //   sender: newMessage.sender,
+      //   ...newMessage,
+      // });
+      
+      socket.emit("new message", {
+        room: chatRoomId,
+        sender: newMessage.sender,
+        ...newMessage,
+      });
+      
+
+
       setMessage('');
-
-    
-
       fetchMessages();
-      // chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
-
     } catch (error) {
       console.error('Error sending message:', error);
     }
   };
-
 
   useEffect(() => {
     chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
@@ -160,8 +311,8 @@ const ChatComponent = ({ chatRoomId }) => {
       </div>
 
       <div className="chatContent" ref={chatContentRef}   style={{ flex: 1, overflowY: "auto", padding: "1rem" }}>
-        {messages.map((msg) => (
-          <div key={msg._id} className={msg.sender === userInfo._id ? 'chatBYme' : 'chatBYother'}>
+      {messages.map((msg) => (
+  <div key={msg._id} className={msg.sender === userInfo._id ? 'chatBYme' : 'chatBYother'}>
             <div className='userName' style={{ paddingTop: "0.4rem" }}>
               <h4 className='commentH4'>{msg.sender === userInfo._id ? 'Me' : msg.senderName}</h4>
             </div>
