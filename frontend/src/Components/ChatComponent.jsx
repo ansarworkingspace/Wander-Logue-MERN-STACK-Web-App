@@ -135,6 +135,7 @@
 
 import React, { useState,useEffect,useRef }  from 'react';
 import { Image, Button } from 'react-bootstrap'; // Assuming you are using Bootstrap components
+import {useNavigate} from 'react-router-dom'
 import '../css/chatRoom.css'
 import '../css/viewBlog.css'
 import '../css/profileScree.css'; // Import the CSS file
@@ -153,7 +154,7 @@ const ChatComponent = ({ chatRoomId }) => {
   const chatContentRef = useRef(null);
   const [socketConnected, setSocketConnected] = useState(false);
   const [selectedChat, setSelectedChat] = useState();
-
+  const navigate = useNavigate()
 
   useEffect(()=>{
     socket = io(ENDPOINT)
@@ -217,41 +218,6 @@ useEffect(() => {
 
 
 
-
-
-
-  // const handleSendMessage = async () => {
-  //   if (message.trim() === '') return;
-
-  //   try {
-  //     const { data } = await axios.post(
-  //       `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
-  //       {
-  //         content: message,
-  //       },
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-    
-  //     // console.log(data); // Print the data to see its structure
-    
-  //     const newMessage = data.newChatMessage; // Access the newChatMessage field
-    
-  //     socket.emit("new message", {
-  //       room: chatRoomId,
-  //       sender: newMessage.sender, // Sender information
-  //       ...newMessage, // Other message content
-  //     });
-
-  //     setMessage('');
-  //     fetchMessages();
-  //   } catch (error) {
-  //     console.error('Error sending message:', error);
-  //   }
-  // };
-
-
   
 
 
@@ -271,11 +237,6 @@ useEffect(() => {
 
       const newMessage = data.newChatMessage;
 
-      // socket.emit('new message', {
-      //   room: chatRoomId,
-      //   sender: newMessage.sender,
-      //   ...newMessage,
-      // });
       
       socket.emit("new message", {
         room: chatRoomId,
@@ -296,17 +257,49 @@ useEffect(() => {
     chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
   }, [messages]);
 
+
+
+
+// find participents
+useEffect(() => {
+  if (chatRoomId) {
+    axios.get(`http://localhost:4000/api/users/participants/${chatRoomId}`, {
+      withCredentials: true
+    })
+      .then(response => {
+        const participantsData = response.data;
+
+        // Find the participant who is not the current user
+        const otherParticipant = participantsData.find(participant => participant._id !== userInfo._id);
+
+        setSelectedChat(otherParticipant);
+        // console.log("otherParticipant:", otherParticipant); 
+      })
+      .catch(error => {
+        console.error('Error fetching participants:', error);
+      });
+  }
+}, [chatRoomId]);
+
+
+
+
+
   return (
     <div className='chatPageContainer'  style={{ maxHeight: "400px", position: "relative" }}>
       <div className='followingBox' style={{ width: "77%", marginLeft: "4rem", marginTop: "1rem", height: "3rem" }}>
         <div className='imageONbox' style={{ height: "3rem" }}>
-          <Image alt="Profile" className="followingImage" roundedCircle />
+        {selectedChat && selectedChat.profileImage ? (
+      <Image style={{width:"43%",height:"80%"}} src={`http://localhost:4000/api/users/uploads/${selectedChat.profileImage}`} alt="Profile" className="followingImage" roundedCircle />
+    ) : (
+      <div className="profile-initials">{selectedChat && selectedChat.name ? selectedChat.name.charAt(0).toUpperCase() : ''}</div>
+    )}
         </div>
-        <div className='nameOfFollowingUser' style={{ height: "3rem" }}>
-          ansar
+        <div className='nameOfFollowingUser' style={{ height: "3rem" ,marginTop:"0.8rem",marginLeft:"4rem",color:"white"}}>
+        {selectedChat?.name}
         </div>
         <div className='unfollowBtn' style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginLeft: "1rem", paddingRight: "1rem", height: "2.5rem" }}>
-          <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem", marginLeft: "2.6rem", marginBottom: "0.8rem", fontSize: "0.7rem" }}>Profile</Button>
+          <Button variant="danger" className="unfollow-button" style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem", marginLeft: "2.6rem", marginBottom: "0.8rem", fontSize: "0.7rem" }} onClick={()=>navigate(`/otherUserPro/${selectedChat._id}`)}>Profile</Button>
         </div>
       </div>
 

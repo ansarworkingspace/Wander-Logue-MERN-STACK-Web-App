@@ -388,6 +388,7 @@ const LandingPage = () => {
    
 
   return (
+    <>
 
     <div className="fullScreen">
       
@@ -447,7 +448,21 @@ const LandingPage = () => {
       </div>
 
 
+
+
     </div>
+
+
+    <div className='footer'>
+ <div className='footerContent'>
+ <h4 className='navbar-brand-custom' style={{marginLeft:"15rem"}}>WANDER<span style={{color:"#e8f32b"}}>LOGUE</span></h4>
+ <p className='footerPara'>"Unleash Your Wanderlust with Our Travel Blogging App! Join us in sharing breathtaking moments, hidden gems, and unforgettable adventures from every corner of the globe. Connect with fellow explorers, ignite your wanderlust, and let your travel stories paint the world in vibrant hues. Your journey starts here."</p>
+ </div>
+</div>
+
+
+
+    </>
   )
 }
 

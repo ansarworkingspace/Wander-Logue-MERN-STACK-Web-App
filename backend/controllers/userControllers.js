@@ -1379,6 +1379,27 @@ const chatMessages = asyncHandler(async(req,res)=>{
 
 
 
+const participants = asyncHandler(async (req, res) => {
+  try {
+    const chatRoom = await ChatRoom.findById(req.params.chatRoomId)
+      .populate('participants', '_id name profileImage')
+      .select('participants');
+
+    const participantDetails = chatRoom.participants.map(participant => ({
+      _id: participant._id,
+      name: participant.name,
+      profileImage: participant.profileImage
+    }));
+
+
+    // console.log(participantDetails);
+    res.status(200).json(participantDetails);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching participants' });
+  }
+});
+
+
 
 export {
     authUser,
@@ -1423,5 +1444,6 @@ export {
     createOrGetChatRoom,
     chatRooms,
     chatSend,
-    chatMessages
+    chatMessages,
+    participants
 };

@@ -165,6 +165,7 @@ const ChatRoom = () => {
             alt="Profile"
             className="followingImage"
             roundedCircle
+            style={{height:"77%"}}
           />
         ) : (
           <div className="profile-initials" style={{color:"white"}}>

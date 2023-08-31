@@ -160,3 +160,34 @@ font-size: 0.8rem;
     align-items: center;
     padding: 0 1rem;
   }
+
+.footer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 12rem;
+  background-color: rgb(5, 80, 73);
+  margin-top: 1rem;
+  border-radius: 0.3rem;
+  background-image: url('https://i.pinimg.com/736x/9f/35/be/9f35be0fbac4b8ad244eb006eec13cb8.jpg');
+  
+}
+
+.footerContent{
+  width: 50%;
+  /* background-color: black; */
+  margin-left: 21rem;
+  height: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  
+}
+
+.footerPara{
+  font-size: 0.8rem;
+  color: white;
+  font-family: 'Sora';
+  text-align: center;
+}
