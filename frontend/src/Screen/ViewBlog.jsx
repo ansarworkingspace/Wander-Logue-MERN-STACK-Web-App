@@ -307,7 +307,7 @@ const ViewBlog = () => {
   toast.success('This blog saved in your collection!')
 
     } catch (error) {
-      console.error('Error saving blog:', error);
+      toast.error('Error saving blog');
     }
   };
 
@@ -323,7 +323,7 @@ const ViewBlog = () => {
         setLikeCount(response.data.likeCount);
       })
       .catch(error => {
-        console.error('Error fetching like count:', error);
+        toast.error('Error fetching like count');
       });
 
     // Check if the user has liked this blog post
@@ -334,7 +334,7 @@ const ViewBlog = () => {
         setLiked(response.data.userLiked);
       })
       .catch(error => {
-        console.error('Error checking like status:', error);
+        toast.error('Error checking like status');
       });
   }, [blogId]);
 
@@ -363,7 +363,7 @@ const ViewBlog = () => {
      
       setLiked(!liked);
     } catch (error) {
-      console.error('Error liking/unliking blog:', error);
+      toast.error('Error liking/unliking blog');
     }
   };
 

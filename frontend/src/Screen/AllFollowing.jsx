@@ -58,6 +58,8 @@ import { Button, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/FollowList.css';
+import { toast } from 'react-toastify';
+
 
 const AllFollowing = () => {
   const [followingUsers, setFollowingUsers] = useState([]);
@@ -73,7 +75,7 @@ const AllFollowing = () => {
 
         setFollowingUsers(response.data);
       } catch (error) {
-        console.error('Error fetching following list:', error);
+        toast.error('Error fetching following list');
       }
     }
 
@@ -107,7 +109,7 @@ const AllFollowing = () => {
       // Navigate to chat page with chat roomID
       navigate(`/ChatRoomWithDirect/${response.data.chatRoomId}`);
     } catch (error) {
-      console.error('Error creating or getting chat room:', error);
+      toast.error('Error creating or getting chat room');
     }
   };
 

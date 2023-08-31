@@ -12,6 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import '../css/profileScree.css'; // Import the CSS file
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
+import {toast} from 'react-toastify'
+
+
+
 
 const ProfileScreen = () => {
   const [email, setEmail] = useState('');
@@ -47,7 +51,7 @@ useEffect(() => {
               navigate('/landing');
           }
       } catch (error) {
-          console.error('Check auth error:', error);
+        toast.error('Check auth error');
       }
   };
 
@@ -78,7 +82,7 @@ useEffect(() => {
         setFollowingCount(response.data.followingCount);
       })
       .catch(error => {
-        console.error('Error fetching follower and following counts:', error);
+        toast.error('Error fetching follower and following counts');
       });
 
     // ... other useEffect dependencies ...
@@ -100,7 +104,7 @@ useEffect(() => {
           navigate('/landing');
         }
       } catch (error) {
-        console.error('Fetch user status error:', error);
+        toast.error('Fetch user status error');
       }
     };
 
@@ -133,7 +137,7 @@ useEffect(() => {
       // Remove the deleted blog from the local state
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
     } catch (error) {
-      console.error('Error deleting blog:', error);
+      toast.error('Error deleting blog');
     }
   };
 
@@ -147,7 +151,7 @@ useEffect(() => {
       dispatch(logout());
       navigate('/login');
     } catch (err) {
-      console.error(err);
+      toast.error("Error while logouting");
     }
   };
 
@@ -183,7 +187,7 @@ const [loading, setLoading] = useState(true);
         setBlogs(response.data);
         setLoading(false); // Set loading to false on successful fetch
       } catch (error) {
-        console.error('Error fetching blogs:', error);
+        toast.error('Error fetching blogs');
         setError(error); // Set the error state on fetch error
         setLoading(false); // Set loading to false on fetch error
       }

@@ -77,6 +77,9 @@ import { useSelector,useDispatch } from "react-redux";
 import {useAdminLogoutMutation  } from '../adminSlice/AdminApiSlice';
 import {adminLogout } from '../adminSlice/AdminAuthSlice';
 import '../css/adminUserPRO.css';
+import { toast } from 'react-toastify';
+
+
 
 const AdminUserPRview = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -99,7 +102,8 @@ const AdminUserPRview = () => {
                 navigate('/admin/login');
             }
         } catch (error) {
-            console.error('Check auth error:', error);
+            // console.error('Check auth error:', error);
+            toast.error("Check auth error");
         }
     };
 
@@ -157,11 +161,11 @@ const AdminUserPRview = () => {
         setUserBlogs(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching blogs:', error);
+        toast.error('Error fetching blogs');
       });
     })
     .catch((error) => {
-      console.error('Error fetching user details:', error);
+      toast.error('Error fetching user details');
     });
   }, [location.search]);
 

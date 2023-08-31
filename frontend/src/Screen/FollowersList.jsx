@@ -4,6 +4,11 @@ import { Button, Image } from 'react-bootstrap';// Import React Bootstrap compon
 import axios from 'axios';
 import '../css/FollowList.css';
 import { useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify'
+
+
+
+
 
 const FollowersList = () => {
   const [followerUsers, setFollowerUsers] = useState([]);
@@ -20,7 +25,7 @@ const FollowersList = () => {
         setFollowerUsers(response.data);
       } catch (error) {
         // Handle error
-        console.error('Error fetching following list:', error);
+        toast.error('Error fetching following list');
       }
     }
 

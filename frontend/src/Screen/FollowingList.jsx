@@ -22,7 +22,7 @@ const FollowingList = () => {
         setFollowingUsers(response.data);
       } catch (error) {
         // Handle error
-        console.error('Error fetching following list:', error);
+        toast.error('Error fetching following list');
       }
     }
 

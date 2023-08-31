@@ -38,7 +38,8 @@ const AdminHomeScreen = () => {
                 navigate('/admin/login');
             }
         } catch (error) {
-            console.error('Check auth error:', error);
+            // console.error('Check auth error:', error);
+            toast.error("An error occurred while checking authentication. Please try again later.");
         }
     };
 
@@ -62,7 +63,7 @@ const AdminHomeScreen = () => {
         setUser(response.data.users);
         setLoading(false); 
       } catch (error) {
-        toast.error(error);
+        toast.error("Error fetching users");
         console.error("Error fetching users:", error);
         setLoading(false); 
       }

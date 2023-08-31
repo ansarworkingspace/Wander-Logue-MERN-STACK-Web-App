@@ -8,7 +8,7 @@ import { useSelector,useDispatch } from "react-redux";
 import {useAdminLogoutMutation  } from '../adminSlice/AdminApiSlice';
 import {adminLogout } from '../adminSlice/AdminAuthSlice';
 import { useNavigate } from 'react-router-dom';
-
+import {toast}  from 'react-toastify'
 
 
 
@@ -37,7 +37,7 @@ const ViewBlog = () => {
                 navigate('/admin/login');
             }
         } catch (error) {
-            console.error('Check auth error:', error);
+          toast.error('Check auth error');
         }
     };
 
@@ -82,7 +82,7 @@ const ViewBlog = () => {
       setSelectedBlog(data);
     })
     .catch((error) => {
-      console.error(error);
+      toast.error("Getting Error to fetch Selected blog");
     });
   }, [blogId]); // Fetch when blogId changes
 

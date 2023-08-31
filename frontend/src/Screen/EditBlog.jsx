@@ -248,6 +248,10 @@ import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../css/editBlog.css';
+import {toast} from 'react-toastify'
+
+
+
 
 const EditBlog = () => {
   const { blogId } = useParams();
@@ -267,7 +271,7 @@ const navigate = useNavigate()
         const fetchedBlogData = response.data;
         setBlogData(fetchedBlogData);
       } catch (error) {
-        console.error(error);
+        toast.error("Getting Error fetching Blog Data");
       }
     };
 
@@ -306,10 +310,10 @@ const navigate = useNavigate()
         }
       );
       navigate('/profile')
-      // Handle success or display a success message
+    
     } catch (error) {
-      console.error(error);
-      // Handle error or display an error message
+      toast.error("Error while updating");
+      
     }
   };
 

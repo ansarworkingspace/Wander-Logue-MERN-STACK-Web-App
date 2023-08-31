@@ -5,6 +5,8 @@ import axios from 'axios';
 import '../css/FollowList.css';
 import { useNavigate , useParams} from 'react-router-dom';
 import { useSelector } from 'react-redux'; 
+import {toast}  from 'react-toastify'
+
 
 
 const OtherUserFollowingList = () => {
@@ -25,7 +27,7 @@ const OtherUserFollowingList = () => {
         setFollowingUsers(response.data);
       } catch (error) {
         // Handle error
-        console.error('Error fetching following list:', error);
+        toast.error('Error fetching following list');
       }
     }
   

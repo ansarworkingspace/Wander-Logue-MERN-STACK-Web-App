@@ -32,7 +32,7 @@ import { useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FaEye, FaTrash, FaEdit } from 'react-icons/fa';
-
+import {toast} from 'react-toastify'
 
 
 
@@ -54,7 +54,7 @@ const SavedBlogs = () => {
         // setSavedBlogs(response.data);
         setSavedBlogs(response.data.reverse());
       } catch (error) {
-        console.error('Error fetching saved blogs:', error);
+        toast.error('Error fetching saved blogs');
       }
     };
 
@@ -76,7 +76,7 @@ const SavedBlogs = () => {
         setSavedBlogs(updatedSavedBlogs);
       }
     } catch (error) {
-      console.error('Error deleting saved blog:', error);
+      toast.error('Error deleting saved blog');
     }
   };
 

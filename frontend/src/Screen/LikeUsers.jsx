@@ -5,6 +5,9 @@ import axios from 'axios';
 import '../css/FollowList.css';
 import { useNavigate,useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux'; 
+import {toast} from 'react-toastify'
+
+
 
 
 const LikeUsers = () => {
@@ -24,7 +27,7 @@ const LikeUsers = () => {
         setLikedUsers(response.data);
       } catch (error) {
         // Handle error
-        console.error('Error fetching liked users:', error);
+        toast.error('Error fetching liked users');
       }
     }
   

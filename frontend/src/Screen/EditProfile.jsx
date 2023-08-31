@@ -304,7 +304,7 @@ useEffect(() => {
               navigate('/landing');
           }
       } catch (error) {
-          console.error('Check auth error:', error);
+        toast.error('Check auth error:', error);
       }
   };
 
@@ -332,7 +332,7 @@ useEffect(() => {
           navigate('/landing');
         }
       } catch (error) {
-        console.error('Fetch user status error:', error);
+        toast.error('Fetch user status error:', error);
       }
     };
 

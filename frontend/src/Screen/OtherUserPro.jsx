@@ -10,6 +10,9 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../css/adminUserPRO.css';
 import { Link } from 'react-router-dom';
+import {toast} from 'react-toastify'
+
+
 
 const OtherUserPro = () => {
 
@@ -39,7 +42,7 @@ const OtherUserPro = () => {
           setFollowerCount(prevCount => prevCount - 1); // Decrement follower count
         })
         .catch(error => {
-          console.error('Error unfollowing:', error);
+          toast.error('Error unfollowing,try agian');
         });
     } else {
       // Follow logic
@@ -52,7 +55,7 @@ const OtherUserPro = () => {
           setFollowerCount(prevCount => prevCount + 1); // Increment follower count
         })
         .catch(error => {
-          console.error('Error following:', error);
+          toast.error('Error following,please try again');
         });
     }
   };

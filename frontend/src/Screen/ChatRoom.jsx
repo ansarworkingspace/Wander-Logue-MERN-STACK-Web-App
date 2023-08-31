@@ -102,7 +102,7 @@ import axios from 'axios';
 import '../css/profileScree.css';
 import '../css/chatRoom.css';
 import ChatComponent from '../Components/ChatComponent';
-
+import {toast} from 'react-toastify'
 
 
 const ChatRoom = () => {
@@ -122,7 +122,7 @@ const ChatRoom = () => {
 
         setChatRooms(response.data.chatRooms);
       } catch (error) {
-        console.error('Error fetching chat rooms:', error);
+        toast.error('Error fetching chat rooms');
       }
     }
 

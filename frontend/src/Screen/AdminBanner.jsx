@@ -22,7 +22,7 @@ const [banner, setBanner] = useState(null);
         const response = await axios.get('http://localhost:4000/api/admin/banners');
         setBanners(response.data);
       } catch (error) {
-        console.error('Error fetching banners:', error);
+        toast.error("Error fetching banners");
       }
     };
 

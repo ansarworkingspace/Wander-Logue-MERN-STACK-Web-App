@@ -61,7 +61,8 @@ const AdminReportList = () => {
         setReportedBlogs(response.data);
       }
     } catch (error) {
-      console.error('Error fetching reported blogs:', error);
+      toast.error("Error fetching reported blogs");
+      // console.error('Error fetching reported blogs:', error);
     }
   };
 
@@ -83,7 +84,9 @@ const deleteBlog = async (blogId) => {
           toast.error('Error deleting blog');
         }
       } catch (error) {
-        console.error('Error deleting blog:', error);
+        // console.error('Error deleting blog:', error);
+        toast.error("Error deleting blog");
+        
       }
     }
   };
