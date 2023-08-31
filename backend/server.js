@@ -88,6 +88,11 @@ socket.on("join chat",(room)=>{
   console.log("User join room : "+room);
 })
 
+//typing animation
+socket.on("typing", (room) => socket.in(room).emit("typing"));
+socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+//typing animation
+
 
 socket.on('new message', (newMessageRecived) => {
   const chat = newMessageRecived.room;
