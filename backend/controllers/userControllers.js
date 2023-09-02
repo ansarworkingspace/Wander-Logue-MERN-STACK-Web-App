@@ -1262,6 +1262,32 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 })
 
 
+//orginal
+// const chatRooms = asyncHandler(async(req,res)=>{
+
+//   try {
+//     const currentUser = req.user._id;
+
+//     // Find chat rooms where the current user is a participant
+//     const chatRooms = await ChatRoom.find({ participants: currentUser });
+
+//     const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
+//       const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
+//       const otherParticipant = await User.findById(otherParticipantId, 'name profileImage');
+
+//       return {
+//         _id: chatRoom._id,
+//         otherParticipant,
+//       };
+//     }));
+
+//     res.json({ chatRooms: chatRoomsData });
+//   } catch (error) {
+//     console.error('Error fetching chat rooms:', error);
+//     res.status(500).json({ message: 'Error fetching chat rooms' });
+//   }
+
+// })
 
 const chatRooms = asyncHandler(async(req,res)=>{
 
@@ -1269,7 +1295,10 @@ const chatRooms = asyncHandler(async(req,res)=>{
     const currentUser = req.user._id;
 
     // Find chat rooms where the current user is a participant
-    const chatRooms = await ChatRoom.find({ participants: currentUser });
+    const chatRooms = await ChatRoom.find({ participants: currentUser }).populate({
+      path: 'messages',
+      model: 'ChatMessage', // Specify the model to populate from
+    });// Populate the messages field
 
     const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
       const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
@@ -1278,6 +1307,7 @@ const chatRooms = asyncHandler(async(req,res)=>{
       return {
         _id: chatRoom._id,
         otherParticipant,
+        messages: chatRoom.messages, // Include the messages field
       };
     }));
 
@@ -1288,7 +1318,6 @@ const chatRooms = asyncHandler(async(req,res)=>{
   }
 
 })
-
 
 
 
@@ -1401,6 +1430,96 @@ const participants = asyncHandler(async (req, res) => {
 
 
 
+
+const getChatRoomId = asyncHandler(async(req,res)=>{
+  try {
+    const otherUserId = req.params.userId;
+    const currentUserId = req.user._id; 
+
+
+  } catch (error) {
+    
+  }
+})
+
+
+
+const makeNotifi = asyncHandler(async (req, res) => {
+  try {
+    const { chatRoomId } = req.params;
+    const { messageId } = req.body; // Assuming you pass messageId in the request body
+
+    // Find the chat room by ID
+    const chatRoom = await ChatRoom.findById(chatRoomId);
+
+    if (!chatRoom) {
+      return res.status(404).json({ message: 'Chat room not found' });
+    }
+
+    // Use addToSet to add the message ID to the chat room's messages array
+    chatRoom.messages.addToSet(messageId);
+
+    // Save the chat room with the updated messages array
+    await chatRoom.save();
+
+    res.status(200).json({ message: 'Message added to chat room' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+
+const getMessageById = async (req, res) => {
+  const { messageId } = req.params;
+
+  try {
+    // Find the message by its ID and populate the sender field
+    const message = await ChatMessage
+      .findById(messageId)
+      .populate('sender', '_id');
+    if (!message) {
+      return res.status(404).json({ message: 'Message not found' });
+    }
+
+    res.status(200).json(message);
+  } catch (error) {
+    console.error('Error fetching message:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+const deleteMessagesByChatRoom = async (req, res) => {
+  const { chatRoomId } = req.params;
+
+  try {
+    // Find the ChatRoom document by its ID and update it to remove all messages
+    const result = await ChatRoom.findByIdAndUpdate(chatRoomId, { $set: { messages: [] } });
+
+    if (result) {
+      // Messages were removed successfully
+      res.status(204).send(); // No content response for successful removal
+    } else {
+      // ChatRoom not found
+      res.status(404).json({ message: 'ChatRoom not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting messages from chat room:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+
+
+
 export {
     authUser,
     registerUser,
@@ -1445,5 +1564,9 @@ export {
     chatRooms,
     chatSend,
     chatMessages,
-    participants
+    participants,
+    getChatRoomId,
+    makeNotifi,
+    getMessageById,
+    deleteMessagesByChatRoom
 };

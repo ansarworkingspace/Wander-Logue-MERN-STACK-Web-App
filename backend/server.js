@@ -113,8 +113,19 @@ socket.on('new message', (newMessageRecived) => {
       ...newMessageRecived, // Use the rest of the message content
     });
   });
+
 });
 
+socket.on("leaveRoom", ({ room }) => {
+  socket.leave(room);
+  console.log("leave this room: "+room);
+});
+
+
+socket.off("setup", () => {
+  console.log("USER DISCONNECTED");
+  socket.leave(userData._id);
+});
 
 
 

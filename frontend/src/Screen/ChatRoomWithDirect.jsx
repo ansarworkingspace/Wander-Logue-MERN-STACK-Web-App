@@ -1,14 +1,17 @@
+
+
+import {useEffect,useState} from 'react'
 import { FaSearch } from 'react-icons/fa';
 import '../css/profileScree.css'; // Import the CSS file
 import '../css/chatRoom.css';
 import { Button, Image } from 'react-bootstrap';// Import React Bootstrap components
 import ChatComponent from '../Components/ChatComponent';
+import axios from 'axios';
+import { useParams } from 'react-router-dom'; // Import useParams
 
 
-
-
-const AllFollowing = () => {
-  
+const ChatRoomWithDirect = () => {
+  const { chatRoomId } = useParams();
 
 
   return (
@@ -25,57 +28,13 @@ const AllFollowing = () => {
           <button><FaSearch /></button>
         </div>
       </div>
-<div className='fullChatDiv'>
-      <div className='chatHistoryContainer'  style={{ maxHeight: "400px", overflowY: "scroll" }}>
-       
-            <div className='followingBox' style={{width:"95%"}} >
-              <div className='imageONbox'>
-              
-                  <Image  alt="Profile" className="followingImage" roundedCircle />
-              
-              </div>
-              <div className='nameOfFollowingUser'>
-                ansar
-              </div>
-              <div className='unfollowBtn' style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginLeft:"1rem",paddingRight:"1rem",height:"2.5rem"}}>
-              {/* <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none"}}  >Profile </Button> */}
-                <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none",width:"6rem"}}  >Chat </Button>
-              </div>
-            </div>
-            <div className='followingBox' style={{width:"95%"}} >
-              <div className='imageONbox'>
-              
-                  <Image  alt="Profile" className="followingImage" roundedCircle />
-              
-              </div>
-              <div className='nameOfFollowingUser'>
-                ansar
-              </div>
-              <div className='unfollowBtn' style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginLeft:"1rem",paddingRight:"1rem",height:"2.5rem"}}>
-              {/* <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none"}}  >Profile </Button> */}
-                <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none",width:"6rem"}}  >Chat </Button>
-              </div>
-            </div>
-            <div className='followingBox' style={{width:"95%"}} >
-              <div className='imageONbox'>
-              
-                  <Image  alt="Profile" className="followingImage" roundedCircle />
-              
-              </div>
-              <div className='nameOfFollowingUser'>
-                ansar
-              </div>
-              <div className='unfollowBtn' style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginLeft:"1rem",paddingRight:"1rem",height:"2.5rem"}}>
-              {/* <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none"}}  >Profile </Button> */}
-                <Button variant="danger" className="unfollow-button" style={{backgroundColor:"#7EAA92",border:"none",width:"6rem"}}  >Chat </Button>
-              </div>
-            </div>
-      
-      </div>
+<div className='fullChatDiv' style={{justifyContent:"center"}}>
+    
      
 
 {/* chat page component */}
-{/* <ChatComponent/> */}
+<ChatComponent chatRoomId={chatRoomId} />
+
 {/* chat page component */}
       
       </div>
@@ -90,4 +49,4 @@ const AllFollowing = () => {
   
 };
 
-export default AllFollowing;
+export default ChatRoomWithDirect;

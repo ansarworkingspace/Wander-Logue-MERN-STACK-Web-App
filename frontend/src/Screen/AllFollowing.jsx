@@ -107,6 +107,7 @@ const AllFollowing = () => {
       );
   
       // Navigate to chat page with chat roomID
+      // console.log(response.data.chatRoomId);
       navigate(`/ChatRoomWithDirect/${response.data.chatRoomId}`);
     } catch (error) {
       toast.error('Error creating or getting chat room');

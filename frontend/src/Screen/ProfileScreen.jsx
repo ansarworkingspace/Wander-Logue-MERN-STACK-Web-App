@@ -306,8 +306,11 @@ function getFileExtension(filename) {
         <span className='icon-text'>Like</span>
       </div>
       <div className='icon'>
+        <Link to={'/chatRoom'}>
         <FontAwesomeIcon icon={faComment} size='lg' className='pro' />
+        </Link>
         <span className='icon-text'>Chat</span>
+        
       </div>
     </div>
     <div className='proLine'></div>
