@@ -112,9 +112,30 @@ socket.on('new message', (newMessageRecived) => {
       sender: newMessageRecived.sender, // Use the sender information
       ...newMessageRecived, // Use the rest of the message content
     });
+
+//*real time show bell icon
+
+// Emit a real-time notification with the entire message object
+socket.to(user._id).emit('new message notification', newMessageRecived);
+
+
+
   });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 socket.on("leaveRoom", ({ room }) => {
   socket.leave(room);

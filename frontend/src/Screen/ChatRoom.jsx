@@ -141,6 +141,7 @@ const ChatRoom = () => {
   const [showChatComponent, setShowChatComponent] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const [unreadMessages, setUnreadMessages] = useState({});
+  const [notificateStatus, setNotificateStatus] = useState({}); // State to store notification status
 
 
 
@@ -163,7 +164,37 @@ const ChatRoom = () => {
 
 
 
+//check current notifiaction status
+useEffect(() => {
+  // Fetch the notification status when the component mounts
+  const fetchNotificationStatus = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/users/notificationStatus', {
+        withCredentials: true,
+      });
+      // Assuming the response contains notification status for each chat room
+      setNotificateStatus(response.data);
 
+
+
+  // Update the unreadMessages state based on the notification status
+  const updatedUnreadMessages = {};
+  for (const chatRoomId in response.data) {
+    updatedUnreadMessages[chatRoomId] = response.data[chatRoomId] ? 1 : 0;
+  }
+  setUnreadMessages(updatedUnreadMessages);
+
+
+
+    } catch (error) {
+      console.error('Error fetching notification status:', error);
+    }
+  };
+
+  fetchNotificationStatus();
+
+
+}, []);
 
 
 
@@ -185,6 +216,19 @@ const ChatRoom = () => {
       await axios.delete(`http://localhost:4000/api/users/deleteMessageId/${chatRoomId}`, {
         withCredentials: true,
       });
+
+
+
+
+
+
+   // After deleting messages, update the unreadMessages state to mark this chat room as read
+   setUnreadMessages((prevState) => ({
+    ...prevState,
+    [chatRoomId]: false, // Mark this chat room as read
+  }));
+
+
 
       // After deleting messages, you can proceed to open the chat component
       setShowChatComponent(true);
@@ -247,12 +291,20 @@ const ChatRoom = () => {
 
               </div> */}
 
-<div className='noty'>
+{/* <div className='noty'>
 {chatRoom.messages.some(message => message.sender !== userInfo._id) ? (
                 <FaBell className='fa-bell' />
               ) : null}
 
+</div> */}
+
+
+<div className='noty'>
+{/* {unreadMessages[chatRoom._id] && <FaBell className='fa-bell' />} */}
+{unreadMessages[chatRoom._id] > 0 && <FaBell className='fa-bell' />}
 </div>
+
+
     </div>
     
   ))}
@@ -260,10 +312,16 @@ const ChatRoom = () => {
 
 
 
-{showChatComponent && <ChatComponent chatRoomId={selectedChatRoom}  />}
+{/* {showChatComponent && <ChatComponent chatRoomId={selectedChatRoom}  />} */}
 
 
-
+{showChatComponent && (
+          <ChatComponent
+            chatRoomId={selectedChatRoom}
+            unreadMessages={unreadMessages}
+            setUnreadMessages={setUnreadMessages}
+          />
+        )}
 
 
       </div>
