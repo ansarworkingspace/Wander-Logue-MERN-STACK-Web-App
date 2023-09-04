@@ -129,8 +129,6 @@ import '../css/chatRoom.css';
 import ChatComponent from '../Components/ChatComponent';
 import {toast} from 'react-toastify'
 import { FaBell } from 'react-icons/fa';
-import NotificationBadge from "react-notification-badge";
-import { Effect } from "react-notification-badge";
 import {useSelector} from 'react-redux'
 import io from 'socket.io-client';
 
@@ -151,6 +149,28 @@ const ChatRoom = () => {
 
 
 
+
+
+
+  // Function to update the chat room order based on new messages
+  // const updateChatRoomOrder = () => {
+  //   const updatedChatRooms = [...chatRooms];
+  //   updatedChatRooms.sort((a, b) => {
+  //     const latestMessageA = a.lastMessage ? new Date(a.lastMessage.createdAt) : new Date(0);
+  //     const latestMessageB = b.lastMessage ? new Date(b.lastMessage.createdAt) : new Date(0);
+  //     return latestMessageB - latestMessageA;
+  //   });
+  //   setChatRooms(updatedChatRooms);
+  // };
+
+
+
+
+
+
+
+
+
   async function makeNotification(messageId, newMessageRoomId) {
     try {
       // Send a POST request to update the chat room's notification field
@@ -164,68 +184,36 @@ const ChatRoom = () => {
   
 
 
-
-
-
-
-//----------------------------------------------------------------------------------
-
-  // useEffect(() => {
-  //   socket.on('message received', (newMessageRecived) => {
-      
-  
-  //     // console.log("Received new message IN FREND:", newMessageRecived);
-  //     if (newMessageRecived.sender._id !== userInfo._id) {
-  //       if (!setClickedRoom || setClickedRoom._id !== newMessageRecived.room._id) {
-  //         // Add notification logic here if needed
-  
-  //       setUnreadMessages((prevState) => ({
-  //         ...prevState,
-  //         [newMessageRecived.room._id]: true, // Set to true when a new message is received
-  //       }));
-  
-  //       } else {
-       
-  //         setMessages([...messages, newMessageRecived]);
-        
-  //       }
-  //     }
-  //   },[setClickedRoom]);
-  
-  
-  
-  
-  // socket.on('new message notification', (newMessageRecived) => {
-  
-  
-  //   if ( !setClickedRoom || newMessageRecived.roomId !== setClickedRoom._id && newMessageRecived.senderId !== userInfo._id) {
-  //     // Update your notification state or perform other actions
-  //     console.log('New message notification received:', newMessageRecived);
-  
-  //     // Extract the message ID and room ID from the received message object
-  //     const { _id: messageId, room } = newMessageRecived;
-  //     const roomId = room._id;
-      
-  //     // console.log('messageId:', messageId);
-  //     // console.log('roomId:', roomId);
-  
-  //     // Call makeNotification with the extracted message ID and room ID
-  //     makeNotification(messageId, roomId);
-  //   }
-  // });
-  
-  
-  // });
-
-
-//TESTING
 useEffect(() => {
+
+
+
+//TESTING 
+
+const updateChatRoomOrder = (roomId) => {
+  setChatRooms((prevChatRooms) => {
+    // Create a copy of the chat rooms array
+    const updatedChatRooms = [...prevChatRooms];
+    // Find the index of the chat room with the roomId
+    const roomIndex = updatedChatRooms.findIndex((room) => room._id === roomId);
+    // If the chat room exists, move it to the top
+    if (roomIndex !== -1) {
+      const movedRoom = updatedChatRooms.splice(roomIndex, 1)[0];
+      updatedChatRooms.unshift(movedRoom);
+    }
+    return updatedChatRooms;
+  });
+};
+
+
+
+
+
+
+
+
   socket.on('message received', (newMessageReceived) => {
 
-  // // Destructure the message ID, room ID, and sender ID
-  // const { _id: messageId, room, sender } = newMessageReceived;
-  // const roomId = room._id;
-  // const senderId = sender._id;
 
     if (newMessageReceived.sender._id !== userInfo._id) {
       if (  currentChatRoomId !== newMessageReceived.room._id) {
@@ -237,7 +225,11 @@ useEffect(() => {
       } else if (newMessageReceived.sender._id !== userInfo._id) {
         setMessages([...messages, newMessageReceived]);
       }
+
+      updateChatRoomOrder(newMessageReceived.room._id); 
+
     }
+    
   }, [currentChatRoomId]);
 
   socket.on('new message notification', (newMessageReceived) => {
@@ -250,7 +242,6 @@ useEffect(() => {
       // Update your notification state or perform other actions
       // console.log('New message notification received:', newMessageReceived);
 
-      // // Extract the message ID and room ID from the received message object
       const { _id: messageId, room } = newMessageReceived;
       const roomId = room._id;
 
@@ -281,10 +272,6 @@ useEffect(() => {
 
 
 
-    // Disconnect the socket, leave the user's room, and turn off 'setup' event
-    // socket.off("setup");
-    // socket.disconnect();
-
   };
 }, [chatRooms]);
 
@@ -299,9 +286,10 @@ useEffect(() => {
           withCredentials: true,
         });
   
-        setChatRooms(response.data.chatRooms);
 
- 
+
+
+        setChatRooms(response.data.chatRooms);
       } catch (error) {
         toast.error('Error fetching chat rooms');
       }
@@ -347,10 +335,6 @@ useEffect(() => {
 }, []);
 
 
-// useEffect(() => {
-//   console.log("clicked room:", clickedRoom);
-//   console.log("clicked room id:", clickedRoom._id);
-// }, [clickedRoom]);
 
 
   const handleOpenChat = async (chatRoomId,chatRoom) => {

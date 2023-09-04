@@ -1262,6 +1262,7 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 })
 
 
+
 //orginal
 // const chatRooms = asyncHandler(async(req,res)=>{
 
@@ -1269,7 +1270,10 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 //     const currentUser = req.user._id;
 
 //     // Find chat rooms where the current user is a participant
-//     const chatRooms = await ChatRoom.find({ participants: currentUser });
+//     const chatRooms = await ChatRoom.find({ participants: currentUser }).populate({
+//       path: 'messages',
+//       model: 'ChatMessage', // Specify the model to populate from
+//     });// Populate the messages field
 
 //     const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
 //       const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
@@ -1278,6 +1282,7 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 //       return {
 //         _id: chatRoom._id,
 //         otherParticipant,
+//         messages: chatRoom.messages, // Include the messages field
 //       };
 //     }));
 
@@ -1289,62 +1294,57 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 
 // })
 
-const chatRooms = asyncHandler(async(req,res)=>{
-
+//testing
+const chatRooms = asyncHandler(async (req, res) => {
   try {
     const currentUser = req.user._id;
 
     // Find chat rooms where the current user is a participant
     const chatRooms = await ChatRoom.find({ participants: currentUser }).populate({
       path: 'messages',
-      model: 'ChatMessage', // Specify the model to populate from
-    });// Populate the messages field
+      model: 'ChatMessage',
+    });
 
-    const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
-      const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
-      const otherParticipant = await User.findById(otherParticipantId, 'name profileImage');
+    const chatRoomsData = await Promise.all(
+      chatRooms.map(async (chatRoom) => {
+        const otherParticipantId = chatRoom.participants.find(
+          (participantId) => participantId.toString() !== currentUser.toString()
+        );
+        const otherParticipant = await User.findById(otherParticipantId, 'name profileImage');
 
-      return {
-        _id: chatRoom._id,
-        otherParticipant,
-        messages: chatRoom.messages, // Include the messages field
-      };
-    }));
+        // Find the latest message for the chat room
+        const latestMessage = await ChatMessage.findOne(
+          { room: chatRoom._id },
+          {},
+          { sort: { createdAt: -1 } }
+        ).lean();
+
+        return {
+          _id: chatRoom._id,
+          otherParticipant,
+          messages: chatRoom.messages,
+          lastMessage: latestMessage, // Include the latest message
+        };
+      })
+    );
+
+    // Sort the chat rooms based on the latest message timestamp
+    chatRoomsData.sort((a, b) => {
+      if (a.lastMessage && b.lastMessage) {
+        return b.lastMessage.createdAt - a.lastMessage.createdAt;
+      }
+      return 0;
+    });
 
     res.json({ chatRooms: chatRoomsData });
   } catch (error) {
     console.error('Error fetching chat rooms:', error);
     res.status(500).json({ message: 'Error fetching chat rooms' });
   }
-
-})
-
+});
 
 
 
-// const chatSend = asyncHandler(async (req, res) => {  //orginal
-//   try {
-//     const { content } = req.body;
-//     const chatRoomId = req.params.chatRoomId;
-//     const senderId = req.user._id; // Assuming you have the user's ID from authentication
-
-//     // Create a new chat message
-//     const newChatMessage = new ChatMessage({
-//       room: chatRoomId,
-//       sender: senderId,
-//       content: content
-//     });
-
-//     // Save the message to the database
-//     await newChatMessage.save();
-
-//     // res.status(201).json({ message: 'Message sent successfully' });
-//     res.status(201).json({ newChatMessage });
-//   } catch (error) {
-//     console.error('Error sending message:', error);
-//     res.status(500).json({ message: 'Error sending message' });
-//   }
-// });
 
 const chatSend = asyncHandler(async (req, res) => {
   try {

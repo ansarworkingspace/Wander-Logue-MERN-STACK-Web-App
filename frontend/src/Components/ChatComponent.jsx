@@ -431,6 +431,7 @@ useEffect(() => {
         setMessages([...messages, newMessageRecived]);
       
       }
+      
     }
   },[chatRoomId]);
 
