@@ -155,6 +155,8 @@ import '../css/header.css';
 import { toast } from 'react-toastify';
 
 import io from 'socket.io-client';
+import axios from 'axios';
+
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -168,6 +170,40 @@ const Header = () => {
   const socket = io('http://localhost:4000'); 
   const [currentChatRoomId, setCurrentChatRoomId] = useState(null); // Define currentChatRoomId
   const [socketConnected, setSocketConnected] = useState(false);
+
+
+
+
+
+
+
+
+
+
+//fetch notification status 
+useEffect(() => {
+  // Make an API request to get the chat room's notification status
+  const fetchNotificationStatus = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/users/checkHeadingNotification', {
+        withCredentials: true,
+      });
+
+      const hasUnreadedMessage = response.data; // Assuming the response is a boolean value
+      setHasUnreadMessages(hasUnreadedMessage);
+    } catch (error) {
+      // Handle errors
+    }
+  };
+
+  // Call the function when the ChatRoom component is loaded
+  fetchNotificationStatus();
+}, []);
+
+
+
+
+
 
 
 
@@ -205,8 +241,27 @@ const Header = () => {
         newMessageReceived.sender._id !== userInfo._id
       ) {
         setHasUnreadMessages(true);
+        updateNotificationStatus(newMessageReceived.room._id);
       }
     });
+
+
+
+
+  // Function to update the notification status
+  const updateNotificationStatus = async (roomId) => {
+    
+    try {
+      // Make an API request to update the notification status of the chat room
+      await axios.post(`http://localhost:4000/api/users/updateNotificationStatus/${roomId}`, {
+        userId: userInfo._id, // Include the user's ID in the request body
+      });
+    } catch (error) {
+      // Handle errors
+    }
+  };
+
+
 
     // return () => {
     //   // Clean up socket.io event listeners
@@ -218,8 +273,33 @@ const Header = () => {
 
 
 
+  // const handleCommentIconClick = async () => {
+  //   // Remove the badge when the comment icon is clicked
+  //   setHasUnreadMessages(false);
 
+  //   await axios.post(`http://localhost:4000/api/users/${userInfo._id}`)
 
+  //   // Navigate to the ChatRoom
+  //   navigate('/ChatRoom');
+  // };
+
+  const handleCommentIconClick = async () => {
+    try {
+      // Remove the badge when the comment icon is clicked
+      setHasUnreadMessages(false);
+  
+      // Make an API request to remove notifications for the user's chat rooms
+      await axios.post(`http://localhost:4000/api/users/removeNotifications/${userInfo._id}`);
+  
+      // Navigate to the ChatRoom
+      navigate('/ChatRoom');
+    } catch (error) {
+      // Handle errors
+      console.error('Error removing notifications:', error);
+      // You can add additional error handling logic here if needed
+    }
+  };
+  
 
 
 
@@ -252,10 +332,19 @@ const Header = () => {
 
 
 {userInfo && (
-      <div className="home-icon" onClick={() => navigate('/ChatRoom')}>
+      <div className="home-icon"  onClick={handleCommentIconClick}>
         <Nav.Link  style={{color:"white"}}>
-        <FaComment />
-        {hasUnreadMessages && <h5>new messages</h5>}
+        {/* <FaComment /> */}
+        {/* {hasUnreadMessages && <h5>new messages</h5>} */}
+        
+                            <FaComment />
+                            {hasUnreadMessages && (
+                              <Badge pill bg='danger' className='badge-above'>
+                                New
+                              </Badge>
+                            )}
+                          
+
         </Nav.Link>
       </div>
     )}

@@ -1584,6 +1584,82 @@ const getNotificationStatus = asyncHandler(async (req, res) => {
 
 
 
+// In your backend route handler
+const checkHeadingNotification = asyncHandler(async (req, res) => {
+  try {
+    const currentUserId = req.user._id;
+
+    // Find chat rooms for the current user where notification is true
+    const chatRooms = await ChatRoom.find({
+      participants: currentUserId,
+      notification: true,
+    });
+
+    // Determine if there are any chat rooms with notifications
+    const hasUnreadedMessage = chatRooms.length > 0;
+
+    res.json(hasUnreadedMessage);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+
+const updateNotificationStatus = asyncHandler(async (req, res) => {
+  try {
+    const roomId = req.params.roomId;
+    const currentUserId = req.body.userId;
+
+    // Find the chat room by ID
+    const chatRoom = await ChatRoom.findById(roomId);
+
+    if (!chatRoom) {
+      return res.status(404).json({ message: 'Chat room not found' });
+    }
+
+    // Check if the current user is a participant in the chat room
+    if (chatRoom.participants.includes(currentUserId)) {
+      // Update the notification status to false
+      chatRoom.notification = true;
+      await chatRoom.save();
+      res.json({ message: 'Notification status updated' });
+    } else {
+      res.status(403).json({ message: 'You do not have permission to update notification status for this room' });
+    }
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+
+// Controller to remove notifications for a specific user's chat rooms
+const removeNotifications = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Find all chat rooms where the user is a participant
+    const chatRooms = await ChatRoom.find({ participants: userId });
+
+    // Update the notification status to false in all chat rooms
+    chatRooms.forEach(async (chatRoom) => {
+      chatRoom.notification = false;
+      await chatRoom.save();
+    });
+
+    res.json({ message: 'Notifications removed successfully' });
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 
 export {
@@ -1635,5 +1711,8 @@ export {
     makeNotifi,
     getMessageById,
     deleteMessagesByChatRoom,
-    getNotificationStatus
+    getNotificationStatus,
+    checkHeadingNotification,
+    updateNotificationStatus,
+    removeNotifications
 };

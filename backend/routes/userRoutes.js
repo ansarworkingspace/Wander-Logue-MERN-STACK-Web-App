@@ -4,7 +4,7 @@ import { authUser,
          registerUser,
          logoutUser,
          getUserProfile,
-         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,deleteMessagesByChatRoom,getNotificationStatus,getMessageById,makeNotifi,getChatRoomId,participants,chatMessages,chatRooms,chatSend,createOrGetChatRoom,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
+         updateUserProfile,createBlog,getUserBlogs,allUsersBlogs,removeNotifications,updateNotificationStatus,checkHeadingNotification,deleteMessagesByChatRoom,getNotificationStatus,getMessageById,makeNotifi,getChatRoomId,participants,chatMessages,chatRooms,chatSend,createOrGetChatRoom,postComment,getComments,LikedUsers,reportBlog,getSelectedBanner,getOtherUserFollowingList,getOtherUserFollowersList,followingList,followersList,resendOtp,googleAuth,verifyOTP,getAuthorBlogs,getFollowerFollowingCount,followUser,checkFollowing,unfollowUser,getOneBlog,getAuthorDetailsById,checkBlogLikeStatus,getBlogLikeCount,updateBlog,likeBlog,allUsersBlogsInLadning,deleteSavedBlog,getUserStatus,checkAuth,deleteBlog ,saveBlogToUser,getSavedBlogs,getSavedSingleBlog} from "../controllers/userControllers.js";
 import { protect } from '../middleware/authMiddleware.js';
 import checkUserStatus from '../middleware/checkStatus.js'
 
@@ -95,6 +95,9 @@ router.get('/messages/:messageId', getMessageById);
 router.delete('/deleteMessageId/:chatRoomId', deleteMessagesByChatRoom);
 // Get notification status for all chat rooms
 router.get('/notificationStatus', protect, getNotificationStatus);
+router.get('/checkHeadingNotification',protect,checkHeadingNotification)
+router.post('/updateNotificationStatus/:roomId', updateNotificationStatus);
+router.post('/removeNotifications/:userId',removeNotifications)
 
 
 
