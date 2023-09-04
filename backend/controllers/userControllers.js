@@ -1518,23 +1518,62 @@ const deleteMessagesByChatRoom = async (req, res) => {
 
 
 
-// Get notification status for all chat rooms
+// Get notification status for all chat rooms orginal 
+// const getNotificationStatus = asyncHandler(async (req, res) => {
+//   // Assuming you have the user's ID from the authentication middleware
+//   const userId = req.user._id;
+
+//   try {
+//     // Fetch notification status for all chat rooms where the user is a participant
+//     const chatRooms = await ChatRoom.find({
+//       participants: userId,
+//     });
+
+//     const notificationStatus = {};
+
+//     // Populate notification status for each chat room
+//     chatRooms.forEach((chatRoom) => {
+//       notificationStatus[chatRoom._id] = chatRoom.messages.length > 0; // true if there are messages, false if not
+//     });
+
+//     res.json(notificationStatus);
+//   } catch (error) {
+//     console.error('Error fetching notification status:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
+
 const getNotificationStatus = asyncHandler(async (req, res) => {
-  // Assuming you have the user's ID from the authentication middleware
   const userId = req.user._id;
 
   try {
-    // Fetch notification status for all chat rooms where the user is a participant
     const chatRooms = await ChatRoom.find({
       participants: userId,
     });
 
     const notificationStatus = {};
 
-    // Populate notification status for each chat room
-    chatRooms.forEach((chatRoom) => {
-      notificationStatus[chatRoom._id] = chatRoom.messages.length > 0; // true if there are messages, false if not
-    });
+    // Iterate through each chat room
+    for (const chatRoom of chatRooms) {
+      let hasUnreadMessage = false;
+
+      // Check if the chat room has any messages
+      if (chatRoom.messages.length > 0) {
+        // Find the latest message ID in the chat room
+        const latestMessageId = chatRoom.messages[chatRoom.messages.length - 1];
+
+        // Fetch the latest message details from the ChatMessage collection
+        const latestMessage = await ChatMessage.findById(latestMessageId);
+
+        // Check if the latest message sender is not the current user
+        if (latestMessage && latestMessage.sender.toString() !== userId.toString()) {
+          hasUnreadMessage = true;
+        }
+      }
+
+      notificationStatus[chatRoom._id] = hasUnreadMessage;
+    }
 
     res.json(notificationStatus);
   } catch (error) {
@@ -1542,8 +1581,6 @@ const getNotificationStatus = asyncHandler(async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
-
 
 
 

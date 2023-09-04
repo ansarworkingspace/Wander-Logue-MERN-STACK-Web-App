@@ -128,26 +128,22 @@ socket.to(user._id).emit('new message notification', newMessageRecived);
 
 
 
-
-
-
-
-
-
-
-
-
 socket.on("leaveRoom", ({ room }) => {
   socket.leave(room);
   console.log("leave this room: "+room);
 });
 
 
-socket.off("setup", () => {
-  console.log("USER DISCONNECTED");
-  socket.leave(userData._id);
-});
+// socket.off("setup", () => {
+//   console.log("USER DISCONNECTED");
+//   socket.leave(userData._id);
+// });
 
+
+socket.off("setup", (userId) => {
+  console.log("User disconnected:", userId);
+  // Additional cleanup if needed
+});
 
 
 })

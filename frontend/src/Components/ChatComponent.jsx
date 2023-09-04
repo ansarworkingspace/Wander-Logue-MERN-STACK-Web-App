@@ -306,7 +306,7 @@ const ChatComponent = ({ chatRoomId, unreadMessages, setUnreadMessages }) => {
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
   const [notification, setNotification] = useState([]);
-
+  // const [selectedRoom,setSelectedRoom] = useState(false) 
 
 
 
@@ -332,8 +332,8 @@ const ChatComponent = ({ chatRoomId, unreadMessages, setUnreadMessages }) => {
 
  // Cleanup function to leave the socket room when the component unmounts
  return () => {
-  socket.off("setup");
-  socket.emit("leaveRoom", { room: chatRoomId }); // Emit a leave event
+  socket.off("setup",userInfo._id);
+  // socket.emit("leaveRoom", { room: chatRoomId }); // Emit a leave event
   socket.disconnect(); // Disconnect the socket connection
 };
 
@@ -349,6 +349,7 @@ const ChatComponent = ({ chatRoomId, unreadMessages, setUnreadMessages }) => {
 
 useEffect(() => {
   fetchMessages();
+  
 }, [chatRoomId]);
 
 
@@ -364,26 +365,69 @@ async function makeNotification(messageId, newMessageRoomId) {
 }
 
 
+//ORGINAL CODE FOR REAL TIME CHAT AND NOTIFY
+// useEffect(() => {
+//   socket.on('message received', (newMessageRecived) => {
+//     // console.log("Received new message IN FREND:", newMessageRecived);
+//     if (newMessageRecived.sender._id !== userInfo._id) {
+//       if (!chatRoomId || chatRoomId !== newMessageRecived.room._id) {
+//         // Add notification logic here if needed
+  
+//       setUnreadMessages((prevState) => ({
+//         ...prevState,
+//         [newMessageRecived.room._id]: true, // Set to true when a new message is received
+//       }));
+
+//       } else {
+//       //  console.log(newMessageRecived);
+//         setMessages([...messages, newMessageRecived]);
+      
+//       }
+//     }
+//   },[chatRoomId]);
+
+
+
+
+// socket.on('new message notification', (newMessageRecived) => {
+//   if (newMessageRecived.roomId !== chatRoomId && newMessageRecived.senderId !== userInfo._id) {
+//     // Update your notification state or perform other actions
+//     console.log('New message notification received:', newMessageRecived);
+
+//     // Extract the message ID and room ID from the received message object
+//     const { _id: messageId, room } = newMessageRecived;
+//     const roomId = room._id;
+    
+//     // console.log('messageId:', messageId);
+//     // console.log('roomId:', roomId);
+
+//     // Call makeNotification with the extracted message ID and room ID
+//     makeNotification(messageId, roomId);
+//   }
+// });
+
+
+// });
+
+
+//CHECKING BUG AND FIXING CODE
 
 useEffect(() => {
   socket.on('message received', (newMessageRecived) => {
+    
+
     // console.log("Received new message IN FREND:", newMessageRecived);
     if (newMessageRecived.sender._id !== userInfo._id) {
       if (!chatRoomId || chatRoomId !== newMessageRecived.room._id) {
         // Add notification logic here if needed
   
-        // makeNotification(newMessageRecived._id,newMessageRecived.room._id);
-
-
-      //  // You can update your notification state here as well
-      //  setNotification([...notification, newMessageRecived]); 
       setUnreadMessages((prevState) => ({
         ...prevState,
         [newMessageRecived.room._id]: true, // Set to true when a new message is received
       }));
 
       } else {
-      //  console.log(newMessageRecived);
+     
         setMessages([...messages, newMessageRecived]);
       
       }
@@ -391,20 +435,14 @@ useEffect(() => {
   },[chatRoomId]);
 
 
- // Handle real-time notifications
-//  socket.on('new message notification', (data) => {
-//   if (data.roomId !== chatRoomId && data.senderId !== userInfo._id) {
-//     // Update your notification state or perform other actions
-//     console.log('New message notification received:', data);
-//      // Call makeNotification with the appropriate arguments
-//      makeNotification(data.messageId, data.roomId);
-//   }
-// });
+
 
 socket.on('new message notification', (newMessageRecived) => {
-  if (newMessageRecived.roomId !== chatRoomId && newMessageRecived.senderId !== userInfo._id) {
+
+
+  if ( newMessageRecived.roomId !== chatRoomId && newMessageRecived.senderId !== userInfo._id) {
     // Update your notification state or perform other actions
-    console.log('New message notification received:', newMessageRecived);
+    // console.log('New message notification received:', newMessageRecived);
 
     // Extract the message ID and room ID from the received message object
     const { _id: messageId, room } = newMessageRecived;
@@ -419,13 +457,13 @@ socket.on('new message notification', (newMessageRecived) => {
 });
 
 
-
-
 });
 
 
 
 
+
+//------------------------------------------
 
   const fetchMessages = async () => {
     try {
@@ -435,6 +473,8 @@ socket.on('new message notification', (newMessageRecived) => {
           withCredentials: true,
         }
       );
+
+      // console.log(response.data);
 
       setMessages(response.data.messages);
       socket.emit('join chat', chatRoomId);

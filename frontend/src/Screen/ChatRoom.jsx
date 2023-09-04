@@ -132,7 +132,7 @@ import { FaBell } from 'react-icons/fa';
 import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 import {useSelector} from 'react-redux'
-
+import io from 'socket.io-client';
 
 
 const ChatRoom = () => {
@@ -142,6 +142,153 @@ const ChatRoom = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [unreadMessages, setUnreadMessages] = useState({});
   const [notificateStatus, setNotificateStatus] = useState({}); // State to store notification status
+  const socket = io('http://localhost:4000'); 
+
+  const [socketConnected, setSocketConnected] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [currentChatRoomId, setCurrentChatRoomId] = useState(null);
+
+
+
+  async function makeNotification(messageId, newMessageRoomId) {
+    try {
+      // Send a POST request to update the chat room's notification field
+      const response = await axios.post(`http://localhost:4000/api/users/updateNoti/${newMessageRoomId}`, { messageId });
+      // You can handle the response here if needed
+      // console.log('Notification response:', response.data);
+    } catch (error) {
+      console.error('Error making notification request:', error);
+    }
+  }
+  
+
+
+
+
+
+
+//----------------------------------------------------------------------------------
+
+  // useEffect(() => {
+  //   socket.on('message received', (newMessageRecived) => {
+      
+  
+  //     // console.log("Received new message IN FREND:", newMessageRecived);
+  //     if (newMessageRecived.sender._id !== userInfo._id) {
+  //       if (!setClickedRoom || setClickedRoom._id !== newMessageRecived.room._id) {
+  //         // Add notification logic here if needed
+  
+  //       setUnreadMessages((prevState) => ({
+  //         ...prevState,
+  //         [newMessageRecived.room._id]: true, // Set to true when a new message is received
+  //       }));
+  
+  //       } else {
+       
+  //         setMessages([...messages, newMessageRecived]);
+        
+  //       }
+  //     }
+  //   },[setClickedRoom]);
+  
+  
+  
+  
+  // socket.on('new message notification', (newMessageRecived) => {
+  
+  
+  //   if ( !setClickedRoom || newMessageRecived.roomId !== setClickedRoom._id && newMessageRecived.senderId !== userInfo._id) {
+  //     // Update your notification state or perform other actions
+  //     console.log('New message notification received:', newMessageRecived);
+  
+  //     // Extract the message ID and room ID from the received message object
+  //     const { _id: messageId, room } = newMessageRecived;
+  //     const roomId = room._id;
+      
+  //     // console.log('messageId:', messageId);
+  //     // console.log('roomId:', roomId);
+  
+  //     // Call makeNotification with the extracted message ID and room ID
+  //     makeNotification(messageId, roomId);
+  //   }
+  // });
+  
+  
+  // });
+
+
+//TESTING
+useEffect(() => {
+  socket.on('message received', (newMessageReceived) => {
+
+  // // Destructure the message ID, room ID, and sender ID
+  // const { _id: messageId, room, sender } = newMessageReceived;
+  // const roomId = room._id;
+  // const senderId = sender._id;
+
+    if (newMessageReceived.sender._id !== userInfo._id) {
+      if (  currentChatRoomId !== newMessageReceived.room._id) {
+        // Add notification logic here if needed
+        setUnreadMessages((prevState) => ({
+          ...prevState,
+          [newMessageReceived.room._id]: true, // Set to true when a new message is received
+        }));
+      } else if (newMessageReceived.sender._id !== userInfo._id) {
+        setMessages([...messages, newMessageReceived]);
+      }
+    }
+  }, [currentChatRoomId]);
+
+  socket.on('new message notification', (newMessageReceived) => {
+
+
+    if (
+      currentChatRoomId !== newMessageReceived.room._id &&
+      newMessageReceived.sender._id !== userInfo._id
+    ) {
+      // Update your notification state or perform other actions
+      // console.log('New message notification received:', newMessageReceived);
+
+      // // Extract the message ID and room ID from the received message object
+      const { _id: messageId, room } = newMessageReceived;
+      const roomId = room._id;
+
+      // Call makeNotification with the extracted message ID and room ID
+      makeNotification(messageId, roomId);
+    }
+  });
+}, [currentChatRoomId]);
+
+
+//-------------------------------------------------------------------------------------------------
+
+
+//PAGE REFRESH USER EXIT FROM ALL CHAT ROOM 
+useEffect(() => {
+  socket.emit("setup",userInfo)
+  socket.on("connected",()=>setSocketConnected(true))
+
+  return () => {
+    if (chatRooms.length > 0) {
+      
+      chatRooms.forEach((chatRoom) => {
+        // console.log(chatRoom._id);
+        // Emit a leaveRoom event when the component unmounts
+        socket.emit('leaveRoom', { room: chatRoom._id });
+      });
+    }
+
+
+
+    // Disconnect the socket, leave the user's room, and turn off 'setup' event
+    // socket.off("setup");
+    // socket.disconnect();
+
+  };
+}, [chatRooms]);
+
+
 
 
 
@@ -151,14 +298,17 @@ const ChatRoom = () => {
         const response = await axios.get('http://localhost:4000/api/users/chatRooms', {
           withCredentials: true,
         });
-  //  console.log(response.data.chatRooms);
+  
         setChatRooms(response.data.chatRooms);
+
+ 
       } catch (error) {
         toast.error('Error fetching chat rooms');
       }
     }
 
     fetchChatRooms();
+    
   }, []);
 
 
@@ -197,19 +347,17 @@ useEffect(() => {
 }, []);
 
 
+// useEffect(() => {
+//   console.log("clicked room:", clickedRoom);
+//   console.log("clicked room id:", clickedRoom._id);
+// }, [clickedRoom]);
 
 
-
-  // // Function to open the ChatComponent with a specific chat room
-  // const handleOpenChat = (chatRoomId) => {
-  //   setSelectedChatRoom(chatRoomId);
-  //   setShowChatComponent(true);
-
- 
-  // };
-
-  const handleOpenChat = async (chatRoomId) => {
+  const handleOpenChat = async (chatRoomId,chatRoom) => {
     setSelectedChatRoom(chatRoomId);
+
+    setCurrentChatRoomId(chatRoomId);
+
 
     // Make an API request to delete messages by chat room ID
     try {
@@ -254,6 +402,7 @@ useEffect(() => {
 
 <div className='chatHistoryContainer' style={{ maxHeight: "400px", overflowY: "scroll" }}>
   {chatRooms.map(chatRoom => (
+  
     <div className='followingBox' key={chatRoom._id}>
       <div className='imageONbox'>
         {chatRoom.otherParticipant.profileImage ? (
@@ -277,7 +426,7 @@ useEffect(() => {
         <Button
           variant="danger"
           className="unfollow-button"
-          onClick={() => handleOpenChat(chatRoom._id)}
+          onClick={() => handleOpenChat(chatRoom._id,chatRoom)}
           style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem" }}
         >
           Chat
@@ -285,22 +434,10 @@ useEffect(() => {
         
       </div>
       
- {/* <div className='noty'>
- {unreadMessages[chatRoom._id] && <FaBell className='fa-bell' />}
- <FaBell className='fa-bell' /> 
 
-              </div> */}
-
-{/* <div className='noty'>
-{chatRoom.messages.some(message => message.sender !== userInfo._id) ? (
-                <FaBell className='fa-bell' />
-              ) : null}
-
-</div> */}
 
 
 <div className='noty'>
-{/* {unreadMessages[chatRoom._id] && <FaBell className='fa-bell' />} */}
 {unreadMessages[chatRoom._id] > 0 && <FaBell className='fa-bell' />}
 </div>
 
@@ -311,8 +448,6 @@ useEffect(() => {
 </div>
 
 
-
-{/* {showChatComponent && <ChatComponent chatRoomId={selectedChatRoom}  />} */}
 
 
 {showChatComponent && (
