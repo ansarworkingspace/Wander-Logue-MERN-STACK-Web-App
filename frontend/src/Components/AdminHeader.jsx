@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <header>
-    <Navbar style={{ backgroundColor: '#181a1b' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
+    <Navbar style={{ backgroundColor: '#055049' }} variant='dark' expand='lg' collapseOnSelect className='custom-navbar'>
       <Container>
         <LinkContainer to='/'>
           <Navbar.Brand className='navbar-brand-custom'>WANDER<span style={{color:"#e8f32b"}}>LOGUE</span></Navbar.Brand>

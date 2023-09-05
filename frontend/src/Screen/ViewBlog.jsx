@@ -276,7 +276,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import CommentComponent from '../Components/CommentComponent';
-
+import ShareBlog from '../Components/ShareBlog'
 
 
 
@@ -286,16 +286,16 @@ const ViewBlog = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const currentUserId =userInfo._id
   const navigate = useNavigate() 
-
-
-
-
-
   const { blogId } = useParams();
   const [selectedBlog, setSelectedBlog] = useState(null); // State to hold the selected blog details
   const [liked, setLiked] = useState(false); // State to manage like/unlike
   const [likeCount, setLikeCount] = useState(0);
   const [showComment, setShowComment] = useState(false); 
+  const [isShareBlogVisible, setIsShareBlogVisible] = useState(false);
+
+
+
+
 
 
   const handleBookmarkClick = async () => {
@@ -386,15 +386,25 @@ const ViewBlog = () => {
     setShowComment(!showComment);
   };
 
-
-
+//showing sharing component
+  const handleShareButtonClick = () => {
+    setIsShareBlogVisible(!isShareBlogVisible);
+  };
 
 
   return (
     <div className="viewBlog-container">
+
+    
+        <button className="logout-button" onClick={handleShareButtonClick}>Share</button>
+ 
+
+
+          {selectedBlog.author._id !== currentUserId && (
 <Link to={`/reportBlog/${selectedBlog._id}`}>
         <button className="profile-edit-button" >Report Blog</button>
       </Link>
+          )}
       <div className='titleView'>
       <h2>{selectedBlog.title}</h2>
       </div>
@@ -432,6 +442,10 @@ const ViewBlog = () => {
       <p>Created on: {new Date(selectedBlog.createdAt).toLocaleDateString()}</p>
       </div>
 
+      {/* {isShareBlogVisible && <ShareBlog />} */}
+
+      {isShareBlogVisible && <ShareBlog blogId={selectedBlog._id} title={selectedBlog.title} />}
+
       <div className='proLine'></div>
 
       <div className='actionDetails'>
@@ -462,7 +476,7 @@ const ViewBlog = () => {
         </div>
       </div>
          <Link to={`/LikeUsers/${selectedBlog._id}`} style={{ textDecoration: 'none' }}>
-<div className='likedText' style={{marginRight:"28rem"}}><h4 style={{fontFamily:"Sora",fontSize:"0.7rem",color:'white'}}>( liked users )</h4></div> 
+<div className='likedText' style={{marginRight:"33rem"}}><h4 style={{fontFamily:"Sora",fontSize:"0.7rem",color:'white'}}>( liked users )</h4></div> 
          </Link>
    
       <div className='proLine'></div>

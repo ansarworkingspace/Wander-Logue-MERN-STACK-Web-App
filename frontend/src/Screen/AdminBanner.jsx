@@ -290,7 +290,7 @@ const handleSelectBanner = async (bannerId) => {
               <div className='nameOfBanner'></div>
 
               <div className='bannerUse'>
-                <Button variant="primary" className="unfollow-button" onClick={() => handleSelectBanner(banner._id)} >Select</Button>
+                <Button  style={{backgroundColor:"#149c64",border:"none"}} variant="primary" className="unfollow-button" onClick={() => handleSelectBanner(banner._id)} >Select</Button>
               </div>
               <div className='bannerDel'>
                 <Button variant="danger" className="unfollow-button" onClick={() => handleDeleteBanner(banner._id)}>Delete</Button>

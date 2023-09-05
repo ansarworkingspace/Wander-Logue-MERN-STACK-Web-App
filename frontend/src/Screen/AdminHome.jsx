@@ -81,7 +81,7 @@ const AdminHomeScreen = () => {
     <div className="viewAllUsers-container">
 
       <div className='titleViewAdmin'>
-      <h1>User Data</h1>
+      <h1 style={{color:"rgb(5, 80, 73)"}}>User Data</h1>
       </div>
       
       

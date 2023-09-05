@@ -151,4 +151,25 @@
   font-family: "Sora";
 }
 
+.shareBlog{
+  width: 50%;
+  height: 8rem;
+  background-color: #C8E4B2;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  font-family: 'Phudu';
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.shareButtons{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  color: rgb(5, 80, 73);
+  font-size: 1.1rem;
+}
+
   /* style={{fontSize:"0.7rem",color:"#807474",marginLeft:"1rem",cursor:"pointer"}} */
