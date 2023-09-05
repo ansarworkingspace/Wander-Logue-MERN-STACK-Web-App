@@ -147,8 +147,6 @@ const router = createBrowserRouter(
    
 
       <Route path='/landing'  element={<LandingPage />} />
-
-
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} /> 
       <Route path="/allBlogs/:blogId" element={<ViewBlog />} />

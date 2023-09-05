@@ -171,17 +171,38 @@ const Header = () => {
   const [currentChatRoomId, setCurrentChatRoomId] = useState(null); // Define currentChatRoomId
   const [socketConnected, setSocketConnected] = useState(false);
 
+  
 
 
 
+//fetch notification status 
+// useEffect(() => {
+//   // Make an API request to get the chat room's notification status
+//   const fetchNotificationStatus = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:4000/api/users/checkHeadingNotification', {
+//         withCredentials: true,
+//       });
 
+//       const hasUnreadedMessage = response.data; // Assuming the response is a boolean value
+    
+//       setHasUnreadMessages(hasUnreadedMessag);
+//       console.log("Updated hasUnreadMessages:", hasUnreadedMessage);
+//     } catch (error) {
+//       // Handle errors
+//     }
+//   };
 
+//   // Call the function when the ChatRoom component is loaded
+//   fetchNotificationStatus();
+// }, []);
 
 
 
 
 //fetch notification status 
 useEffect(() => {
+  if (userInfo) {
   // Make an API request to get the chat room's notification status
   const fetchNotificationStatus = async () => {
     try {
@@ -190,7 +211,9 @@ useEffect(() => {
       });
 
       const hasUnreadedMessage = response.data; // Assuming the response is a boolean value
+    
       setHasUnreadMessages(hasUnreadedMessage);
+      console.log("Updated hasUnreadMessages:", hasUnreadedMessage);
     } catch (error) {
       // Handle errors
     }
@@ -198,8 +221,8 @@ useEffect(() => {
 
   // Call the function when the ChatRoom component is loaded
   fetchNotificationStatus();
-}, []);
-
+}
+}, [userInfo]);
 
 
 
@@ -208,29 +231,22 @@ useEffect(() => {
 
 
   useEffect(()=>{
- 
+    if (userInfo) {
     socket.emit("setup",userInfo)
     socket.on("connected",()=>setSocketConnected(true))
-
-
-
-//  // Cleanup function to leave the socket room when the component unmounts
-//  return () => {
-//   socket.off("setup",userInfo._id);
-//   // socket.emit("leaveRoom", { room: chatRoomId }); // Emit a leave event
-//   socket.disconnect(); // Disconnect the socket connection
-// };
-
- },[])
+    }
+ },[userInfo])
  
 
 
 
   useEffect(() => {
+    if (userInfo) {
     // Listen for message events and update hasUnreadMessages
     socket.on('message received', (newMessageReceived) => {
       if (newMessageReceived.sender._id !== userInfo._id) {
         setHasUnreadMessages(true);
+        
       }
     });
     
@@ -241,20 +257,24 @@ useEffect(() => {
         newMessageReceived.sender._id !== userInfo._id
       ) {
         setHasUnreadMessages(true);
-        updateNotificationStatus(newMessageReceived.room._id);
+        const senderId = newMessageReceived.sender._id;
+        updateNotificationStatus(newMessageReceived.room._id,senderId);
       }
+      
     });
 
 
 
 
   // Function to update the notification status
-  const updateNotificationStatus = async (roomId) => {
+  const updateNotificationStatus = async (roomId,senderId) => {
     
     try {
       // Make an API request to update the notification status of the chat room
       await axios.post(`http://localhost:4000/api/users/updateNotificationStatus/${roomId}`, {
         userId: userInfo._id, // Include the user's ID in the request body
+        senderId: senderId,
+     
       });
     } catch (error) {
       // Handle errors
@@ -262,13 +282,8 @@ useEffect(() => {
   };
 
 
-
-    // return () => {
-    //   // Clean up socket.io event listeners
-    //   socket.off('message received');
-    //   socket.off('new message notification');
-    // };
-  }, [userInfo._id]);
+    }
+  }, [userInfo]);
 
 
 
