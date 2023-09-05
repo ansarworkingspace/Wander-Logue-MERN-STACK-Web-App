@@ -369,6 +369,69 @@ const deleteBlog = async (req, res) => {
 
 
 
+const countOfTotalUsers = async (req, res) => {
+  try {
+    // Use the User model to query the total count of users in your database
+    const totalUsersCount = await user.countDocuments();
+// console.log("const :"+totalUsersCount);
+    // Send the total users count as JSON response
+    res.json({ totalUsersCount });
+  } catch (error) {
+    console.error('Error fetching total users count:', error);
+    res.status(500).json({ error: 'Error fetching total users count' });
+  }
+};
+
+
+
+
+// Controller function to fetch the total count of blogs
+const countOfTotalBlogs = async (req, res) => {
+  try {
+    // Use the Blog model to query the total count of blogs in your database
+    const totalBlogsCount = await Blogs.countDocuments();
+
+    // Send the total blogs count as JSON response
+    res.json({ totalBlogsCount });
+  } catch (error) {
+    console.error('Error fetching total blogs count:', error);
+    res.status(500).json({ error: 'Error fetching total blogs count' });
+  }
+};
+
+
+
+
+
+const topUsersWithMostFollowers = async (req, res) => {
+  try {
+    // Use the User model to aggregate the top 3 users with the most followers
+    const topUsers = await user.aggregate([
+      {
+        $project: {
+          name: 1,
+          followersCount: { $size: '$followers' },
+        },
+      },
+      {
+        $sort: { followersCount: -1 },
+      },
+      {
+        $limit: 3,
+      },
+    ]);
+
+    // Send the top users as JSON response
+    res.json(topUsers);
+  } catch (error) {
+    console.error('Error fetching top users with most followers:', error);
+    res.status(500).json({ error: 'Error fetching top users with most followers' });
+  }
+};
+
+
+
+
 
   export {
     authAdmin,
@@ -386,7 +449,10 @@ const deleteBlog = async (req, res) => {
     deleteBanner,
     selectBanner,
     getReportedBlogs,
-    deleteBlog
+    deleteBlog,
+    countOfTotalUsers,
+    countOfTotalBlogs,
+    topUsersWithMostFollowers
   };
   
 
