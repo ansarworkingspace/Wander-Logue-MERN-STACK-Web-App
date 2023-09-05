@@ -135,7 +135,7 @@ import AdminReportList from './Screen/AdminReportList.jsx'
 import AllFollowing from './Screen/AllFollowing.jsx'
 import ChatRoom from './Screen/ChatRoom.jsx'
 import ChatRoomWithDirect from './Screen/ChatRoomWithDirect.jsx'
-
+import AdminChart from './Screen/AdminChart.jsx';
 
 
 
@@ -183,6 +183,7 @@ const router = createBrowserRouter(
       <Route path="/admin/viewBlogAdmin/:blogId" element={<ViewBlogAdmin />} />
       <Route path="/admin/adminBanner" element={<AdminBanner />} />
       <Route path="/admin/adminReportList" element={<AdminReportList />} />
+      <Route path="/admin/adminChart" element={<AdminChart />} />
 </Route>
      
       
