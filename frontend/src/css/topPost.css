@@ -1,0 +1,57 @@
+/* .topPost{
+    width: 100%;
+    height: 22rem;
+    background-color: #C8E4B2;
+    border-radius: 2rem;
+
+} */
+
+
+/* topPost.css */
+/* topPost.css */
+
+.topPost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%; /* Set the width to 100% */
+    overflow: hidden; /* Hide overflow to prevent horizontal scrolling */
+  }
+  
+  .card-container {
+    display: flex;
+    overflow: hidden;
+    margin-top: 1rem;
+    animation: slideLeft 30s linear infinite;
+  }
+  
+  .card {
+    width: 200px;
+    height: 300px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    animation: slideLeft 10s linear infinite;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .card:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .paused {
+    animation-play-state: paused;
+  }
+  

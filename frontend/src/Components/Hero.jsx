@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import { Container, Card, Button } from 'react-bootstrap';
 import '../css/landingAFL.css';
+import TopPost from './TopPost';
+
+
 
 const Hero = () => {
   const [blogs, setBlogs] = useState([]);
@@ -31,7 +34,47 @@ const Hero = () => {
     };
 
     fetchBlogs();
+  
   }, []);
+
+
+
+
+
+
+
+  const handleScroll = () => {
+    const blogContainer = document.querySelector('.allPostLanding');
+    if (blogContainer) {
+      const scrollY = window.scrollY;
+      const blogElements = document.querySelectorAll('.eachPost');
+
+      // Check each blog element's position and apply the fade-out class if it's above the viewport
+      blogElements.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top + scrollY;
+        if (elementTop < scrollY) {
+          element.classList.add('fade-out');
+        } else {
+          element.classList.remove('fade-out');
+        }
+      });
+    }
+  };
+
+
+ // Add an event listener to handle scrolling
+ useEffect(() => {
+  window.addEventListener('scroll', handleScroll);
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
+
+
+
+
+
+
 
 
 
@@ -65,15 +108,11 @@ const Hero = () => {
     <p style={{ color: "white", fontFamily: "Sora", marginTop: "2rem" }}>No blogs found.</p>
   ) : (
     filteredBlogs.map((blog) => (
-      <div className='eachPost' style={{backgroundColor:"#C8E4B2",border:"none"}} key={blog._id}>
+      <div className='eachPost fade-in' style={{backgroundColor:"#C8E4B2",border:"none"}} key={blog._id}>
         <div className='postImage' style={{backgroundColor:"#181a1b"}} >
           {/* Display blog image here */}
           {blog.images.length > 0 && (
-            // <Image
-            //   src={`http://localhost:4000/api/users/${blog.images[0]}`}
-            //   alt='Blog'
-            //   className='postImageOndiv'
-            // />
+            
 
             getFileExtension(blog.images[0]) === 'mp4' ? (
               <video
@@ -124,6 +163,10 @@ const Hero = () => {
       <div className='proLine'></div>
 
 
+{/* <TopPost/> */}
+
+
+      {/* <div className='proLine'></div> */}
 
 <div className='allPostLanding'>
         {blogItems}
