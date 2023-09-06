@@ -1776,6 +1776,24 @@ const removeNotifications = asyncHandler(async (req, res) => {
 
 
 
+const topThreePost = asyncHandler(async (req, res) => {
+  try {
+    // Find the top 3 most liked blogs, sorted in descending order by the number of likes
+    const topBlogs = await Blog.find()
+      .sort({ likes: -1 })
+      .limit(3)
+      .select('_id images title')
+      .lean(); // Use lean() to convert Mongoose document to plain JavaScript object
+
+    res.status(200).json(topBlogs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+
 
 export {
     authUser,
@@ -1829,5 +1847,6 @@ export {
     getNotificationStatus,
     checkHeadingNotification,
     updateNotificationStatus,
-    removeNotifications
+    removeNotifications,
+    topThreePost
 };

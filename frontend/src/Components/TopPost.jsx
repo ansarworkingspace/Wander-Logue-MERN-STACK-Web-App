@@ -33,43 +33,38 @@
 
 // export default TopPost
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/topPost.css';
+import axios from 'axios';
+import { Image } from 'react-bootstrap';
 
 const TopPost = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [topBlogs, setTopBlogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const toggleHover = () => {
-    setIsHovered(!isHovered);
-  };
+  useEffect(() => {
+    const fetchTopBlogs = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/users/topThreepost');
+        setTopBlogs(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchTopBlogs();
+  }, []);
 
   return (
     <div className='topPost'>
-      <div className={`card-container ${isHovered ? 'paused' : ''}`}>
-        <div className={`card ${isHovered ? 'paused' : ''}`} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
-          <div className='image'></div>
-          <div className='description'>
-            <h3>Card Title 1</h3>
-            <p>This is a card description.</p>
-          </div>
+   
+   {topBlogs.map((blog) => (
+        <div className='topPostCard' key={blog._id} style={{ backgroundImage: `url(http://localhost:4000/api/users/${blog.images[0]})` }}>
+        
         </div>
-
-        <div className={`card ${isHovered ? 'paused' : ''}`} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
-          <div className='image'></div>
-          <div className='description'>
-            <h3>Card Title 2</h3>
-            <p>This is a card description.</p>
-          </div>
-        </div>
-
-        <div className={`card ${isHovered ? 'paused' : ''}`} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
-          <div className='image'></div>
-          <div className='description'>
-            <h3>Card Title 3</h3>
-            <p>This is a card description.</p>
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
