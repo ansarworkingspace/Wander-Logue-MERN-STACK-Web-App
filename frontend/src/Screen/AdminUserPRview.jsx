@@ -89,6 +89,32 @@ const AdminUserPRview = () => {
   const { adminInfo } = useSelector((state) => state.adminAuth);
   const dispatch = useDispatch();
   const [logoutApi] = useAdminLogoutMutation();
+
+  const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
+
+
+
+
+
+  // useEffect(() => {
+  //   // Fetch follower and following counts
+  //   axios
+  //     .get(`http://localhost:4000/api/admin/followerFollowingCount/${userDetails._id}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then(response => {
+  //       setFollowerCount(response.data.followerCount);
+  //       setFollowingCount(response.data.followingCount);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching follower and following counts:', error);
+  //     });
+
+  //   // ... other useEffect dependencies ...
+  // }, [userId]);
+
+
  
   useEffect(() => {
     const adminCheckAuth = async () => {
@@ -115,31 +141,6 @@ const AdminUserPRview = () => {
 
 
 
-  // useEffect(() => {
-  //   const userEmail = new URLSearchParams(location.search).get('email');
-
-  //   // Fetch user's details
-  //   fetch(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`)
-
-  //     .then((response) => response.json())
-  //     .then((userData) => {
-  //       setUserDetails(userData);
-
-  //       // Fetch user's blogs using the same email
-  //       axios
-  //         .get(`http://localhost:4000/api/admin/allBlogs?email=${userEmail}`)
-          
-  //         .then((response) => {
-  //           setUserBlogs(response.data);
-  //         })
-  //         .catch((error) => {
-  //           console.error('Error fetching blogs:', error);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching user details:', error);
-  //     });
-  // }, [location.search]);
 
 //passing admin jwt
   useEffect(() => {
@@ -202,16 +203,16 @@ const AdminUserPRview = () => {
 
           <div className="profile-buttons">
             <div className="count-above-btn">
-              <div className="profile-count">145k</div>
+              <div className="profile-count">{userDetails.followersCount}</div>
               <button className="follofollowingbtn">Followers</button>
             </div>
             <div className="count-above-btn">
-              <div className="profile-count">1016</div>
+              <div className="profile-count">{userDetails.followingCount}</div>
               <button className="follofollowingbtn">Following</button>
             </div>
           </div>
 
-          <div className='showcase'>
+          {/* <div className='showcase'>
             <div className='icon'>
               <FontAwesomeIcon icon={faPen} size='lg' className='pro' />
               <span className='icon-text'>Pen</span>
@@ -228,7 +229,7 @@ const AdminUserPRview = () => {
               <FontAwesomeIcon icon={faComment} size='lg' className='pro' />
               <span className='icon-text'>Chat</span>
             </div>
-          </div>
+          </div> */}
           <div className='proLine'></div>
 
           <h4 className='allpostText'>Your Tales</h4>

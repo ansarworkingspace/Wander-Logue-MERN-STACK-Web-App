@@ -88,12 +88,21 @@ const getAllUsers = asyncHandler(async (req,res) => {
     const foundUser = await user.findOne({ email });
   
     if (foundUser) {
+
+      const followersCount = foundUser.followers.length;
+      const followingCount = foundUser.following.length;
+
+
       res.status(200).json({
         _id: foundUser._id,
         name: foundUser.name,
         email: foundUser.email,
-        profileImage:foundUser.profileImage
-        // Include other user details as needed
+        profileImage:foundUser.profileImage,
+
+
+        followersCount,
+        followingCount,
+       
       });
     } else {
       res.status(404);
