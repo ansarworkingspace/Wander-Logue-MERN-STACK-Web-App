@@ -432,6 +432,29 @@ const topUsersWithMostFollowers = async (req, res) => {
 
 
 
+// const checkActiveTrue = asyncHandler(async(req,res)=>{
+//   //please find selected true banner id 
+// })
+
+
+const checkActiveTrue = asyncHandler(async (req, res) => {
+  try {
+    const selectedBanner = await Banner.findOne({ selected: true });
+    
+    if (!selectedBanner) {
+      return res.status(404).json({ message: 'No banner is currently selected.' });
+    }
+
+    res.json({ bannerId: selectedBanner._id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+
 
   export {
     authAdmin,
@@ -452,7 +475,8 @@ const topUsersWithMostFollowers = async (req, res) => {
     deleteBlog,
     countOfTotalUsers,
     countOfTotalBlogs,
-    topUsersWithMostFollowers
+    topUsersWithMostFollowers,
+    checkActiveTrue
   };
   
 
