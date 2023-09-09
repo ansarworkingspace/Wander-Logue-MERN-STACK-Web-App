@@ -249,6 +249,7 @@ import { Button, Image } from 'react-bootstrap';
 import { useState, useRef,useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 
 
@@ -349,6 +350,34 @@ const [banner, setBanner] = useState(null);
 
 
 
+//orginal
+  // const handleDeleteBanner = async (bannerId) => {
+  //   try {
+  //     const token = document.cookie.replace(
+  //       /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
+  //       '$1'
+  //     );
+
+  //     await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       withCredentials: true,
+  //     });
+
+  //     toast.success('Banner deleted successfully.');
+  //     // Fetch banners again to update the list
+  //     const response = await axios.get('http://localhost:4000/api/admin/banners');
+  //     setBanners(response.data);
+  //   } catch (error) {
+  //     toast.error('Error deleting banner.');
+  //   }
+  // };
+  
+
+
+
+
 
   const handleDeleteBanner = async (bannerId) => {
     try {
@@ -356,23 +385,38 @@ const [banner, setBanner] = useState(null);
         /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
         '$1'
       );
-
-      await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
+  
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       });
-
-      toast.success('Banner deleted successfully.');
-      // Fetch banners again to update the list
-      const response = await axios.get('http://localhost:4000/api/admin/banners');
-      setBanners(response.data);
+  
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
+  
+        toast.success('Banner deleted successfully.');
+        // Fetch banners again to update the list
+        const response = await axios.get('http://localhost:4000/api/admin/banners');
+        setBanners(response.data);
+  
+        Swal.fire('Deleted!', 'The banner has been deleted.', 'success');
+      }
     } catch (error) {
       toast.error('Error deleting banner.');
     }
   };
-  
+
+
 
 
 

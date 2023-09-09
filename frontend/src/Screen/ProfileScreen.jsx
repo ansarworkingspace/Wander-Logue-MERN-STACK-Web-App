@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import {toast} from 'react-toastify'
 
+import Swal from 'sweetalert2';
 
 
 
@@ -122,24 +123,58 @@ useEffect(() => {
 
 
 
+//orginal handle of delete
+  // const handleDeleteBlog = async (blogId) => {
+  //   const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
+
+  //   if (!shouldDelete) {
+  //     return;
+  //   }
+
+  //   try {
+  //     await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`, {
+  //       withCredentials: true,
+  //     });
+  //     // Remove the deleted blog from the local state
+  //     setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
+  //   } catch (error) {
+  //     toast.error('Error deleting blog');
+  //   }
+  // };
+
+
+
 
   const handleDeleteBlog = async (blogId) => {
-    const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
-
-    if (!shouldDelete) {
-      return;
-    }
-
     try {
-      await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`, {
-        withCredentials: true,
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       });
-      // Remove the deleted blog from the local state
-      setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
+  
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`, {
+          withCredentials: true,
+        });
+        // Remove the deleted blog from the local state
+        setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
+  
+        Swal.fire('Deleted!', 'Your blog has been deleted.', 'success');
+      }
     } catch (error) {
       toast.error('Error deleting blog');
     }
   };
+  
+
+
+
+
 
 
 
