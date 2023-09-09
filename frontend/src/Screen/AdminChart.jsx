@@ -223,6 +223,7 @@ const AdminChart = () => {
   const [activeUsersCount, setActiveUsersCount] = useState(null);
   const [activePostsCount, setActivePostsCount] = useState(null);
   const [topUsers, setTopUsers] = useState([]);
+  const [topLikedBlogs, setTopLikedBlogs] = useState([]);
 
 
 
@@ -269,6 +270,16 @@ useEffect(() => {
 
 
 
+  const fetchTopLikedBlogs = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/admin/topLikedBlogs');
+      setTopLikedBlogs(response.data);
+      
+    } catch (error) {
+      console.error('Error fetching top liked blogs:', error);
+      toast.error('Error fetching top liked blogs');
+    }
+  };
 
 
 
@@ -276,6 +287,7 @@ useEffect(() => {
   fetchTotalUsersCount();
   fetchTotalBlogsCount();
   fetchTopUsersWithMostFollowers();
+  fetchTopLikedBlogs();
 }, []);
 
 
@@ -336,6 +348,25 @@ useEffect(() => {
           </div>
         ))}
       </div>
+
+      <div className='proLine'></div>
+      <div className="topHomeLanding">
+        <h3>Top three blogs</h3>
+      </div>
+
+      <div className="topUserschart">
+  {topLikedBlogs.map((blog, index) => (
+    <div className="bar" key={blog._id}>
+      <div className="bar-label">Top {index + 1}</div>
+      <div className="bar-graph">
+        <div className="bar-fill" style={{ height: index === 0 ? '10%' : index === 1 ? '39%' : '65%' }}></div>
+        <h5 style={{ fontSize: "0.8rem", marginTop: "3rem", color: "rgb(5, 80, 73)", marginLeft: "-0.2rem" }}>{blog.likes.length} Likes </h5>
+      </div>
+      <h5  style={{ fontSize: "0.8rem", marginTop: "3rem", color: "rgb(255 255 255)", marginLeft: "-0.2rem" }}>{blog.title}</h5>
+    </div>
+  ))}
+</div>
+
 
 
     </div>

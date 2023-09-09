@@ -1,5 +1,5 @@
 import express from "express";
-import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,uploadBanner,checkActiveTrue,topUsersWithMostFollowers,deleteBlog,countOfTotalBlogs,countOfTotalUsers,getReportedBlogs,selectBanner,deleteBanner,getBanners,getUserByEmail,toggleBlockUser,getBlockedUsers,allUsersBlogs,getOneBlogOfUser,adminCheckAuth } from '../controllers/adminController.js'
+import {authAdmin,getAllUsers,logoutAdmin,registerAdmin,uploadBanner,getTopLikedBlogs,checkActiveTrue,topUsersWithMostFollowers,deleteBlog,countOfTotalBlogs,countOfTotalUsers,getReportedBlogs,selectBanner,deleteBanner,getBanners,getUserByEmail,toggleBlockUser,getBlockedUsers,allUsersBlogs,getOneBlogOfUser,adminCheckAuth } from '../controllers/adminController.js'
 import { protect } from '../middleware/adminAuthMiddleware.js';
 import multer from 'multer';
 const router = express.Router();
@@ -41,11 +41,7 @@ router.delete('/deleteBlog/:blogId', deleteBlog);
 router.get('/countOfTotalUsers', countOfTotalUsers);
 router.get('/countOfTotalBlogs', countOfTotalBlogs);
 router.get('/topUsersWithMostFollowers',topUsersWithMostFollowers);
-
-
-
-
 router.get('/checkActiveTrue',checkActiveTrue)
-
+router.get('/topLikedBlogs', getTopLikedBlogs);
 
 export default router;

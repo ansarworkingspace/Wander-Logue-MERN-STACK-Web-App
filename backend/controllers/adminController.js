@@ -456,6 +456,24 @@ const checkActiveTrue = asyncHandler(async (req, res) => {
 
 
 
+const getTopLikedBlogs = async (req, res) => {
+  try {
+    // Query the database to get the top three liked blogs
+    const topLikedBlogs = await Blogs.find()
+      .sort({ likes: -1 }) // Sort by likes in descending order
+      .limit(3); // Limit the result to three blogs
+
+    res.json(topLikedBlogs);
+  } catch (error) {
+    console.error('Error fetching top liked blogs:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+
+
   export {
     authAdmin,
     registerAdmin,
@@ -476,7 +494,8 @@ const checkActiveTrue = asyncHandler(async (req, res) => {
     countOfTotalUsers,
     countOfTotalBlogs,
     topUsersWithMostFollowers,
-    checkActiveTrue
+    checkActiveTrue,
+    getTopLikedBlogs
   };
   
 
