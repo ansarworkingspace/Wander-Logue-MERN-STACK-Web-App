@@ -1,4 +1,6 @@
 
+
+
 // import { useSelector } from 'react-redux';
 // import axios from 'axios';
 // import { useParams } from 'react-router-dom';
@@ -9,6 +11,9 @@
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 // import { Link } from 'react-router-dom';
+// import CommentComponent from '../Components/CommentComponent';
+// import ShareBlog from '../Components/ShareBlog'
+
 
 
 // const ViewBlog = () => {
@@ -17,16 +22,16 @@
 //   const { userInfo } = useSelector((state) => state.auth);
 //   const currentUserId =userInfo._id
 //   const navigate = useNavigate() 
-
-
-
-
-
 //   const { blogId } = useParams();
 //   const [selectedBlog, setSelectedBlog] = useState(null); // State to hold the selected blog details
 //   const [liked, setLiked] = useState(false); // State to manage like/unlike
 //   const [likeCount, setLikeCount] = useState(0);
-  
+//   const [showComment, setShowComment] = useState(false); 
+//   const [isShareBlogVisible, setIsShareBlogVisible] = useState(false);
+
+
+
+
 
 
 //   const handleBookmarkClick = async () => {
@@ -38,7 +43,7 @@
 //   toast.success('This blog saved in your collection!')
 
 //     } catch (error) {
-//       console.error('Error saving blog:', error);
+//       toast.error('Error saving blog');
 //     }
 //   };
 
@@ -54,7 +59,7 @@
 //         setLikeCount(response.data.likeCount);
 //       })
 //       .catch(error => {
-//         console.error('Error fetching like count:', error);
+//         toast.error('Error fetching like count');
 //       });
 
 //     // Check if the user has liked this blog post
@@ -65,7 +70,7 @@
 //         setLiked(response.data.userLiked);
 //       })
 //       .catch(error => {
-//         console.error('Error checking like status:', error);
+//         toast.error('Error checking like status');
 //       });
 //   }, [blogId]);
 
@@ -94,7 +99,7 @@
      
 //       setLiked(!liked);
 //     } catch (error) {
-//       console.error('Error liking/unliking blog:', error);
+//       toast.error('Error liking/unliking blog');
 //     }
 //   };
 
@@ -112,11 +117,30 @@
 
 //   const secondImageOrVideoExists = selectedBlog.images.length > 1;
 
+
+//   const toggleComment = () => {
+//     setShowComment(!showComment);
+//   };
+
+// //showing sharing component
+//   const handleShareButtonClick = () => {
+//     setIsShareBlogVisible(!isShareBlogVisible);
+//   };
+
+
 //   return (
 //     <div className="viewBlog-container">
+
+    
+//         <button className="logout-button" onClick={handleShareButtonClick}>Share</button>
+ 
+
+
+//           {selectedBlog.author._id !== currentUserId && (
 // <Link to={`/reportBlog/${selectedBlog._id}`}>
 //         <button className="profile-edit-button" >Report Blog</button>
 //       </Link>
+//           )}
 //       <div className='titleView'>
 //       <h2>{selectedBlog.title}</h2>
 //       </div>
@@ -154,6 +178,10 @@
 //       <p>Created on: {new Date(selectedBlog.createdAt).toLocaleDateString()}</p>
 //       </div>
 
+//       {/* {isShareBlogVisible && <ShareBlog />} */}
+
+//       {isShareBlogVisible && <ShareBlog blogId={selectedBlog._id} title={selectedBlog.title} />}
+
 //       <div className='proLine'></div>
 
 //       <div className='actionDetails'>
@@ -179,15 +207,22 @@
 //         <div className="iconWrapper" onClick={handleBookmarkClick}>
 //           <FaBookmark />
 //         </div>
-//         <div className="iconWrapper">
+//         <div className="iconWrapper" style={{cursor:"pointer"}}  onClick={toggleComment}>
 //           <FaComment />
 //         </div>
 //       </div>
 //          <Link to={`/LikeUsers/${selectedBlog._id}`} style={{ textDecoration: 'none' }}>
-// <div className='likedText' style={{marginRight:"28rem"}}><h4 style={{fontFamily:"Sora",fontSize:"0.7rem",color:'white'}}>( liked users )</h4></div> 
+// <div className='likedText' style={{marginRight:"33rem"}}><h4 style={{fontFamily:"Sora",fontSize:"0.7rem",color:'white'}}>( liked users )</h4></div> 
 //          </Link>
    
 //       <div className='proLine'></div>
+
+
+// {/* Comment component */}
+
+// {showComment &&  <CommentComponent blogId={selectedBlog._id} /> }
+
+
 
 //       <div className='imageView'>
 //         {selectedBlog.images.length > 0 && (
@@ -265,6 +300,7 @@
 
 
 
+
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -278,6 +314,8 @@ import { Link } from 'react-router-dom';
 import CommentComponent from '../Components/CommentComponent';
 import ShareBlog from '../Components/ShareBlog'
 
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 
 const ViewBlog = () => {
@@ -392,6 +430,19 @@ const ViewBlog = () => {
   };
 
 
+
+
+  const carouselStyle = {
+    /* Override CSS to force arrow buttons to be visible */
+    '.carousel .control-arrow': {
+      display: 'block !important',
+    },
+  };
+
+
+
+
+
   return (
     <div className="viewBlog-container">
 
@@ -488,7 +539,7 @@ const ViewBlog = () => {
 
 
 
-      <div className='imageView'>
+      {/* <div className='imageView'>
         {selectedBlog.images.length > 0 && (
      
 
@@ -511,7 +562,44 @@ const ViewBlog = () => {
 
 
         )}
+      </div> */}
+
+
+
+{/* working code */}
+{/* <h5>please swipe</h5> */}
+<div className='imageView'>
+
+
+        {selectedBlog.images.length > 0 && (
+          <Carousel showThumbs={false}>
+            {selectedBlog.images.map((image, index) => (
+              <div key={index}>
+                {getFileExtension(image) === 'mp4' ? (
+                  <video
+                    src={`http://localhost:4000/api/users/${image}`}
+                    controls
+                    className='viewImageOndiv'
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <Image
+                    src={`http://localhost:4000/api/users/${image}`}
+                    alt={`Blog ${index + 1}`}
+                    className='viewImageOndiv'
+                  />
+                )}
+              </div>
+            ))}
+          </Carousel>
+        )}
       </div>
+
+
+
+
+
 
 
       <div className='summaryDetails'>

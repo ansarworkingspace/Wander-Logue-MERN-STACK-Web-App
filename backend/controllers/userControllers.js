@@ -370,31 +370,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   });
 
 
-// Create a new blog
-// blogControllers.js
-
-// const createBlog = asyncHandler(async (req, res) => {
-//     try {
-//       const { title, summary, content, author } = req.body; // Retrieve author (user ID) from request body
-     
-//       const image = req.file ? req.file.path : '';
-  
-//       const newBlog = new Blog({
-//         title,
-//         summary,
-//         content,
-//         images: [image],
-//         author: author, // Use the provided user ID
-//       });
-  
-//       const createdBlog = await newBlog.save();
-  
-//       res.status(201).json(createdBlog);
-//     } catch (error) {
-//       res.status(500).json({ message: 'Blog creation failed.' });
-//     }
-//   });
-  
   
 
 
