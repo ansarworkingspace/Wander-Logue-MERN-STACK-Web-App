@@ -152,18 +152,6 @@ const ChatRoom = () => {
 
 
 
-  // Function to update the chat room order based on new messages
-  // const updateChatRoomOrder = () => {
-  //   const updatedChatRooms = [...chatRooms];
-  //   updatedChatRooms.sort((a, b) => {
-  //     const latestMessageA = a.lastMessage ? new Date(a.lastMessage.createdAt) : new Date(0);
-  //     const latestMessageB = b.lastMessage ? new Date(b.lastMessage.createdAt) : new Date(0);
-  //     return latestMessageB - latestMessageA;
-  //   });
-  //   setChatRooms(updatedChatRooms);
-  // };
-
-
 
 
 
