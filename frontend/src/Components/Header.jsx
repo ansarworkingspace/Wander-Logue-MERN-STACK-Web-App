@@ -167,7 +167,8 @@ const Header = () => {
   const isLandingRoute = location.pathname === '/landing';
 
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false); // State for unread messages
-  const socket = io('http://localhost:4000'); 
+  // const socket = io('http://localhost:4000'); 
+   const socket = io('http://ansaren.online'); 
   const [currentChatRoomId, setCurrentChatRoomId] = useState(null); // Define currentChatRoomId
   const [socketConnected, setSocketConnected] = useState(false);
 

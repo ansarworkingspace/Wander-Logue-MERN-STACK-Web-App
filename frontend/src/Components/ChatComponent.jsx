@@ -289,7 +289,7 @@ import animationData from '../animation/animation_llz6cgwy.json'
 
 
 
-const ENDPOINT = 'http://localhost:4000';
+const ENDPOINT = 'http://ansaren.online';
 var socket , selectedChatCompare;
 
 const ChatComponent = ({ chatRoomId, unreadMessages, setUnreadMessages }) => {
