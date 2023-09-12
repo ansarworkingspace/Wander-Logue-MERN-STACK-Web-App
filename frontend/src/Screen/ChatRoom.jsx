@@ -21,7 +21,7 @@
 //   useEffect(() => {
 //     async function fetchChatRooms() {
 //       try {
-//         const response = await axios.get('http://localhost:4000/api/users/chatRooms', {
+//         const response = await axios.get('https://ansaren.online/api/users/chatRooms', {
 //           withCredentials: true,
 //         });
 
@@ -66,7 +66,7 @@
 //       <div className='imageONbox'>
 //         {chatRoom.otherParticipant.profileImage ? (
 //           <Image
-//             src={`http://localhost:4000/api/users/uploads/${chatRoom.otherParticipant.profileImage}`}
+//             src={`https://ansaren.online/api/users/uploads/${chatRoom.otherParticipant.profileImage}`}
 //             alt="Profile"
 //             className="followingImage"
 //             roundedCircle
@@ -140,7 +140,7 @@ const ChatRoom = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [unreadMessages, setUnreadMessages] = useState({});
   const [notificateStatus, setNotificateStatus] = useState({}); // State to store notification status
-  const socket = io('http://localhost:4000'); 
+  const socket = io('https://ansaren.online'); 
 
   const [socketConnected, setSocketConnected] = useState(false);
   const [message, setMessage] = useState('');
@@ -162,7 +162,7 @@ const ChatRoom = () => {
   async function makeNotification(messageId, newMessageRoomId) {
     try {
       // Send a POST request to update the chat room's notification field
-      const response = await axios.post(`http://localhost:4000/api/users/updateNoti/${newMessageRoomId}`, { messageId });
+      const response = await axios.post(`https://ansaren.online/api/users/updateNoti/${newMessageRoomId}`, { messageId });
       // You can handle the response here if needed
       // console.log('Notification response:', response.data);
     } catch (error) {
@@ -270,7 +270,7 @@ useEffect(() => {
   useEffect(() => {
     async function fetchChatRooms() {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/chatRooms', {
+        const response = await axios.get('https://ansaren.online/api/users/chatRooms', {
           withCredentials: true,
         });
   
@@ -295,7 +295,7 @@ useEffect(() => {
   // Fetch the notification status when the component mounts
   const fetchNotificationStatus = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/users/notificationStatus', {
+      const response = await axios.get('https://ansaren.online/api/users/notificationStatus', {
         withCredentials: true,
       });
       // Assuming the response contains notification status for each chat room
@@ -333,7 +333,7 @@ useEffect(() => {
 
     // Make an API request to delete messages by chat room ID
     try {
-      await axios.delete(`http://localhost:4000/api/users/deleteMessageId/${chatRoomId}`, {
+      await axios.delete(`https://ansaren.online/api/users/deleteMessageId/${chatRoomId}`, {
         withCredentials: true,
       });
 
@@ -379,7 +379,7 @@ useEffect(() => {
       <div className='imageONbox'>
         {chatRoom.otherParticipant.profileImage ? (
           <Image
-            src={`http://localhost:4000/api/users/uploads/${chatRoom.otherParticipant.profileImage}`}
+            src={`https://ansaren.online/api/users/uploads/${chatRoom.otherParticipant.profileImage}`}
             alt="Profile"
             className="followingImage"
             roundedCircle
