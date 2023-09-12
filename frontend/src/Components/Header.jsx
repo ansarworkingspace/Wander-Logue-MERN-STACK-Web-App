@@ -268,15 +268,7 @@ useEffect(() => {
 
 
 
-  // const handleCommentIconClick = async () => {
-  //   // Remove the badge when the comment icon is clicked
-  //   setHasUnreadMessages(false);
 
-  //   await axios.post(`https://ansaren.online/api/users/${userInfo._id}`)
-
-  //   // Navigate to the ChatRoom
-  //   navigate('/ChatRoom');
-  // };
 
   const handleCommentIconClick = async () => {
     try {
