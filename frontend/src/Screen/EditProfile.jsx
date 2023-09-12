@@ -132,7 +132,7 @@
 //     setName(userInfo.name);
 //     setEmail(userInfo.email);
 //     setMobile(userInfo.mobile);
-//     setProfileImage(`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`)
+//     setProfileImage(`https://ansaren.online/api/users/uploads/${userInfo.profileImage}`)
 //   }, [userInfo.email, userInfo.name, userInfo.mobile,userInfo.profileImage]);
 
 //   const handleImageUpload = (e) => {
@@ -295,7 +295,7 @@ const EditProfile = () => {
 useEffect(() => {
   const checkAuth = async () => {
       try {
-          const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+          const response = await fetch('https://ansaren.online/api/users/checkAuth', {
               credentials: 'include' // Include cookies in the request
           });
           if (!response.ok) {
@@ -323,7 +323,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+        const response = await fetch(`https://ansaren.online/api/users/status/${userInfo._id}`);
         const data = await response.json();
 
         if (data.status) {
@@ -353,7 +353,7 @@ useEffect(() => {
     setEmail(userInfo.email);
     setMobile(userInfo.mobile);
     if (userInfo.profileImage) {
-      setProfileImage(`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`);
+      setProfileImage(`https://ansaren.online/api/users/uploads/${userInfo.profileImage}`);
     } else if (userInfo.profileGoogleImage) {
       setProfileImage(userInfo.profileGoogleImage);
     }

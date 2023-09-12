@@ -31,7 +31,7 @@ const ViewBlog = () => {
 
 //   const handleBookmarkClick = async () => {
 //     try {
-//       await axios.post(`http://localhost:4000/api/users/saveBlog/${selectedBlog._id}`, null, {
+//       await axios.post(`https://ansaren.online/api/users/saveBlog/${selectedBlog._id}`, null, {
 //   withCredentials: true,
 // });
 
@@ -47,7 +47,7 @@ const ViewBlog = () => {
   
 
 //   useEffect(() => {
-//     axios.get(`http://localhost:4000/api/users/countLike/${blogId}`)
+//     axios.get(`https://ansaren.online/api/users/countLike/${blogId}`)
 //       .then(response => {
 //         setLikeCount(response.data.likeCount);
 //       })
@@ -56,7 +56,7 @@ const ViewBlog = () => {
 //       });
 
 //     // Check if the user has liked this blog post
-//     axios.get(`http://localhost:4000/api/users/checkLike/${blogId}`, {
+//     axios.get(`https://ansaren.online/api/users/checkLike/${blogId}`, {
 //       withCredentials: true,
 //     })
 //       .then(response => {
@@ -72,7 +72,7 @@ const ViewBlog = () => {
 
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId
-    fetch(`http://localhost:4000/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
+    fetch(`https://ansaren.online/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
       .then((response) => response.json())
       .then((data) => setSelectedBlog(data))
       .catch((error) => console.error(error));
@@ -80,22 +80,7 @@ const ViewBlog = () => {
 
 
 
-  
-
-//   const handleLikeClick = async () => {
-//     try {
-//       await axios.post(`http://localhost:4000/api/users/likeBlog/${selectedBlog._id}`, null, {
-//         withCredentials: true,
-//       });
-// // Update the like count locally based on like/unlike
-//       setLikeCount(prevLikeCount => (liked ? prevLikeCount - 1 : prevLikeCount + 1));
-     
-//       setLiked(!liked);
-//     } catch (error) {
-//       console.error('Error liking/unliking blog:', error);
-//     }
-//   };
-
+ 
 
 
   if (!selectedBlog) {
@@ -172,14 +157,14 @@ const ViewBlog = () => {
       <div className='imageView'>
         {selectedBlog.images.length > 0 && (
         // <Image
-        //   src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+        //   src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
         //   alt='Blog'
         //   className='viewImageOndiv'
         // />
 
         getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
               controls
               className='viewImageOndiv'
             >
@@ -187,7 +172,7 @@ const ViewBlog = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
               alt='Blog'
               className='viewImageOndiv'
             />
@@ -208,7 +193,7 @@ const ViewBlog = () => {
         <div className='imageView'>
           {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               controls
               className='viewImageOndiv'
             >
@@ -216,7 +201,7 @@ const ViewBlog = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               alt='Blog'
               className='viewImageOndiv'
             />

@@ -13,7 +13,7 @@ const TableComponent = ({ users }) => {
 
   useEffect(() => {
     // Fetch blocked users from the server
-    fetch('http://localhost:4000/api/admin/getBlockedUsers')
+    fetch('https://ansaren.online/api/admin/getBlockedUsers')
       .then(response => response.json())
       .then(data => {
         const blockedEmails = data.blockedUsers.map(user => user.email);
@@ -31,7 +31,7 @@ const TableComponent = ({ users }) => {
   const handleBlockToggle = async (email) => {
     try {
       // Make an API call to toggle block status
-      const response = await fetch('http://localhost:4000/api/admin/toggleBlockUser', {
+      const response = await fetch('https://ansaren.online/api/admin/toggleBlockUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

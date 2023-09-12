@@ -48,7 +48,7 @@ const SavedBlogs = () => {
   useEffect(() => {
     const fetchSavedBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/getSavedBlogs', {
+        const response = await axios.get('https://ansaren.online/api/users/getSavedBlogs', {
           withCredentials: true
         });
         // setSavedBlogs(response.data);
@@ -67,7 +67,7 @@ const SavedBlogs = () => {
 
   const handleDeleteBlog = async (blogId) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/api/users/deleteSavedBlog/${blogId}`, {
+      const response = await axios.delete(`https://ansaren.online/api/users/deleteSavedBlog/${blogId}`, {
         withCredentials: true
       });
       if (response.status === 200) {
@@ -87,7 +87,7 @@ const SavedBlogs = () => {
         {/* Display blog image here */}
         {blog.images.length > 0 && (
           // <Image
-          //   src={`http://localhost:4000/api/users/${blog.images[0]}`}
+          //   src={`https://ansaren.online/api/users/${blog.images[0]}`}
           //   alt='Blog'
           //   className='postImageOndiv'
           // />
@@ -95,7 +95,7 @@ const SavedBlogs = () => {
 
           getFileExtension(blog.images[0]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${blog.images[0]}`}
+              src={`https://ansaren.online/api/users/${blog.images[0]}`}
               controls
               className='postVideoOndiv'
             >
@@ -103,7 +103,7 @@ const SavedBlogs = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${blog.images[0]}`}
+              src={`https://ansaren.online/api/users/${blog.images[0]}`}
               alt='Blog'
               className='postImageOndiv'
             />

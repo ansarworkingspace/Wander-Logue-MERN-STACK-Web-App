@@ -43,27 +43,13 @@ useEffect(() => {
 
 
 
-// const handleResendClick = async () => {
-//   try {
-// // Send a request to backend to resend OTP
-// await axios.get('http://localhost:4000/api/users/resendOtp', {
-//   withCredentials: true, 
-// });
-
-//     // Reset timer and enable submit button
-//     setRemainingTime(20);
-//     setIsTimerExpired(false);
-//   } catch (error) {
-//     console.error('Error while resending OTP:', error);
-//   }
-// };
 
 
 
 const handleResendClick = async () => {
   try {
     // Send a request to backend to resend OTP
-    const res = await axios.get('http://localhost:4000/api/users/resendOtp', {
+    const res = await axios.get('https://ansaren.online/api/users/resendOtp', {
       withCredentials: true,
     });
 

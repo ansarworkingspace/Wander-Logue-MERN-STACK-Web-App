@@ -6,7 +6,7 @@ import { FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 const ShareBlog = ({ blogId, blogTitle }) => {
 
 
-    const shareUrl = `http://localhost:3000/onlyView/${blogId}`; 
+    const shareUrl = `https://ansaren.online/onlyView/${blogId}`; 
     const title = blogTitle;
     
   return (

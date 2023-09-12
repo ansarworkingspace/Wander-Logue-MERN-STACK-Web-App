@@ -36,7 +36,7 @@
 // useEffect(() => {
 //   const checkAuth = async () => {
 //       try {
-//           const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+//           const response = await fetch('https://ansaren.online/api/users/checkAuth', {
 //               credentials: 'include' // Include cookies in the request
 //           });
 //           if (!response.ok) {
@@ -66,7 +66,7 @@
 //     useEffect(() => {
 //       const fetchUserStatus = async () => {
 //         try {
-//           const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+//           const response = await fetch(`https://ansaren.online/api/users/status/${userInfo._id}`);
 //           const data = await response.json();
   
 //           if (data.status) {
@@ -139,7 +139,7 @@
   
 //       try {
 //         const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-//         await axios.post('http://localhost:4000/api/users/blogs', formData, {
+//         await axios.post('https://ansaren.online/api/users/blogs', formData, {
 //       headers: {
 //         'Content-Type': 'multipart/form-data',
 //         Authorization: `Bearer ${token}`,
@@ -256,7 +256,7 @@ const CreateBlog = () => {
 useEffect(() => {
   const checkAuth = async () => {
       try {
-          const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+          const response = await fetch('https://ansaren.online/api/users/checkAuth', {
               credentials: 'include' // Include cookies in the request
           });
           if (!response.ok) {
@@ -281,7 +281,7 @@ useEffect(() => {
     useEffect(() => {
       const fetchUserStatus = async () => {
         try {
-          const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+          const response = await fetch(`https://ansaren.online/api/users/status/${userInfo._id}`);
           const data = await response.json();
   
           if (data.status) {
@@ -386,7 +386,7 @@ useEffect(() => {
       
         try {
           const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-          await axios.post('http://localhost:4000/api/users/blogs', formData, {
+          await axios.post('https://ansaren.online/api/users/blogs', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${token}`,

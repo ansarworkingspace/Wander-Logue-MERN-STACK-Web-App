@@ -13,7 +13,7 @@
 //   useEffect(() => {
 //     const userEmail = new URLSearchParams(location.search).get('email');
 
-//     fetch(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`)
+//     fetch(`https://ansaren.online/api/admin/userProfile?email=${userEmail}`)
 //       .then((response) => response.json())
 //       .then((data) => {
 //         setUserDetails(data);
@@ -31,7 +31,7 @@
 //             <div className="profile-image-container">
 //               {userDetails.profileImage ? (
 //                 <Image
-//                   src={`http://localhost:4000/api/users/uploads/${userDetails.profileImage}`}
+//                   src={`https://ansaren.online/api/users/uploads/${userDetails.profileImage}`}
 //                   alt="Profile"
 //                   className="profile-image"
 //                   roundedCircle
@@ -100,7 +100,7 @@ const AdminUserPRview = () => {
   // useEffect(() => {
   //   // Fetch follower and following counts
   //   axios
-  //     .get(`http://localhost:4000/api/admin/followerFollowingCount/${userDetails._id}`, {
+  //     .get(`https://ansaren.online/api/admin/followerFollowingCount/${userDetails._id}`, {
   //       withCredentials: true,
   //     })
   //     .then(response => {
@@ -119,7 +119,7 @@ const AdminUserPRview = () => {
   useEffect(() => {
     const adminCheckAuth = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+            const response = await fetch('https://ansaren.online/api/admin/adminCheckAuth', {
                 credentials: 'include' // Include cookies in the request
             });
             if (!response.ok) {
@@ -147,7 +147,7 @@ const AdminUserPRview = () => {
     const userEmail = new URLSearchParams(location.search).get('email');
   
     // Fetch user's details
-    axios.get(`http://localhost:4000/api/admin/userProfile?email=${userEmail}`, {
+    axios.get(`https://ansaren.online/api/admin/userProfile?email=${userEmail}`, {
       withCredentials: true, // Send credentials with the request
     })
     .then((response) => {
@@ -155,7 +155,7 @@ const AdminUserPRview = () => {
       setUserDetails(userData);
   
       // Fetch user's blogs using the same email
-      axios.get(`http://localhost:4000/api/admin/allBlogs?email=${userEmail}`, {
+      axios.get(`https://ansaren.online/api/admin/allBlogs?email=${userEmail}`, {
         withCredentials: true, // Send credentials with the request
       })
       .then((response) => {
@@ -186,7 +186,7 @@ const AdminUserPRview = () => {
             <div className="profile-image-container">
               {userDetails.profileImage ? (
                 <Image
-                  src={`http://localhost:4000/api/users/uploads/${userDetails.profileImage}`}
+                  src={`https://ansaren.online/api/users/uploads/${userDetails.profileImage}`}
                   alt="Profile"
                   className="profile-image"
                   roundedCircle
@@ -240,7 +240,7 @@ const AdminUserPRview = () => {
                   {/* Display blog image here */}
                   {blog.images.length > 0 && (
                     // <Image
-                    //   src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                    //   src={`https://ansaren.online/api/users/${blog.images[0]}`}
                     //   alt='Blog'
                     //   className='postImageOndiv'
                     // />
@@ -248,7 +248,7 @@ const AdminUserPRview = () => {
 
                     getFileExtension(blog.images[0]) === 'mp4' ? (
                       <video
-                        src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                        src={`https://ansaren.online/api/users/${blog.images[0]}`}
                         controls
                         className='postVideoOndiv'
                       >
@@ -256,7 +256,7 @@ const AdminUserPRview = () => {
                       </video>
                     ) : (
                       <Image
-                        src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                        src={`https://ansaren.online/api/users/${blog.images[0]}`}
                         alt='Blog'
                         className='postImageOndiv'
                       />

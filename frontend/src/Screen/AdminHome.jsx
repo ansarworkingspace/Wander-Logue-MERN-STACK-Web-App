@@ -29,7 +29,7 @@ const AdminHomeScreen = () => {
   useEffect(() => {
     const adminCheckAuth = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+            const response = await fetch('https://ansaren.online/api/admin/adminCheckAuth', {
                 credentials: 'include' // Include cookies in the request
             });
             if (!response.ok) {
@@ -54,11 +54,11 @@ const AdminHomeScreen = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/admin/adminHome ",{
+        const response = await axios.get("https://ansaren.online/api/admin/adminHome ",{
            withCredentials:true
         })
 
-        // const response = await axios.get("http://localhost:4000/api/admin/adminHome ")
+        // const response = await axios.get("https://ansaren.online/api/admin/adminHome ")
 
         setUser(response.data.users);
         setLoading(false); 

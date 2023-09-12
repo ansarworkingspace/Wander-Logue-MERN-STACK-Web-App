@@ -45,7 +45,7 @@ const TopPost = () => {
   useEffect(() => {
     const fetchTopBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/topThreepost');
+        const response = await axios.get('https://ansaren.online/api/users/topThreepost');
         setTopBlogs(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -61,7 +61,7 @@ const TopPost = () => {
     <div className='topPost'>
    
    {topBlogs.map((blog) => (
-        <div className='topPostCard' key={blog._id} style={{ backgroundImage: `url(http://localhost:4000/api/users/${blog.images[0]})` }}>
+        <div className='topPostCard' key={blog._id} style={{ backgroundImage: `url(https://ansaren.online/api/users/${blog.images[0]})` }}>
         
         </div>
       ))}

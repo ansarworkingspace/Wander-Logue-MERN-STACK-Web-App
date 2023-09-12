@@ -36,7 +36,7 @@
 
 //   const handleBookmarkClick = async () => {
 //     try {
-//       await axios.post(`http://localhost:4000/api/users/saveBlog/${selectedBlog._id}`, null, {
+//       await axios.post(`https://ansaren.online/api/users/saveBlog/${selectedBlog._id}`, null, {
 //   withCredentials: true,
 // });
 
@@ -54,7 +54,7 @@
   
 
 //   useEffect(() => {
-//     axios.get(`http://localhost:4000/api/users/countLike/${blogId}`)
+//     axios.get(`https://ansaren.online/api/users/countLike/${blogId}`)
 //       .then(response => {
 //         setLikeCount(response.data.likeCount);
 //       })
@@ -63,7 +63,7 @@
 //       });
 
 //     // Check if the user has liked this blog post
-//     axios.get(`http://localhost:4000/api/users/checkLike/${blogId}`, {
+//     axios.get(`https://ansaren.online/api/users/checkLike/${blogId}`, {
 //       withCredentials: true,
 //     })
 //       .then(response => {
@@ -79,7 +79,7 @@
 
 //   useEffect(() => {
 //     // Fetch the selected blog details using the provided blogId
-//     fetch(`http://localhost:4000/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
+//     fetch(`https://ansaren.online/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
 //       .then((response) => response.json())
 //       .then((data) => setSelectedBlog(data))
 //       .catch((error) => console.error(error));
@@ -91,7 +91,7 @@
 
 //   const handleLikeClick = async () => {
 //     try {
-//       await axios.post(`http://localhost:4000/api/users/likeBlog/${selectedBlog._id}`, null, {
+//       await axios.post(`https://ansaren.online/api/users/likeBlog/${selectedBlog._id}`, null, {
 //         withCredentials: true,
 //       });
 // // Update the like count locally based on like/unlike
@@ -230,7 +230,7 @@
 
 //         getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
 //           <video
-//             src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+//             src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
 //             controls
 //             className='viewImageOndiv'
 //           >
@@ -238,7 +238,7 @@
 //           </video>
 //         ) : (
 //           <Image
-//             src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+//             src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
 //             alt='Blog'
 //             className='viewImageOndiv'
 //           />
@@ -262,7 +262,7 @@
 //         <div className='imageView'>
 //           {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
 //             <video
-//               src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+//               src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
 //               controls
 //               className='viewImageOndiv'
 //             >
@@ -270,7 +270,7 @@
 //             </video>
 //           ) : (
 //             <Image
-//               src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+//               src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
 //               alt='Blog'
 //               className='viewImageOndiv'
 //             />
@@ -338,7 +338,7 @@ const ViewBlog = () => {
 
   const handleBookmarkClick = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/users/saveBlog/${selectedBlog._id}`, null, {
+      await axios.post(`https://ansaren.online/api/users/saveBlog/${selectedBlog._id}`, null, {
   withCredentials: true,
 });
 
@@ -356,7 +356,7 @@ const ViewBlog = () => {
   
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/users/countLike/${blogId}`)
+    axios.get(`https://ansaren.online/api/users/countLike/${blogId}`)
       .then(response => {
         setLikeCount(response.data.likeCount);
       })
@@ -365,7 +365,7 @@ const ViewBlog = () => {
       });
 
     // Check if the user has liked this blog post
-    axios.get(`http://localhost:4000/api/users/checkLike/${blogId}`, {
+    axios.get(`https://ansaren.online/api/users/checkLike/${blogId}`, {
       withCredentials: true,
     })
       .then(response => {
@@ -381,7 +381,7 @@ const ViewBlog = () => {
 
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId
-    fetch(`http://localhost:4000/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
+    fetch(`https://ansaren.online/api/users/getOneBlog/${blogId}`) // Adjust the API route accordingly
       .then((response) => response.json())
       .then((data) => setSelectedBlog(data))
       .catch((error) => console.error(error));
@@ -393,7 +393,7 @@ const ViewBlog = () => {
 
   const handleLikeClick = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/users/likeBlog/${selectedBlog._id}`, null, {
+      await axios.post(`https://ansaren.online/api/users/likeBlog/${selectedBlog._id}`, null, {
         withCredentials: true,
       });
 // Update the like count locally based on like/unlike
@@ -539,30 +539,6 @@ const ViewBlog = () => {
 
 
 
-      {/* <div className='imageView'>
-        {selectedBlog.images.length > 0 && (
-     
-
-        getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
-          <video
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
-            controls
-            className='viewImageOndiv'
-          >
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <Image
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
-            alt='Blog'
-            className='viewImageOndiv'
-          />
-        )
-
-
-
-        )}
-      </div> */}
 
 
 
@@ -577,7 +553,7 @@ const ViewBlog = () => {
               <div key={index}>
                 {getFileExtension(image) === 'mp4' ? (
                   <video
-                    src={`http://localhost:4000/api/users/${image}`}
+                    src={`https://ansaren.online/api/users/${image}`}
                     controls
                     className='viewImageOndiv'
                   >
@@ -585,7 +561,7 @@ const ViewBlog = () => {
                   </video>
                 ) : (
                   <Image
-                    src={`http://localhost:4000/api/users/${image}`}
+                    src={`https://ansaren.online/api/users/${image}`}
                     alt={`Blog ${index + 1}`}
                     className='viewImageOndiv'
                   />
@@ -614,7 +590,7 @@ const ViewBlog = () => {
         <div className='imageView'>
           {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               controls
               className='viewImageOndiv'
             >
@@ -622,7 +598,7 @@ const ViewBlog = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               alt='Blog'
               className='viewImageOndiv'
             />

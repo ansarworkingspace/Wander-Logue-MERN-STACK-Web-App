@@ -34,7 +34,7 @@ const OtherUserPro = () => {
     if (isFollowing) {
       // Unfollow logic
       axios
-        .post(`http://localhost:4000/api/users/unfollow/${userId}`, null, {
+        .post(`https://ansaren.online/api/users/unfollow/${userId}`, null, {
           withCredentials: true,
         })
         .then(() => {
@@ -47,7 +47,7 @@ const OtherUserPro = () => {
     } else {
       // Follow logic
       axios
-        .post(`http://localhost:4000/api/users/follow/${userId}`, null, {
+        .post(`https://ansaren.online/api/users/follow/${userId}`, null, {
           withCredentials: true,
         })
         .then(() => {
@@ -67,7 +67,7 @@ const OtherUserPro = () => {
 
   useEffect(() => {
     // Check if current user is following the author
-    axios.get(`http://localhost:4000/api/users/checkFollowing/${userId}`, {
+    axios.get(`https://ansaren.online/api/users/checkFollowing/${userId}`, {
       withCredentials: true,
     })
     .then(response => {
@@ -83,7 +83,7 @@ const OtherUserPro = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/users/authorProfile/${userId}`)
+      .get(`https://ansaren.online/api/users/authorProfile/${userId}`)
            
       .then(response => {
         setUserDetails(response.data);
@@ -96,7 +96,7 @@ const OtherUserPro = () => {
 
 // Fetch user's blogs
 axios
-.get(`http://localhost:4000/api/users/getUserBlogs/${userId}`,{
+.get(`https://ansaren.online/api/users/getUserBlogs/${userId}`,{
 withCredentials:true
 })
 .then(response => {
@@ -116,7 +116,7 @@ withCredentials:true
   useEffect(() => {
     // Fetch follower and following counts
     axios
-      .get(`http://localhost:4000/api/users/followerFollowingCount/${userId}`, {
+      .get(`https://ansaren.online/api/users/followerFollowingCount/${userId}`, {
         withCredentials: true,
       })
       .then(response => {
@@ -151,7 +151,7 @@ withCredentials:true
         <div className="profile-image-container">
         {userDetails.profileImage ? (
                 <Image
-                src={`http://localhost:4000/api/users/uploads/${userDetails.profileImage}`}
+                src={`https://ansaren.online/api/users/uploads/${userDetails.profileImage}`}
                   alt="Profile"
                   className="profile-image"
                   roundedCircle
@@ -198,7 +198,7 @@ withCredentials:true
 
                     getFileExtension(blog.images[0]) === 'mp4' ? (
                       <video
-                        src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                        src={`https://ansaren.online/api/users/${blog.images[0]}`}
                         controls
                         className='postVideoOndiv'
                       >
@@ -206,7 +206,7 @@ withCredentials:true
                       </video>
                     ) : (
                       <Image
-                        src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                        src={`https://ansaren.online/api/users/${blog.images[0]}`}
                         alt='Blog'
                         className='postImageOndiv'
                       />

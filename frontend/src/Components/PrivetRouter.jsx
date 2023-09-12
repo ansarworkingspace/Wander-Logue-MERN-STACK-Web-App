@@ -26,7 +26,7 @@ const PrivateRoute = () => {
     // Fetch user status from the backend
     const fetchUserStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+        const response = await fetch(`https://ansaren.online/api/users/status/${userInfo._id}`);
         const data = await response.json();
 
         if (data.status) {
@@ -49,7 +49,7 @@ const PrivateRoute = () => {
   useEffect(() => {
     const checkAuth = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+            const response = await fetch('https://ansaren.online/api/users/checkAuth', {
                 credentials: 'include' // Include cookies in the request
             });
             if (!response.ok) {

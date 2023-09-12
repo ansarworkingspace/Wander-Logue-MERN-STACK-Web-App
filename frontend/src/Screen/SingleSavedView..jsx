@@ -13,7 +13,7 @@ const SingleSavedView = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/users/getSavedSingleBlog/${blogId}`)
+    fetch(`https://ansaren.online/api/users/getSavedSingleBlog/${blogId}`)
       .then((response) => response.json())
       .then((data) => setSelectedBlog(data))
       .catch((error) => console.error(error));
@@ -63,7 +63,7 @@ const SingleSavedView = () => {
       <div className='imageView'>
         {selectedBlog.images.length > 0 && (
         // <Image
-        //   src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+        //   src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
         //   alt='Blog'
         //   className='viewImageOndiv'
         // />
@@ -72,7 +72,7 @@ const SingleSavedView = () => {
 
         getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
           <video
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
             controls
             className='viewImageOndiv'
           >
@@ -80,7 +80,7 @@ const SingleSavedView = () => {
           </video>
         ) : (
           <Image
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
             alt='Blog'
             className='viewImageOndiv'
           />
@@ -101,7 +101,7 @@ const SingleSavedView = () => {
         <div className='imageView'>
           {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               controls
               className='viewImageOndiv'
             >
@@ -109,7 +109,7 @@ const SingleSavedView = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               alt='Blog'
               className='viewImageOndiv'
             />

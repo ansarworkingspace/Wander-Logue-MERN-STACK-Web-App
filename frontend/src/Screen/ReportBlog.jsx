@@ -57,33 +57,6 @@ const ReportBlog = () => {
     setSelectedReason(event.target.value);
   };
 
-//   const handleSubmit = async () => {
-//     if (selectedReason) {
-//       try {
-//         const response = await axios.post(
-//           `http://localhost:4000/api/users/reportBlog/${blogId}`,
-//           {
-//             reason: selectedReason,
-//           },
-//           {
-//             withCredentials: true, // Add this option
-//           }
-//         );
-  
-//         if (response.status === 200) {
-//             toast.success('Blog reported successfully')
-//           console.log('Blog reported successfully');
-//           navigate('/'); // Redirect to homepage or wherever you want
-//         } else {
-//             toast.error('Error reporting blog')
-//           console.log('Error reporting blog');
-//         }
-//       } catch (error) {
-//         console.error('Error reporting blog:', error);
-//       }
-//     }
-//   };
-  
 
 const handleSubmit = async () => {
 
@@ -95,7 +68,7 @@ const handleSubmit = async () => {
     if (selectedReason) {
       try {
         const response = await axios.post(
-          `http://localhost:4000/api/users/reportBlog/${blogId}`,
+          `https://ansaren.online/api/users/reportBlog/${blogId}`,
           {
             reason: selectedReason,
           },

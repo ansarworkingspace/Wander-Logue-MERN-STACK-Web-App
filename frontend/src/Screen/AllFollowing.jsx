@@ -69,7 +69,7 @@ const AllFollowing = () => {
   useEffect(() => {
     async function fetchFollowingList() {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/followingList', {
+        const response = await axios.get('https://ansaren.online/api/users/followingList', {
           withCredentials: true,
         });
 
@@ -101,7 +101,7 @@ const AllFollowing = () => {
   const handleChatButtonClick = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/users/createOrGetChatRoom/${userId}`,
+        `https://ansaren.online/api/users/createOrGetChatRoom/${userId}`,
         
         { withCredentials: true }
       );
@@ -137,7 +137,7 @@ const AllFollowing = () => {
       <div className='listContainer'>
         {filteredFollowingUsers.map(user => {
           const userImage = user.profileImage
-            ? `http://localhost:4000/api/users/uploads/${user.profileImage}`
+            ? `https://ansaren.online/api/users/uploads/${user.profileImage}`
             : user.profileGoogleImage
             ? user.profileGoogleImage
             : null;

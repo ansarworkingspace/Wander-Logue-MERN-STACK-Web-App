@@ -19,7 +19,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/allblogs',{
+        const response = await axios.get('https://ansaren.online/api/users/allblogs',{
        
         withCredentials: true, 
         });
@@ -116,7 +116,7 @@ const Hero = () => {
 
             getFileExtension(blog.images[0]) === 'mp4' ? (
               <video
-                src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                src={`https://ansaren.online/api/users/${blog.images[0]}`}
                 controls
                 className='postVideoOndiv'
               >
@@ -124,7 +124,7 @@ const Hero = () => {
               </video>
             ) : (
               <Image
-                src={`http://localhost:4000/api/users/${blog.images[0]}`}
+                src={`https://ansaren.online/api/users/${blog.images[0]}`}
                 alt='Blog'
                 className='postImageOndiv'
               />

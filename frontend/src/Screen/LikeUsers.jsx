@@ -22,7 +22,7 @@ const LikeUsers = () => {
   useEffect(() => {
     async function fetchLikedUsers() {
       try {
-        const response = await axios.get(`http://localhost:4000/api/users/LikedUsers/${blogId}`)
+        const response = await axios.get(`https://ansaren.online/api/users/LikedUsers/${blogId}`)
   
         setLikedUsers(response.data);
       } catch (error) {
@@ -78,7 +78,7 @@ const navigateToUserProfile = (userId) => {
       <div className='listContainer'>
         {filteredLikedUsers.map(user => {
           const userImage = user.profileImage
-            ? `http://localhost:4000/api/users/uploads/${user.profileImage}`
+            ? `https://ansaren.online/api/users/uploads/${user.profileImage}`
             : user.profileGoogleImage
             ? user.profileGoogleImage
             : null;

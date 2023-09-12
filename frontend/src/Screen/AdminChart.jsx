@@ -101,7 +101,7 @@
 //   // Fetch the total number of users
 //   const fetchTotalUsersCount = async () => {
 //     try {
-//       const response = await axios.get('http://localhost:4000/api/admin/countOfTotalUsers');
+//       const response = await axios.get('https://ansaren.online/api/admin/countOfTotalUsers');
 //       const totalUsersCount = response.data.totalUsersCount;
 //       setActiveUsersCount(totalUsersCount);
 //     } catch (error) {
@@ -113,7 +113,7 @@
 //   // Fetch the total number of blogs (similar to the users count)
 //   const fetchTotalBlogsCount = async () => {
 //     try {
-//       const response = await axios.get('http://localhost:4000/api/admin/countOfTotalBlogs');
+//       const response = await axios.get('https://ansaren.online/api/admin/countOfTotalBlogs');
 //       const totalBlogsCount = response.data.totalBlogsCount;
 //       setActivePostsCount(totalBlogsCount); // Set the state for blogs count
 //     } catch (error) {
@@ -233,7 +233,7 @@ useEffect(() => {
   // Fetch the total number of users
   const fetchTotalUsersCount = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/admin/countOfTotalUsers');
+      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalUsers');
       const totalUsersCount = response.data.totalUsersCount;
       setActiveUsersCount(totalUsersCount);
     } catch (error) {
@@ -245,7 +245,7 @@ useEffect(() => {
   // Fetch the total number of blogs (similar to the users count)
   const fetchTotalBlogsCount = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/admin/countOfTotalBlogs');
+      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalBlogs');
       const totalBlogsCount = response.data.totalBlogsCount;
       setActivePostsCount(totalBlogsCount); // Set the state for blogs count
     } catch (error) {
@@ -259,7 +259,7 @@ useEffect(() => {
   // Fetch the top 3 users with the most followers
   const fetchTopUsersWithMostFollowers = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/admin/topUsersWithMostFollowers');
+      const response = await axios.get('https://ansaren.online/api/admin/topUsersWithMostFollowers');
       const topUsersData = response.data;
       setTopUsers(topUsersData);
     } catch (error) {
@@ -272,7 +272,7 @@ useEffect(() => {
 
   const fetchTopLikedBlogs = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/admin/topLikedBlogs');
+      const response = await axios.get('https://ansaren.online/api/admin/topLikedBlogs');
       setTopLikedBlogs(response.data);
       
     } catch (error) {

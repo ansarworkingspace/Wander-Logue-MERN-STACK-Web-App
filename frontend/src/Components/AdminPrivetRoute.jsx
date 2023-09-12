@@ -33,7 +33,7 @@ function AdminPrivateRoute() {
   useEffect(() => {
     const adminCheckAuth = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+            const response = await fetch('https://ansaren.online/api/admin/adminCheckAuth', {
                 credentials: 'include' // Include cookies in the request
             });
             if (!response.ok) {

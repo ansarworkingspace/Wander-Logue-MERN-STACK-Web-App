@@ -22,7 +22,7 @@ const OtherUserFollowingList = () => {
   useEffect(() => {
     async function fetchFollowingList() {
       try {
-        const response = await axios.get(`http://localhost:4000/api/users/otherUserfollowingList/${OtherUserId}`)
+        const response = await axios.get(`https://ansaren.online/api/users/otherUserfollowingList/${OtherUserId}`)
   
         setFollowingUsers(response.data);
       } catch (error) {
@@ -73,7 +73,7 @@ const filteredFollowingUsers = followingUsers.filter((user) =>
       <div className='listContainer'>
         {filteredFollowingUsers.map(user => {
           const userImage = user.profileImage
-            ? `http://localhost:4000/api/users/uploads/${user.profileImage}`
+            ? `https://ansaren.online/api/users/uploads/${user.profileImage}`
             : user.profileGoogleImage
             ? user.profileGoogleImage
             : null;

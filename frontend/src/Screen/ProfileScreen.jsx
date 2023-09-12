@@ -43,7 +43,7 @@ const ProfileScreen = () => {
 useEffect(() => {
   const checkAuth = async () => {
       try {
-          const response = await fetch('http://localhost:4000/api/users/checkAuth', {
+          const response = await fetch('https://ansaren.online/api/users/checkAuth', {
               credentials: 'include' // Include cookies in the request
           });
           if (!response.ok) {
@@ -75,7 +75,7 @@ useEffect(() => {
   useEffect(() => {
     // Fetch follower and following counts
     axios
-      .get(`http://localhost:4000/api/users/followerFollowingCount/${userInfo._id}`, {
+      .get(`https://ansaren.online/api/users/followerFollowingCount/${userInfo._id}`, {
         withCredentials: true,
       })
       .then(response => {
@@ -96,7 +96,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/users/status/${userInfo._id}`);
+        const response = await fetch(`https://ansaren.online/api/users/status/${userInfo._id}`);
         const data = await response.json();
 
         if (data.status) {
@@ -132,7 +132,7 @@ useEffect(() => {
   //   }
 
   //   try {
-  //     await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`, {
+  //     await axios.delete(`https://ansaren.online/api/users/deleteBlog/${blogId}`, {
   //       withCredentials: true,
   //     });
   //     // Remove the deleted blog from the local state
@@ -158,7 +158,7 @@ useEffect(() => {
       });
   
       if (result.isConfirmed) {
-        await axios.delete(`http://localhost:4000/api/users/deleteBlog/${blogId}`, {
+        await axios.delete(`https://ansaren.online/api/users/deleteBlog/${blogId}`, {
           withCredentials: true,
         });
         // Remove the deleted blog from the local state
@@ -202,7 +202,7 @@ useEffect(() => {
 
 //fetch image
 const userImage = userInfo.profileImage
-? `http://localhost:4000/api/users/uploads/${userInfo.profileImage}`
+? `https://ansaren.online/api/users/uploads/${userInfo.profileImage}`
 : userInfo.profileGoogleImage // Use the Google profile image link here
 ? userInfo.profileGoogleImage
 : null;
@@ -215,7 +215,7 @@ const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/users/blogs', {
+        const response = await axios.get('https://ansaren.online/api/users/blogs', {
           withCredentials: true, // Send cookies with the request
         });
 
@@ -248,7 +248,7 @@ const [loading, setLoading] = useState(true);
 {blog.images.length > 0 && (
         getFileExtension(blog.images[0]) === 'mp4' ? (
           <video
-            src={`http://localhost:4000/api/users/${blog.images[0]}`}
+            src={`https://ansaren.online/api/users/${blog.images[0]}`}
             controls
             className='postVideoOndiv'
           >
@@ -256,7 +256,7 @@ const [loading, setLoading] = useState(true);
           </video>
         ) : (
           <Image
-            src={`http://localhost:4000/api/users/${blog.images[0]}`}
+            src={`https://ansaren.online/api/users/${blog.images[0]}`}
             alt='Blog'
             className='postImageOndiv'
           />

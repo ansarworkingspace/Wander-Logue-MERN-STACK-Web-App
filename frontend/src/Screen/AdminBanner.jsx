@@ -19,7 +19,7 @@
 //   useEffect(() => {
 //     const fetchBanners = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:4000/api/admin/banners');
+//         const response = await axios.get('https://ansaren.online/api/admin/banners');
 //         setBanners(response.data);
 //       } catch (error) {
 //         toast.error("Error fetching banners");
@@ -53,7 +53,7 @@
 //         '$1'
 //       );
       
-//       await axios.post('http://localhost:4000/api/admin/uploadBanner', formData, {
+//       await axios.post('https://ansaren.online/api/admin/uploadBanner', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //           Authorization: `Bearer ${token}`,
@@ -95,7 +95,7 @@
 //         '$1'
 //       );
 
-//       await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+//       await axios.delete(`https://ansaren.online/api/admin/deleteBanner/${bannerId}`, {
 //         headers: {
 //           Authorization: `Bearer ${token}`,
 //         },
@@ -104,7 +104,7 @@
 
 //       toast.success('Banner deleted successfully.');
 //       // Fetch banners again to update the list
-//       const response = await axios.get('http://localhost:4000/api/admin/banners');
+//       const response = await axios.get('https://ansaren.online/api/admin/banners');
 //       setBanners(response.data);
 //     } catch (error) {
 //       toast.error('Error deleting banner.');
@@ -123,7 +123,7 @@
 //     );
 
 //     const response = await axios.post(
-//       `http://localhost:4000/api/admin/selectBanner/${bannerId}`,
+//       `https://ansaren.online/api/admin/selectBanner/${bannerId}`,
 //       null,
 //       {
 //         headers: {
@@ -207,7 +207,7 @@
 //             <div className='bannerBox'>
 //               <div className='videoONbox'>
 //                 <video style={{ borderRadius: "1rem" }}
-//                   src={`http://localhost:4000/api/users/${banner.media}`}
+//                   src={`https://ansaren.online/api/users/${banner.media}`}
 //                   controls
 //                   className='viewImageOndiv'
 //                 >
@@ -270,7 +270,7 @@ const [banner, setBanner] = useState(null);
   useEffect(() => {
     const fetchBanners = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/admin/banners');
+        const response = await axios.get('https://ansaren.online/api/admin/banners');
         setBanners(response.data);
       } catch (error) {
         toast.error("Error fetching banners");
@@ -279,7 +279,7 @@ const [banner, setBanner] = useState(null);
 
     const fetchStatusSelected = async () => {
       try {
-        const activeTrueBannerIdResponse = await axios.get('http://localhost:4000/api/admin/checkActiveTrue');
+        const activeTrueBannerIdResponse = await axios.get('https://ansaren.online/api/admin/checkActiveTrue');
         const activeTrueBannerId = activeTrueBannerIdResponse.data.bannerId; // Extract the bannerId from the response
   
         setSelectedBannerId(activeTrueBannerId);
@@ -316,7 +316,7 @@ const [banner, setBanner] = useState(null);
         '$1'
       );
       
-      await axios.post('http://localhost:4000/api/admin/uploadBanner', formData, {
+      await axios.post('https://ansaren.online/api/admin/uploadBanner', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -358,7 +358,7 @@ const [banner, setBanner] = useState(null);
   //       '$1'
   //     );
 
-  //     await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+  //     await axios.delete(`https://ansaren.online/api/admin/deleteBanner/${bannerId}`, {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
   //       },
@@ -367,7 +367,7 @@ const [banner, setBanner] = useState(null);
 
   //     toast.success('Banner deleted successfully.');
   //     // Fetch banners again to update the list
-  //     const response = await axios.get('http://localhost:4000/api/admin/banners');
+  //     const response = await axios.get('https://ansaren.online/api/admin/banners');
   //     setBanners(response.data);
   //   } catch (error) {
   //     toast.error('Error deleting banner.');
@@ -397,7 +397,7 @@ const [banner, setBanner] = useState(null);
       });
   
       if (result.isConfirmed) {
-        await axios.delete(`http://localhost:4000/api/admin/deleteBanner/${bannerId}`, {
+        await axios.delete(`https://ansaren.online/api/admin/deleteBanner/${bannerId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -406,7 +406,7 @@ const [banner, setBanner] = useState(null);
   
         toast.success('Banner deleted successfully.');
         // Fetch banners again to update the list
-        const response = await axios.get('http://localhost:4000/api/admin/banners');
+        const response = await axios.get('https://ansaren.online/api/admin/banners');
         setBanners(response.data);
   
         Swal.fire('Deleted!', 'The banner has been deleted.', 'success');
@@ -429,7 +429,7 @@ const handleSelectBanner = async (bannerId) => {
     );
 
     const response = await axios.post(
-      `http://localhost:4000/api/admin/selectBanner/${bannerId}`,
+      `https://ansaren.online/api/admin/selectBanner/${bannerId}`,
       null,
       {
         headers: {
@@ -516,7 +516,7 @@ const handleSelectBanner = async (bannerId) => {
             <div className='bannerBox'>
               <div className='videoONbox'>
                 <video style={{ borderRadius: "1rem" }}
-                  src={`http://localhost:4000/api/users/${banner.media}`}
+                  src={`https://ansaren.online/api/users/${banner.media}`}
                   controls
                   className='viewImageOndiv'
                 >

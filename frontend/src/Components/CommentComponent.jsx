@@ -15,7 +15,7 @@
 //         }
     
 //         try {
-//           await axios.post(`http://localhost:4000/api/users/postComment/${blogId}`, {
+//           await axios.post(`https://ansaren.online/api/users/postComment/${blogId}`, {
 //             text: commentText
 //           }, {
 //             withCredentials: true
@@ -89,7 +89,7 @@ const CommentComponent = ({ blogId }) => {
     
       const fetchComments = async () => {
         try {
-          const response = await axios.get(`http://localhost:4000/api/users/getComments/${blogId}`,
+          const response = await axios.get(`https://ansaren.online/api/users/getComments/${blogId}`,
 
           { withCredentials: true
         });
@@ -114,7 +114,7 @@ const CommentComponent = ({ blogId }) => {
         }
     
         try {
-          await axios.post(`http://localhost:4000/api/users/postComment/${blogId}`, {
+          await axios.post(`https://ansaren.online/api/users/postComment/${blogId}`, {
             text: commentText
           }, {
             withCredentials: true

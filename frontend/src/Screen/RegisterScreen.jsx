@@ -23,31 +23,7 @@ const RegisterScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [register, { isLoading }] = useRegisterMutation();
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate('/');
-  //   }
-  // }, [navigate, userInfo]);
-
-//ORGINAL
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
-
-  //   if (password !== confirmPassword) {
-  //     toast.error('Passwords do not match');
-  //   } else {
-  //     try {
-  //       const res = await register({ name, email, password, mobile }).unwrap();
-  //       dispatch(setCredentials({ ...res }));
-        
-  //       navigate('/otpverification');
-  //     } catch (err) {
-  //       toast.error(err?.data?.message || err.error);
-  //     }
-  //   }
-  // };
-
-
+  
   const submitHandler = async (e) => {
     e.preventDefault();
   

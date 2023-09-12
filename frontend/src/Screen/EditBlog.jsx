@@ -123,7 +123,7 @@
 //   useEffect(() => {
 //     const fetchBlogData = async () => {
 //       try {
-//         const response = await axios.get(`http://localhost:4000/api/users/getOneBlog/${blogId}`);
+//         const response = await axios.get(`https://ansaren.online/api/users/getOneBlog/${blogId}`);
 //         const fetchedBlogData = response.data;
 //         setBlogData(fetchedBlogData);
 //       } catch (error) {
@@ -167,7 +167,7 @@
   
 //       const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   
-//       await axios.put(`http://localhost:4000/api/users/updateBlog/${blogId}`, formData, {
+//       await axios.put(`https://ansaren.online/api/users/updateBlog/${blogId}`, formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //           Authorization: `Bearer ${token}`,
@@ -206,7 +206,7 @@
 //             {blogData.images.map((image, index) => (
 //               <Image
 //               key={index}
-//               src={`http://localhost:4000/api/users/${image}`} // Fetch the image from the backend
+//               src={`https://ansaren.online/api/users/${image}`} // Fetch the image from the backend
 //               alt={`Image ${index + 1}`}
 //               className="current-editblog-image"
 //             />
@@ -267,7 +267,7 @@ const navigate = useNavigate()
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/users/getOneBlog/${blogId}`);
+        const response = await axios.get(`https://ansaren.online/api/users/getOneBlog/${blogId}`);
         const fetchedBlogData = response.data;
         setBlogData(fetchedBlogData);
       } catch (error) {
@@ -295,7 +295,7 @@ const navigate = useNavigate()
       const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
       await axios.put(
-        `http://localhost:4000/api/users/updateBlog/${blogId}`,
+        `https://ansaren.online/api/users/updateBlog/${blogId}`,
         {
           title: blogData.title,
           summary: blogData.summary,

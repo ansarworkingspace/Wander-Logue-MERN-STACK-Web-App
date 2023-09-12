@@ -28,7 +28,7 @@ const ViewBlog = () => {
   useEffect(() => {
     const adminCheckAuth = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/admin/adminCheckAuth', {
+            const response = await fetch('https://ansaren.online/api/admin/adminCheckAuth', {
                 credentials: 'include' // Include cookies in the request
             });
             if (!response.ok) {
@@ -55,7 +55,7 @@ const ViewBlog = () => {
 
   // useEffect(() => {
   //   // Fetch the selected blog details using the provided blogId
-  //   fetch(`http://localhost:4000/api/admin/getOneBlogOfUser/${blogId}`)
+  //   fetch(`https://ansaren.online/api/admin/getOneBlogOfUser/${blogId}`)
     
     
   //   // Adjust the API route accordingly
@@ -74,7 +74,7 @@ const ViewBlog = () => {
   //give admin jwt
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId
-    axios.get(`http://localhost:4000/api/admin/getOneBlogOfUser/${blogId}`, {
+    axios.get(`https://ansaren.online/api/admin/getOneBlogOfUser/${blogId}`, {
       withCredentials: true, // Send credentials with the request
     })
     .then((response) => {
@@ -130,14 +130,14 @@ const ViewBlog = () => {
       <div className='imageView'>
         {selectedBlog.images.length > 0 && (
         // <Image
-        //   src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+        //   src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
         //   alt='Blog'
         //   className='viewImageOndiv'
         // />
 
         getFileExtension(selectedBlog.images[0]) === 'mp4' ? (
           <video
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
             controls
             className='viewImageOndiv'
           >
@@ -145,7 +145,7 @@ const ViewBlog = () => {
           </video>
         ) : (
           <Image
-            src={`http://localhost:4000/api/users/${selectedBlog.images[0]}`}
+            src={`https://ansaren.online/api/users/${selectedBlog.images[0]}`}
             alt='Blog'
             className='viewImageOndiv'
           />
@@ -167,7 +167,7 @@ const ViewBlog = () => {
         <div className='imageView'>
           {getFileExtension(selectedBlog.images[1]) === 'mp4' ? (
             <video
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               controls
               className='viewImageOndiv'
             >
@@ -175,7 +175,7 @@ const ViewBlog = () => {
             </video>
           ) : (
             <Image
-              src={`http://localhost:4000/api/users/${selectedBlog.images[1]}`}
+              src={`https://ansaren.online/api/users/${selectedBlog.images[1]}`}
               alt='Blog'
               className='viewImageOndiv'
             />
