@@ -13,7 +13,7 @@
 
 
 
-// const ENDPOINT = 'http://localhost:4000';
+// const ENDPOINT = 'https://localhost:4000';
 // var socket , selectedChatCompare;
 
 // const ChatComponent = ({ chatRoomId }) => {
@@ -89,7 +89,7 @@
 //   const fetchMessages = async () => {
 //     try {
 //       const response = await axios.get(
-//         `http://localhost:4000/api/users/chatMessages/${chatRoomId}`,
+//         `https://localhost:4000/api/users/chatMessages/${chatRoomId}`,
 //         {
 //           withCredentials: true,
 //         }
@@ -114,7 +114,7 @@
 //     socket.emit("stop typing", chatRoomId);
 //     try {
 //       const { data } = await axios.post(
-//         `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
+//         `https://localhost:4000/api/users/chatSend/${chatRoomId}`,
 //         {
 //           content: message,
 //         },
@@ -151,7 +151,7 @@
 // // find participents
 // useEffect(() => {
 //   if (chatRoomId) {
-//     axios.get(`http://localhost:4000/api/users/participants/${chatRoomId}`, {
+//     axios.get(`https://localhost:4000/api/users/participants/${chatRoomId}`, {
 //       withCredentials: true
 //     })
 //       .then(response => {
@@ -200,7 +200,7 @@
 //       <div className='followingBox' style={{ width: "77%", marginLeft: "4rem", marginTop: "1rem", height: "3rem" }}>
 //         <div className='imageONbox' style={{ height: "3rem" }}>
 //         {selectedChat && selectedChat.profileImage ? (
-//       <Image style={{width:"43%",height:"80%"}} src={`http://localhost:4000/api/users/uploads/${selectedChat.profileImage}`} alt="Profile" className="followingImage" roundedCircle />
+//       <Image style={{width:"43%",height:"80%"}} src={`https://localhost:4000/api/users/uploads/${selectedChat.profileImage}`} alt="Profile" className="followingImage" roundedCircle />
 //     ) : (
 //       <div className="profile-initials">{selectedChat && selectedChat.name ? selectedChat.name.charAt(0).toUpperCase() : ''}</div>
 //     )}
@@ -289,7 +289,7 @@ import animationData from '../animation/animation_llz6cgwy.json'
 
 
 
-const ENDPOINT = 'http://ansaren.online';
+const ENDPOINT = 'httpss://ansaren.online';
 var socket , selectedChatCompare;
 
 const ChatComponent = ({ chatRoomId, unreadMessages, setUnreadMessages }) => {
@@ -356,7 +356,7 @@ useEffect(() => {
 async function makeNotification(messageId, newMessageRoomId) {
   try {
     // Send a POST request to update the chat room's notification field
-    const response = await axios.post(`http://localhost:4000/api/users/updateNoti/${newMessageRoomId}`, { messageId });
+    const response = await axios.post(`https://localhost:4000/api/users/updateNoti/${newMessageRoomId}`, { messageId });
     // You can handle the response here if needed
     // console.log('Notification response:', response.data);
   } catch (error) {
@@ -469,7 +469,7 @@ socket.on('new message notification', (newMessageRecived) => {
   const fetchMessages = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/users/chatMessages/${chatRoomId}`,
+        `https://localhost:4000/api/users/chatMessages/${chatRoomId}`,
         {
           withCredentials: true,
         }
@@ -496,7 +496,7 @@ socket.on('new message notification', (newMessageRecived) => {
     socket.emit("stop typing", chatRoomId);
     try {
       const { data } = await axios.post(
-        `http://localhost:4000/api/users/chatSend/${chatRoomId}`,
+        `https://localhost:4000/api/users/chatSend/${chatRoomId}`,
         {
           content: message,
         },
@@ -533,7 +533,7 @@ socket.on('new message notification', (newMessageRecived) => {
 // find participents
 useEffect(() => {
   if (chatRoomId) {
-    axios.get(`http://localhost:4000/api/users/participants/${chatRoomId}`, {
+    axios.get(`https://localhost:4000/api/users/participants/${chatRoomId}`, {
       withCredentials: true
     })
       .then(response => {
@@ -582,7 +582,7 @@ const typingHandler = (e) => {
       <div className='followingBox' style={{ width: "77%", marginLeft: "4rem", marginTop: "1rem", height: "3rem" }}>
         <div className='imageONbox' style={{ height: "3rem" }}>
         {selectedChat && selectedChat.profileImage ? (
-      <Image style={{width:"43%",height:"80%"}} src={`http://localhost:4000/api/users/uploads/${selectedChat.profileImage}`} alt="Profile" className="followingImage" roundedCircle />
+      <Image style={{width:"43%",height:"80%"}} src={`https://localhost:4000/api/users/uploads/${selectedChat.profileImage}`} alt="Profile" className="followingImage" roundedCircle />
     ) : (
       <div className="profile-initials">{selectedChat && selectedChat.name ? selectedChat.name.charAt(0).toUpperCase() : ''}</div>
     )}

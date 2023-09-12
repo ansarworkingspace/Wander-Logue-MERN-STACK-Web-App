@@ -88,7 +88,7 @@
 
 
 // {userInfo.profileImage ? (
-//     <Image src={`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
+//     <Image src={`https://ansaren.online/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
 //   ) : userInfo.profileGoogleImage ? (
 //     <Image src={userInfo.profileGoogleImage} alt="Google Display Picture" className="dp-image rounded-circle" />
 //   ) : (
@@ -167,8 +167,8 @@ const Header = () => {
   const isLandingRoute = location.pathname === '/landing';
 
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false); // State for unread messages
-  // const socket = io('http://localhost:4000'); 
-   const socket = io('http://ansaren.online'); 
+  // const socket = io('https://ansaren.online'); 
+   const socket = io('https://ansaren.online'); 
   const [currentChatRoomId, setCurrentChatRoomId] = useState(null); // Define currentChatRoomId
   const [socketConnected, setSocketConnected] = useState(false);
 
@@ -176,27 +176,6 @@ const Header = () => {
 
 
 
-//fetch notification status 
-// useEffect(() => {
-//   // Make an API request to get the chat room's notification status
-//   const fetchNotificationStatus = async () => {
-//     try {
-//       const response = await axios.get('http://localhost:4000/api/users/checkHeadingNotification', {
-//         withCredentials: true,
-//       });
-
-//       const hasUnreadedMessage = response.data; // Assuming the response is a boolean value
-    
-//       setHasUnreadMessages(hasUnreadedMessag);
-//       console.log("Updated hasUnreadMessages:", hasUnreadedMessage);
-//     } catch (error) {
-//       // Handle errors
-//     }
-//   };
-
-//   // Call the function when the ChatRoom component is loaded
-//   fetchNotificationStatus();
-// }, []);
 
 
 
@@ -207,7 +186,7 @@ useEffect(() => {
   // Make an API request to get the chat room's notification status
   const fetchNotificationStatus = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/users/checkHeadingNotification', {
+      const response = await axios.get('https://ansaren.online/api/users/checkHeadingNotification', {
         withCredentials: true,
       });
 
@@ -272,7 +251,7 @@ useEffect(() => {
     
     try {
       // Make an API request to update the notification status of the chat room
-      await axios.post(`http://localhost:4000/api/users/updateNotificationStatus/${roomId}`, {
+      await axios.post(`https://ansaren.online/api/users/updateNotificationStatus/${roomId}`, {
         userId: userInfo._id, // Include the user's ID in the request body
         senderId: senderId,
      
@@ -293,7 +272,7 @@ useEffect(() => {
   //   // Remove the badge when the comment icon is clicked
   //   setHasUnreadMessages(false);
 
-  //   await axios.post(`http://localhost:4000/api/users/${userInfo._id}`)
+  //   await axios.post(`https://ansaren.online/api/users/${userInfo._id}`)
 
   //   // Navigate to the ChatRoom
   //   navigate('/ChatRoom');
@@ -305,7 +284,7 @@ useEffect(() => {
       setHasUnreadMessages(false);
   
       // Make an API request to remove notifications for the user's chat rooms
-      await axios.post(`http://localhost:4000/api/users/removeNotifications/${userInfo._id}`);
+      await axios.post(`https://ansaren.online/api/users/removeNotifications/${userInfo._id}`);
   
       // Navigate to the ChatRoom
       navigate('/ChatRoom');
@@ -390,7 +369,7 @@ useEffect(() => {
 
 
 {userInfo.profileImage ? (
-    <Image src={`http://localhost:4000/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
+    <Image src={`https://ansaren.online/api/users/uploads/${userInfo.profileImage}`} alt="Display Picture" className="dp-image rounded-circle" />
   ) : userInfo.profileGoogleImage ? (
     <Image src={userInfo.profileGoogleImage} alt="Google Display Picture" className="dp-image rounded-circle" />
   ) : (

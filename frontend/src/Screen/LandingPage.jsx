@@ -22,7 +22,7 @@
 //     useEffect(() => {
 //       const fetchBlogs = async () => {
 //         try {
-//           const response = await axios.get('http://ansaren.online/api/users/allBlogsLanding')
+//           const response = await axios.get('https://ansaren.online/api/users/allBlogsLanding')
          
 //           setBlogs(response.data);
 //           setLoading(false);
@@ -76,7 +76,7 @@
 
 //               getFileExtension(blog.images[0]) === 'mp4' ? (
 //                 <video
-//                   src={`http://ansaren.online/api/users/${blog.images[0]}`}
+//                   src={`https://ansaren.online/api/users/${blog.images[0]}`}
 //                   controls
 //                   className='postVideoOndiv'
 //                 >
@@ -84,7 +84,7 @@
 //                 </video>
 //               ) : (
 //                 <Image
-//                   src={`http://ansaren.online/api/users/${blog.images[0]}`}
+//                   src={`https://ansaren.online/api/users/${blog.images[0]}`}
 //                   alt='Blog'
 //                   className='postImageOndiv'
 //                 />
@@ -117,7 +117,7 @@
 //     useEffect(() => {
 //       const fetchSelectedBanner = async () => {
 //         try {
-//           const response = await axios.get('http://ansaren.online/api/users/selectedBanner');
+//           const response = await axios.get('https://ansaren.online/api/users/selectedBanner');
 //           setSelectedBannerMedia(response.data.media);
 //         } catch (error) {
 //           console.error('Error fetching selected banner:', error);
@@ -132,7 +132,7 @@
 //       <div
 //         className="bannerLanding"
 //         style={{
-//           background: `url(http://ansaren.online/api/users/${selectedBannerMedia}) no-repeat center center fixed`,
+//           background: `url(https://ansaren.online/api/users/${selectedBannerMedia}) no-repeat center center fixed`,
 //           backgroundSize: 'cover',
 //         }}
 //       >
@@ -227,11 +227,11 @@ const LandingPage = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const blogsResponse = await axios.get('http://ansaren.online/api/users/allBlogsLanding');
+          const blogsResponse = await axios.get('https://ansaren.online/api/users/allBlogsLanding');
           setBlogs(blogsResponse.data);
     
           try {
-            const selectedBannerResponse = await axios.get('http://ansaren.online/api/users/selectedBanner');
+            const selectedBannerResponse = await axios.get('https://ansaren.online/api/users/selectedBanner');
             if (selectedBannerResponse.data) {
               setSelectedBannerMedia(selectedBannerResponse.data.media);
             } else {
@@ -294,7 +294,7 @@ const LandingPage = () => {
 
               getFileExtension(blog.images[0]) === 'mp4' ? (
                 <video
-                  src={`http://ansaren.online/api/users/${blog.images[0]}`}
+                  src={`https://ansaren.online/api/users/${blog.images[0]}`}
                   controls
                   className='postVideoOndiv'
                 >
@@ -302,7 +302,7 @@ const LandingPage = () => {
                 </video>
               ) : (
                 <Image
-                  src={`http://ansaren.online/api/users/${blog.images[0]}`}
+                  src={`https://ansaren.online/api/users/${blog.images[0]}`}
                   alt='Blog'
                   className='postImageOndiv'
                 />
@@ -348,7 +348,7 @@ const LandingPage = () => {
 
 <div className="videoOverlay"></div> {/* Add this overlay */}
     <video
-      src={`http://ansaren.online/api/users/${selectedBannerMedia}`}
+      src={`https://ansaren.online/api/users/${selectedBannerMedia}`}
       autoPlay
       loop
       muted

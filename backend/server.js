@@ -50,7 +50,7 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://ansaren.online", credentials: true }));
 
 
 
@@ -69,7 +69,7 @@ if (process.env.NODE_ENV === 'production'){
    );
 
   }else{
-    
+
   app.get('/',(req,res)=>res.send('server is ready'));
 }
 
@@ -89,10 +89,18 @@ const server = app.listen(port,()=>console.log(`server start on port ${port}`));
 
 
 
+// const io = new Server(server, {
+//   pingTimeout: 60000,
+//   cors: {
+//     origin: "http://localhost:3000",
+//     // credentials: true,
+//   },
+// });
+
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://ansaren.online",
     // credentials: true,
   },
 });
