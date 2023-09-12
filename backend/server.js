@@ -50,7 +50,7 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-app.use(cors({ origin: "https://ansar.online", credentials: true }));
+app.use(cors({ origin: "*", credentials: true }));
 
 
 
@@ -101,7 +101,7 @@ const server = app.listen(port,()=>console.log(`server start on port ${port}`));
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://ansaren.online",
+    origin: "*",
     // credentials: true,
   },
 });
