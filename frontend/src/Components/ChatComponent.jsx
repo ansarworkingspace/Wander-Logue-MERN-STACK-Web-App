@@ -284,7 +284,7 @@ import '../css/profileScree.css'; // Import the CSS file
 import axios from 'axios'; // Import Axios for making API requests
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client'
-import Lottie from "lottie-react";
+
 import animationData from '../animation/animation_llz6cgwy.json'
 
 

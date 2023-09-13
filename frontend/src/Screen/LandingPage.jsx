@@ -205,7 +205,7 @@ import { useNavigate } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import { Container, Card, Button } from 'react-bootstrap';
 import Loader from '../Components/Loader';
-
+import TopPost from '../Components/TopPost';
 
 
 
@@ -389,6 +389,9 @@ const LandingPage = () => {
         </div>
       </div>
       <div className='proLine'></div>
+
+      <TopPost/>
+
 
       <div className='allPostLandingpage'>
         {blogItems}
