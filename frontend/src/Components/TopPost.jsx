@@ -82,16 +82,10 @@ const TopPost = () => {
          <div className="overlay"></div> 
          <div className="blogSummary">{truncateSummary(blog.summary)}</div>
 
-        
-         {userInfo ? ( // Check if userInfo is true
-            <Link to={`/allBlogs/${blog._id}`} className="navLink">
-            <div className="blogTitle">{blog.title}</div>
-            </Link>
-          ) : (
             <Link to={`/onlyView/${blog._id}`} className="navLink">
                <div className="blogTitle">{blog.title}</div>
             </Link>
-          )}
+          
         </div>
       ))}
     </div>
