@@ -1,30 +1,4 @@
 
-// import '../css/savedBlogs.css';
-
-// const SavedBlogs = () => {
-
-
-//   return (
-//     <div className="savedBlog-container">
-//       <div className='headingSavedBlog'>
-//         <h4 className='titleOfSavedBlog'>Your Saved List Of Blogs</h4>
-//       </div>
-//       <div className='proLine'></div>
-
-//       <div className='allPost'>
-       
-        
-      
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SavedBlogs;
-
-
-
-// components/SavedBlogs.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/savedBlogs.css';

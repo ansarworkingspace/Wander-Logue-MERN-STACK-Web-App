@@ -29,43 +29,6 @@ const ViewBlog = () => {
 
 
 
-//   const handleBookmarkClick = async () => {
-//     try {
-//       await axios.post(`https://ansaren.online/api/users/saveBlog/${selectedBlog._id}`, null, {
-//   withCredentials: true,
-// });
-
-//     } catch (error) {
-//       console.error('Error saving blog:', error);
-//     }
-//   };
-
-
-
-
-
-  
-
-//   useEffect(() => {
-//     axios.get(`https://ansaren.online/api/users/countLike/${blogId}`)
-//       .then(response => {
-//         setLikeCount(response.data.likeCount);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching like count:', error);
-//       });
-
-//     // Check if the user has liked this blog post
-//     axios.get(`https://ansaren.online/api/users/checkLike/${blogId}`, {
-//       withCredentials: true,
-//     })
-//       .then(response => {
-//         setLiked(response.data.userLiked);
-//       })
-//       .catch(error => {
-//         console.error('Error checking like status:', error);
-//       });
-//   }, [blogId]);
 
 
 

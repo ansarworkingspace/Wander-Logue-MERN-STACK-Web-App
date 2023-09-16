@@ -8,7 +8,7 @@ import generateAdminToken from '../utils/adminJwt.js'
 import jwt from 'jsonwebtoken'
 import Banner from '../models/bannerSchema.js';
 
-
+// Authenticate an Admin
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const foundAdmin = await admin.findOne({ email }); // Rename the variable here
@@ -26,6 +26,9 @@ const authAdmin = asyncHandler(async (req, res) => {
     }
 });
 
+
+
+// Register a New Admin
 const registerAdmin = asyncHandler(async (req, res) => {
 
     const { name, email, password } = req.body;
@@ -58,9 +61,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
 
 
 
-
-
-
+// Log Out the Currently Authenticated Admin
 const logoutAdmin = asyncHandler(async (req,res)=>{
     res.cookie('adminJwt','',{
         httpOnly:true,
@@ -72,6 +73,9 @@ const logoutAdmin = asyncHandler(async (req,res)=>{
 });
 
 
+
+
+// Retrieve a List of All Registered Users
 const getAllUsers = asyncHandler(async (req,res) => {
     fetchAllUsers()
       .then((users) => {
@@ -82,7 +86,9 @@ const getAllUsers = asyncHandler(async (req,res) => {
       });
   })
 
-  const getUserByEmail = asyncHandler(async (req, res) => {
+
+ // Retrieve a User by Email 
+const getUserByEmail = asyncHandler(async (req, res) => {
     const { email } = req.query;
   
     const foundUser = await user.findOne({ email });
@@ -110,7 +116,9 @@ const getAllUsers = asyncHandler(async (req,res) => {
     }
   });
 
-  const allUsersBlogs = asyncHandler(async (req, res) => {
+
+  // Retrieve All Blogs from All Users
+const allUsersBlogs = asyncHandler(async (req, res) => {
     try {
       const { email } = req.query;
   
@@ -135,7 +143,7 @@ const getAllUsers = asyncHandler(async (req,res) => {
 
 
 
-  
+ // Retrieve a Specific Blog of a User 
   const getOneBlogOfUser = async (req, res) => {
     const blogId = req.params.blogId;
   
@@ -155,7 +163,7 @@ const getAllUsers = asyncHandler(async (req,res) => {
   };
   
 
-
+// Toggle User Block Status (Block/Unblock)
 const toggleBlockUser = asyncHandler(async (req, res) => {
     const { email } = req.body;
   
@@ -178,7 +186,7 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
   });
   
 
-
+// Retrieve a List of Blocked Users
   const getBlockedUsers = asyncHandler(async (req, res) => {
     try {
       const blockedUsers = await user.find({ status: true }); // Assuming you have a 'status' field in your user schema to indicate blocked status
@@ -189,7 +197,7 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
   });
 
 
-
+// Check Authentication Status of an Admin
   const adminCheckAuth = async (req, res) => {
     const token = req.cookies.adminJwt;
 
@@ -208,6 +216,8 @@ const toggleBlockUser = asyncHandler(async (req, res) => {
     }
 };
 
+
+// Upload a Banner file
 const uploadBanner = async (req, res) => {
   try {
     const { path } = req.file;
@@ -225,7 +235,7 @@ const uploadBanner = async (req, res) => {
 }
 
 
-
+// Retrieve a List of All Banner files
 const getBanners = async (req, res) => {
   try {
     const banners = await Banner.find();
@@ -237,7 +247,7 @@ const getBanners = async (req, res) => {
 
 
 
-
+// Delete a Specific Banner file
 const deleteBanner = async (req, res) => {
   try {
     const bannerId = req.params.id;
@@ -255,43 +265,7 @@ const deleteBanner = async (req, res) => {
 
 
 
-
-// const selectBanner = async (req, res) => {
-//   const bannerId = req.params.id // Get the bannerId from the request parameters
-
-//   try {
-//     // Find the banner by its ID
-//     const selectedBanner = await Banner.findById(bannerId);
-
-//     // If the banner doesn't exist, return an error response
-//     if (!selectedBanner) {
-//       return res.status(404).json({ message: 'Banner not found' });
-//     }
-
-//     // If the selected banner is already selected, return a response
-//     if (selectedBanner.selected) {
-//       return res.status(200).json({ message: 'You have already selected this banner' });
-//     }
-
-//     // Find and update the banner that is currently selected (if any)
-//     const currentSelectedBanner = await Banner.findOne({ selected: true });
-//     if (currentSelectedBanner) {
-//       currentSelectedBanner.selected = false;
-//       await currentSelectedBanner.save();
-//     }
-
-//     // Update the selected banner's selected field and save the changes
-//     selectedBanner.selected = true;
-//     await selectedBanner.save();
-
-//     // Return a success response
-//     res.status(200).json({ message: 'Banner selection successful' });
-//   } catch (error) {
-//     console.error('Error selecting banner:', error);
-//     res.status(500).json({ message: 'Error selecting banner' });
-//   }
-// };
-
+// Select a Specific Banner file
 const selectBanner = async (req, res) => {
   const bannerId = req.params.id;
 
@@ -325,7 +299,7 @@ const selectBanner = async (req, res) => {
 };
 
 
-
+// Retrieve a List of Reported Blogs
 const getReportedBlogs = async (req, res) => {
   try {
     const reportedBlogs = await Blogs.aggregate([
@@ -358,7 +332,7 @@ const getReportedBlogs = async (req, res) => {
 };
 
 
-
+// Delete a Specific Blog
 const deleteBlog = async (req, res) => {
   const { blogId } = req.params;
 
@@ -377,7 +351,7 @@ const deleteBlog = async (req, res) => {
 };
 
 
-
+// Get the Total Count of Registered Users
 const countOfTotalUsers = async (req, res) => {
   try {
     // Use the User model to query the total count of users in your database
@@ -394,7 +368,7 @@ const countOfTotalUsers = async (req, res) => {
 
 
 
-// Controller function to fetch the total count of blogs
+// Get the Total Count of Blogs
 const countOfTotalBlogs = async (req, res) => {
   try {
     // Use the Blog model to query the total count of blogs in your database
@@ -411,7 +385,7 @@ const countOfTotalBlogs = async (req, res) => {
 
 
 
-
+// Retrieve Top Users with the Most Followers
 const topUsersWithMostFollowers = async (req, res) => {
   try {
     // Use the User model to aggregate the top 3 users with the most followers
@@ -441,11 +415,7 @@ const topUsersWithMostFollowers = async (req, res) => {
 
 
 
-// const checkActiveTrue = asyncHandler(async(req,res)=>{
-//   //please find selected true banner id 
-// })
-
-
+// Check if a User is Active (True)
 const checkActiveTrue = asyncHandler(async (req, res) => {
   try {
     const selectedBanner = await Banner.findOne({ selected: true });
@@ -464,7 +434,7 @@ const checkActiveTrue = asyncHandler(async (req, res) => {
 
 
 
-
+// Retrieve the Top Liked Blogs
 const getTopLikedBlogs = async (req, res) => {
   try {
     // Query the database to get the top three liked blogs

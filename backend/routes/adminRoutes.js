@@ -32,8 +32,6 @@ router.get('/getOneBlogOfUser/:blogId',protect, getOneBlogOfUser);
 router.get('/adminCheckAuth', adminCheckAuth);
 router.post('/uploadBanner', upload.single('media'), uploadBanner);
 router.get('/banners', getBanners);
-
-// Delete a banner by ID
 router.delete('/deleteBanner/:id',protect,deleteBanner);
 router.post('/selectBanner/:id',protect,selectBanner)
 router.get('/reportedBlogs', getReportedBlogs);

@@ -36,11 +36,7 @@ router.post('/logout',logoutUser)
 router.get('/profile',protect,getUserProfile)//--------------------------------preventing blockeduser
 router.use('/uploads', express.static('uploads'));
 router.put('/editProfile',protect,upload.single('profileImage'),updateUserProfile);
-// router.post('/blogs', protect,upload.single('image'), createBlog);//----ORG---------------------preventing blockeduser
-// router.post('/blogs', protect,upload.single('file'), createBlog);//-------------------------preventing blockeduser
-
 router.post('/blogs', protect, upload.array('images',10), createBlog);
-
 router.get('/blogs', protect,getUserBlogs);
 router.get('/allBlogs',allUsersBlogs)
 router.get('/getOneBlog/:blogId', getOneBlog);
@@ -62,11 +58,7 @@ router.post('/follow/:userId', protect, followUser);
 router.post('/unfollow/:userId', protect, unfollowUser);
 router.get('/checkFollowing/:userId', protect, checkFollowing);
 router.get('/followerFollowingCount/:userId', protect,getFollowerFollowingCount);
-
-//google signupAndIn
 router.post('/googleAuth',googleAuth)
-
-
 router.post('/verifyOtp', verifyOTP);
 router.get('/resendOtp',protect,resendOtp)
 router.get('/followingList',protect,followingList)
@@ -75,40 +67,23 @@ router.get('/otherUserfollowersList/:OtherUserId', getOtherUserFollowersList);
 router.get('/otherUserfollowingList/:OtherUserId', getOtherUserFollowingList);
 router.get('/LikedUsers/:blogId', LikedUsers);
 router.get('/selectedBanner', getSelectedBanner);
-// Route to report a blog
 router.post('/reportBlog/:blogId',protect, reportBlog);
-// Route to create a new comment for a blog post
 router.post('/postComment/:blogId', protect, postComment);
 router.get('/getComments/:blogId', protect, getComments);
-
-
-//chat Set up
 router.get('/createOrGetChatRoom/:userId', protect ,createOrGetChatRoom)
 router.get('/chatRooms',protect,chatRooms)
 router.post('/chatSend/:chatRoomId', protect, chatSend);
 router.get('/chatMessages/:chatRoomId', protect,chatMessages)
 router.get('/participants/:chatRoomId',protect,participants)
-
 router.get('/getChatRoomId/:userId',protect,getChatRoomId)
 router.post('/updateNoti/:chatRoomId', makeNotifi);
 router.get('/messages/:messageId', getMessageById);
 router.delete('/deleteMessageId/:chatRoomId', deleteMessagesByChatRoom);
-// Get notification status for all chat rooms
 router.get('/notificationStatus', protect, getNotificationStatus);
 router.get('/checkHeadingNotification',protect,checkHeadingNotification)
 router.post('/updateNotificationStatus/:roomId', updateNotificationStatus);
 router.post('/removeNotifications/:userId',removeNotifications)
 router.get('/topThreepost',topThreePost)
-
-
-// router.get('/notificationStatus/:chatRoomId', protect, getNotificationStatus);
-// router.post('/updateNotificationStatus/:chatRoomId', updateNotificationStatus);
-
-
-
-
-
-
 
 
 

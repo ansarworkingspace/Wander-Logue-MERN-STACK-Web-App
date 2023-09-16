@@ -1,35 +1,3 @@
-// import express from "express";//ORGINAL CODE
-// import dotenv from 'dotenv'
-// import cors from 'cors'
-// dotenv.config()
-// import {notFound,errorHandler} from './middleware/errorMiddleware.js'
-// import connectDB from "./config/db.js";
-// import cookieParser from "cookie-parser";
-
-// const port = process.env.PORT || 4000
-// import userRoutes from './routes/userRoutes.js'
-// import adminRoutes from './routes/adminRoutes.js'
-
-// connectDB();
-
-// const app = express()
-
-// app.use(express.json());
-// app.use(express.urlencoded({extended:true}));
-// app.use(cookieParser());
-// app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-// app.use('/api/users',userRoutes)
-// app.use('/api/admin',adminRoutes)
-
-// app.get('/',(req,res)=>res.send('server is ready'));
-// app.use(notFound);
-// app.use(errorHandler);
-
-
-
-// app.listen(port,()=>console.log(`server start on port ${port}`));
-
-
 
 import express from "express";
 import dotenv from 'dotenv'
@@ -57,10 +25,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
-
-
 app.use('/api/users',userRoutes)
 app.use('/api/admin',adminRoutes)
 
@@ -82,15 +46,11 @@ if (process.env.NODE_ENV === 'production'){
 
 
 
-
-
-
-
 app.use(notFound);
 app.use(errorHandler);
 
 
-
+//socket io setup
 import { Server } from 'socket.io'
 const server = app.listen(port,()=>console.log(`server start on port ${port}`));
 
@@ -145,7 +105,7 @@ socket.on('new message', (newMessageRecived) => {
       ...newMessageRecived, // Use the rest of the message content
     });
 
-//*real time show bell icon
+
 
 // Emit a real-time notification with the entire message object
 socket.to(user._id).emit('new message notification', newMessageRecived);
@@ -166,10 +126,6 @@ socket.on("leaveRoom", ({ room }) => {
 });
 
 
-// socket.off("setup", () => {
-//   console.log("USER DISCONNECTED");
-//   socket.leave(userData._id);
-// });
 
 
 socket.off("setup", (userId) => {

@@ -1,41 +1,4 @@
 
-// import '../css/adminBanner.css';
-// import '../css/reportAdmin.css';
-
-
-
-// const AdminReportList = () => {
-
-
-
-
-//   return (
-//     <div className="banner-container">
-//      <div className="topHomeLanding">
-//         <h3>Report Listing</h3>
-      
-//       </div>
-
-// <div className='reportBox'>
-
-// <h4 style={{fontSize:"1rem"}}>reson</h4>
-
-// <button className='buttonReportBoxView' >Report Blog</button>
-// <button className='buttonReportBox'>View Blog</button>
-
-// </div>
-
-
-
-
-//     </div>
-//   );
-// };
-
-// export default AdminReportList;
-
-
-
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';

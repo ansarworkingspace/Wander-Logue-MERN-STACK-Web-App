@@ -122,29 +122,6 @@ useEffect(() => {
 
 
 
-
-//orginal handle of delete
-  // const handleDeleteBlog = async (blogId) => {
-  //   const shouldDelete = window.confirm('Are you sure you want to delete this blog?');
-
-  //   if (!shouldDelete) {
-  //     return;
-  //   }
-
-  //   try {
-  //     await axios.delete(`https://ansaren.online/api/users/deleteBlog/${blogId}`, {
-  //       withCredentials: true,
-  //     });
-  //     // Remove the deleted blog from the local state
-  //     setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
-  //   } catch (error) {
-  //     toast.error('Error deleting blog');
-  //   }
-  // };
-
-
-
-
   const handleDeleteBlog = async (blogId) => {
     try {
       const result = await Swal.fire({

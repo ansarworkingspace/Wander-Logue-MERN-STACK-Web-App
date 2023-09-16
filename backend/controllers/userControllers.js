@@ -55,41 +55,6 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 
-// Orginal register
-// const registerUser = asyncHandler(async (req, res) => {
-//   const { name, email, password, mobile } = req.body;
-//   const userExists = await User.findOne({ email: email });
-
-//   if (userExists) {
-//     res.status(400);
-//     throw new Error('User already exists');
-//   }
-
-//   if (password.length < 6) {
-//     res.status(400);
-//     throw new Error('Password must be at least 6 characters long');
-//   }
-
-//   const user = await User.create({
-//     name,
-//     email,
-//     password,
-//     mobile,
-//   });
-
-//   if (user) {
-//     generateToken(res, user._id);
-//     res.status(201).json({
-//       _id: user._id,
-//       name: user.name,
-//       email: user.email,
-//       mobile: user.mobile,
-//     });
-//   } else {
-//     res.status(400);
-//     throw new Error('Invalid user data');
-//   }
-// });
 
 //^----------------testing-otp----------------------------------------
 //verification
@@ -319,10 +284,7 @@ const logoutUser = asyncHandler(async (req,res)=>{
 });
 
 
-// const getAllUsers = asyncHandler(async (req, res) => {
-//     const users = await User.find({}); // Retrieve all users from the database
-//     res.status(200).json(users);
-// });
+
 
 const getUserProfile = asyncHandler(async (req,res)=>{
     const user = {
@@ -629,33 +591,6 @@ const deleteSavedBlog = async (req, res) => {
   }
 };
 
-
-//orginal
-// const updateBlog = asyncHandler(async (req, res) => {
-//   const { blogId } = req.params;
-//   const { title, summary, content } = req.body;
-
-//   try {
-//     const updatedBlog = await Blog.findByIdAndUpdate(
-//       blogId,
-//       {
-//         title,
-//         summary,
-//         content,
-//       },
-//       { new: true } // Return the updated document
-//     );
-
-//     if (!updatedBlog) {
-//       return res.status(404).json({ message: 'Blog not found.' });
-//     }
-
-//     res.json({ message: 'Blog updated successfully', updatedBlog });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
 
 
 const updateBlog = asyncHandler(async (req, res) => {
@@ -1094,36 +1029,6 @@ const reportBlog = asyncHandler(async (req, res) => {
 
 
 
-// const postComment = asyncHandler(async (req, res) => {
-//   const { blogId } = req.params;
-//   const { text } = req.body;
-//   const userId = req.user._id;
-
-//   const comment = new Comment({
-//     user: userId,
-//     content: text,
-//     blog: blogId
-//   });
-
-//   try {
-//     const savedComment = await comment.save();
-//     const blog = await Blog.findById(blogId);
-
-//     if (blog) {
-//       blog.comments.push(savedComment._id);
-//       await blog.save();
-//       res.status(201).json(savedComment);
-//     } else {
-//       res.status(404);
-//       throw new Error('Blog not found');
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: 'Comment could not be added' });
-//   }
-// });
-
-
-
 
 const postComment = asyncHandler(async (req, res) => {
   const { blogId } = req.params;
@@ -1145,22 +1050,6 @@ const postComment = asyncHandler(async (req, res) => {
     res.status(500).json({ message: 'Comment could not be added' });
   }
 });
-
-
-//orginal
-// const getComments = asyncHandler(async (req, res) => {
-//   const { blogId } = req.params;
-//   try {
-//     const comments = await Comment.find({ blog: blogId })
-//       .populate('user', 'name') // Populate user and select the 'name' field
-//       .select('content createdAt user'); // Select the desired fields from the Comment collection
-//     console.log('Fetched comments:', comments); // Check the fetched comments
-//     res.json({ comments });
-//   } catch (error) {
-//     console.error('Error fetching comments:', error); // Log any errors
-//     res.status(500).json({ message: 'Error fetching comments' });
-//   }
-// });
 
 
 
@@ -1238,36 +1127,6 @@ const createOrGetChatRoom = asyncHandler(async(req,res)=>{
 
 
 
-//orginal
-// const chatRooms = asyncHandler(async(req,res)=>{
-
-//   try {
-//     const currentUser = req.user._id;
-
-//     // Find chat rooms where the current user is a participant
-//     const chatRooms = await ChatRoom.find({ participants: currentUser }).populate({
-//       path: 'messages',
-//       model: 'ChatMessage', // Specify the model to populate from
-//     });// Populate the messages field
-
-//     const chatRoomsData = await Promise.all(chatRooms.map(async chatRoom => {
-//       const otherParticipantId = chatRoom.participants.find(participantId => participantId.toString() !== currentUser.toString());
-//       const otherParticipant = await User.findById(otherParticipantId, 'name profileImage');
-
-//       return {
-//         _id: chatRoom._id,
-//         otherParticipant,
-//         messages: chatRoom.messages, // Include the messages field
-//       };
-//     }));
-
-//     res.json({ chatRooms: chatRoomsData });
-//   } catch (error) {
-//     console.error('Error fetching chat rooms:', error);
-//     res.status(500).json({ message: 'Error fetching chat rooms' });
-//   }
-
-// })
 
 //testing
 const chatRooms = asyncHandler(async (req, res) => {
@@ -1493,32 +1352,6 @@ const deleteMessagesByChatRoom = async (req, res) => {
 
 
 
-// Get notification status for all chat rooms orginal 
-// const getNotificationStatus = asyncHandler(async (req, res) => {
-//   // Assuming you have the user's ID from the authentication middleware
-//   const userId = req.user._id;
-
-//   try {
-//     // Fetch notification status for all chat rooms where the user is a participant
-//     const chatRooms = await ChatRoom.find({
-//       participants: userId,
-//     });
-
-//     const notificationStatus = {};
-
-//     // Populate notification status for each chat room
-//     chatRooms.forEach((chatRoom) => {
-//       notificationStatus[chatRoom._id] = chatRoom.messages.length > 0; // true if there are messages, false if not
-//     });
-
-//     res.json(notificationStatus);
-//   } catch (error) {
-//     console.error('Error fetching notification status:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
-
 const getNotificationStatus = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
@@ -1559,64 +1392,7 @@ const getNotificationStatus = asyncHandler(async (req, res) => {
 
 
 
-// // In your backend route handler orginal
-// const checkHeadingNotification = asyncHandler(async (req, res) => {
-//   try {
-//     const currentUserId = req.user._id;
 
-//     // Find chat rooms for the current user where notification is true
-//     const chatRooms = await ChatRoom.find({
-//       participants: currentUserId,
-//       notification: true,
-//     });
-
-//     // Determine if there are any chat rooms with notifications
-//     const hasUnreadedMessage = chatRooms.length > 0;
-
-//     res.json(hasUnreadedMessage);
-//   } catch (error) {
-//     // Handle errors
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
-// const checkHeadingNotification = asyncHandler(async (req, res) => {
-//   try {
-//     const currentUserId = req.user._id;
-
-//     // Find chat rooms for the current user where notification includes currentUserId
-//     const chatRooms = await ChatRoom.find({
-//       participants: currentUserId,
-//       $or: [
-//         { notification: { $not: { $elemMatch: { $eq: currentUserId } } } }, // Notification array doesn't contain current user's ID
-//         { notification: { $exists: false } }, // Notification field doesn't exist (empty array or not defined)
-//       ],
-//     });
-
-//     console.log("backend controller chatrooms.notify : " +typeof chatRooms.notification);
-// let notify = true
-
-// if(chatRooms.notification == undefined ){
-//   notify = false
-// }else{
-//   notify=true
-// }
-
-
-// console.log("notify :"+notify)
-//     // Determine if there are any chat rooms with notifications
-//     const hasUnreadedMessage = notify
-//     console.log("backend controller notify"+hasUnreadedMessage);
-//     res.json(hasUnreadedMessage);
-
-//   } catch (error) {
-//     // Handle errors
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
-
-//tuesday morgn
 const checkHeadingNotification = asyncHandler(async (req, res) => {
   try {
     const currentUserId = req.user._id;
@@ -1648,34 +1424,6 @@ const checkHeadingNotification = asyncHandler(async (req, res) => {
 
 
 
-//orginal
-// const updateNotificationStatus = asyncHandler(async (req, res) => {
-//   try {
-//     const roomId = req.params.roomId;
-//     const currentUserId = req.body.userId;
-
-//     // Find the chat room by ID
-//     const chatRoom = await ChatRoom.findById(roomId);
-
-//     if (!chatRoom) {
-//       return res.status(404).json({ message: 'Chat room not found' });
-//     }
-
-//     // Check if the current user is a participant in the chat room
-//     if (chatRoom.participants.includes(currentUserId)) {
-//       // Update the notification status to false
-//       chatRoom.notification = true;
-//       await chatRoom.save();
-//       res.json({ message: 'Notification status updated' });
-//     } else {
-//       res.status(403).json({ message: 'You do not have permission to update notification status for this room' });
-//     }
-//   } catch (error) {
-//     // Handle errors
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
 const updateNotificationStatus = asyncHandler(async (req, res) => {
   try {
     const roomId = req.params.roomId;
@@ -1705,28 +1453,6 @@ const updateNotificationStatus = asyncHandler(async (req, res) => {
 });
 
 
-// Controller to remove notifications for a specific user's chat rooms orginal
-// const removeNotifications = asyncHandler(async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-
-//     // Find all chat rooms where the user is a participant
-//     const chatRooms = await ChatRoom.find({ participants: userId });
-
-//     // Update the notification status to false in all chat rooms
-//     chatRooms.forEach(async (chatRoom) => {
-//       chatRoom.notification = false;
-//       await chatRoom.save();
-//     });
-
-//     res.json({ message: 'Notifications removed successfully' });
-//   } catch (error) {
-//     // Handle errors
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
-
 
 
 const removeNotifications = asyncHandler(async (req, res) => {
@@ -1749,23 +1475,6 @@ const removeNotifications = asyncHandler(async (req, res) => {
   }
 });
 
-
-
-// const topThreePost = asyncHandler(async (req, res) => {
-//   try {
-//     // Find the top 3 most liked blogs, sorted in descending order by the number of likes
-//     const topBlogs = await Blog.find()
-//       .sort({ likes: -1 })
-//       .limit(3)
-//       .select('_id images title')
-//       .lean(); // Use lean() to convert Mongoose document to plain JavaScript object
-
-//     res.status(200).json(topBlogs);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Internal Server Error' });
-//   }
-// });
 
 
 

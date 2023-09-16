@@ -50,27 +50,6 @@ const ViewBlog = () => {
 
 
 
-
-
-
-  // useEffect(() => {
-  //   // Fetch the selected blog details using the provided blogId
-  //   fetch(`https://ansaren.online/api/admin/getOneBlogOfUser/${blogId}`)
-    
-    
-  //   // Adjust the API route accordingly
-  //     .then((response) => response.json())
-  //     .then((data) => setSelectedBlog(data))
-  //     .catch((error) => console.error(error));
-  // }, [blogId]); // Fetch when blogId changes
-
-
-
-
-
-
-
-
   //give admin jwt
   useEffect(() => {
     // Fetch the selected blog details using the provided blogId

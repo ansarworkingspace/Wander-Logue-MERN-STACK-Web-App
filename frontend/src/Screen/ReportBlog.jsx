@@ -1,44 +1,4 @@
 
-// import React, { useState } from 'react';
-// import '../css/profileScree.css'; // Import your custom CSS file
-// import '../css/blogCreate.css';
-
-// const ReportBlog = () => {
-//   const [selectedReason, setSelectedReason] = useState(''); // State for the selected reason
-
-//   const handleReasonChange = (event) => {
-//     setSelectedReason(event.target.value);
-//   };
-
-//   return (
-//     <div className="blog-form-container profile-container">
-//       <div className="blog-input-container" style={{ marginTop: '9rem' }}>
-//         <label style={{color:"white",fontFamily:"Sora",fontSize:"0.8rem"}} htmlFor="reason">Select Reason:</label>
-//         <select className='blog-input-field'
-//           id="reason"
-//           name="reason"
-//           value={selectedReason}
-//           onChange={handleReasonChange}
-//         >
-//           <option value="">Select a reason</option>
-//           <option value="spam">Spam</option>
-//           <option value="inappropriate">Inappropriate Content</option>
-//           <option value="other">Other</option>
-//         </select>
-//       </div>
-
-//       <button
-//         className="blog-post-button"
-//         style={{ marginTop: '5rem', borderRadius: '10px',marginRight:"0.5rem" }}
-//       >
-//         Submit Report
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default ReportBlog;
-
 
 
 import React, { useState } from 'react';
