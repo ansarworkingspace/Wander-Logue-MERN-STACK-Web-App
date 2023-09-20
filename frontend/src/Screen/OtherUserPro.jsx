@@ -135,6 +135,27 @@ withCredentials:true
   }
 
 
+
+
+  const handleChatButtonClick = async () => {
+    try {
+      const response = await axios.get(
+        `https://ansaren.online/api/users/createOrGetChatRoom/${userId}`,
+        { withCredentials: true }
+      );
+
+      // Navigate to chat page with chat roomID
+      navigate(`/ChatRoomWithDirect/${response.data.chatRoomId}`);
+    } catch (error) {
+      toast.error('Error creating or getting chat room');
+      
+    }
+  };
+
+
+
+
+
   return (
     <div className="profile-container">
       <Link >
@@ -142,9 +163,9 @@ withCredentials:true
         {isFollowing ? 'Unfollow' : 'Follow'}
       </button>
       </Link>
-      <Link to="/chatToUser">
-        <button className="profile-edit-button">message</button>
-      </Link>
+      
+      <button className="profile-edit-button"   onClick={handleChatButtonClick}>message</button>
+      
       {userDetails ? (
         <>
       <div className="profile-picture">
