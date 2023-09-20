@@ -19,7 +19,9 @@ const AdminReportList = () => {
 
   const fetchReportedBlogs = async () => {
     try {
-      const response = await axios.get('https://ansaren.online/api/admin/reportedBlogs');
+      const response = await axios.get('https://ansaren.online/api/admin/reportedBlogs',{
+        withCredentials: true
+      });
       if (response.data && response.data.length > 0) {
         setReportedBlogs(response.data);
       }
@@ -38,7 +40,9 @@ const deleteBlog = async (blogId) => {
 
     if (confirmDelete) {
       try {
-        const response = await axios.delete(`https://ansaren.online/api/admin/deleteBlog/${blogId}`);
+        const response = await axios.delete(`https://ansaren.online/api/admin/deleteBlog/${blogId}`,{
+          withCredentials: true
+        });
 
         if (response.status === 200) {
           toast.success('Blog deleted successfully');

@@ -25,21 +25,21 @@ router.post('/register',registerAdmin)
 router.post('/logout',logoutAdmin)
 router.get('/adminHome',protect,getAllUsers)
 router.get('/userProfile',protect,getUserByEmail);
-router.post('/toggleBlockUser', toggleBlockUser); // Add this route
+router.post('/toggleBlockUser',protect, toggleBlockUser); // Add this route
 router.get('/getBlockedUsers', getBlockedUsers);
 router.get('/allBlogs',protect, allUsersBlogs);
 router.get('/getOneBlogOfUser/:blogId',protect, getOneBlogOfUser);
 router.get('/adminCheckAuth', adminCheckAuth);
-router.post('/uploadBanner', upload.single('media'), uploadBanner);
-router.get('/banners', getBanners);
+router.post('/uploadBanner',protect, upload.single('media'), uploadBanner);
+router.get('/banners',protect, getBanners);
 router.delete('/deleteBanner/:id',protect,deleteBanner);
 router.post('/selectBanner/:id',protect,selectBanner)
-router.get('/reportedBlogs', getReportedBlogs);
-router.delete('/deleteBlog/:blogId', deleteBlog);
-router.get('/countOfTotalUsers', countOfTotalUsers);
-router.get('/countOfTotalBlogs', countOfTotalBlogs);
-router.get('/topUsersWithMostFollowers',topUsersWithMostFollowers);
+router.get('/reportedBlogs',protect, getReportedBlogs);
+router.delete('/deleteBlog/:blogId',protect, deleteBlog);
+router.get('/countOfTotalUsers',protect, countOfTotalUsers);
+router.get('/countOfTotalBlogs',protect, countOfTotalBlogs);
+router.get('/topUsersWithMostFollowers',protect,topUsersWithMostFollowers);
 router.get('/checkActiveTrue',checkActiveTrue)
-router.get('/topLikedBlogs', getTopLikedBlogs);
+router.get('/topLikedBlogs',protect, getTopLikedBlogs);
 
 export default router;

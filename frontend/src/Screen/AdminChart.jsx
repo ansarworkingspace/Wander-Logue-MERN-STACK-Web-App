@@ -24,7 +24,9 @@ useEffect(() => {
   // Fetch the total number of users
   const fetchTotalUsersCount = async () => {
     try {
-      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalUsers');
+      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalUsers',{
+        withCredentials: true
+      });
       const totalUsersCount = response.data.totalUsersCount;
       setActiveUsersCount(totalUsersCount);
     } catch (error) {
@@ -36,7 +38,9 @@ useEffect(() => {
   // Fetch the total number of blogs (similar to the users count)
   const fetchTotalBlogsCount = async () => {
     try {
-      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalBlogs');
+      const response = await axios.get('https://ansaren.online/api/admin/countOfTotalBlogs',{
+        withCredentials: true
+      });
       const totalBlogsCount = response.data.totalBlogsCount;
       setActivePostsCount(totalBlogsCount); // Set the state for blogs count
     } catch (error) {
@@ -50,7 +54,9 @@ useEffect(() => {
   // Fetch the top 3 users with the most followers
   const fetchTopUsersWithMostFollowers = async () => {
     try {
-      const response = await axios.get('https://ansaren.online/api/admin/topUsersWithMostFollowers');
+      const response = await axios.get('https://ansaren.online/api/admin/topUsersWithMostFollowers',{
+        withCredentials: true
+      });
       const topUsersData = response.data;
       setTopUsers(topUsersData);
     } catch (error) {
@@ -63,7 +69,9 @@ useEffect(() => {
 
   const fetchTopLikedBlogs = async () => {
     try {
-      const response = await axios.get('https://ansaren.online/api/admin/topLikedBlogs');
+      const response = await axios.get('https://ansaren.online/api/admin/topLikedBlogs',{
+        withCredentials: true
+      });
       setTopLikedBlogs(response.data);
       
     } catch (error) {

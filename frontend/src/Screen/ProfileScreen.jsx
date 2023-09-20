@@ -303,7 +303,7 @@ function getFileExtension(filename) {
 
 
       </div>
-      <div className='showcase'>
+      <div className='showcase' style={{justifyContent:'space-around'}}>
       <div className='icon' style={{cursor:"pointer"}}>
       <Link to={'/create'}>
         <FontAwesomeIcon icon={faPen} size='lg' className='pro' />
@@ -315,10 +315,10 @@ function getFileExtension(filename) {
         <FontAwesomeIcon icon={faSave} size='lg' className='pro' onClick={()=>navigate('/savedblogs')} />
         <span className='icon-text'>Save</span>
       </div>
-      <div className='icon' style={{cursor:"pointer"}}>
+      {/* <div className='icon' style={{cursor:"pointer"}}>
         <FontAwesomeIcon icon={faHeart} size='lg' className='pro' />
         <span className='icon-text'>Like</span>
-      </div>
+      </div> */}
       <div className='icon' style={{cursor:"pointer"}}>
         <Link to={'/chatRoom'}>
         <FontAwesomeIcon icon={faComment} size='lg' className='pro' />

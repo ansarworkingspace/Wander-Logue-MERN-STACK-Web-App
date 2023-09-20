@@ -178,7 +178,7 @@ const router = createBrowserRouter(
          {/* Admin routes start here*/}
       <Route path="/admin/register" element={<AdminRegisterScreen/>} />
       <Route path="/admin/login" element={<AdminLoginScreen />} />
-      
+      <Route path="/admin" element={<AdminLoginScreen />} />
 <Route path='' element={<AdminPrivateRoute />}>
       <Route path="/admin/userProfile" element={<AdminUserPRview />} />
       <Route path="/admin/adminHome" element={<AdminHomeScreen />} />

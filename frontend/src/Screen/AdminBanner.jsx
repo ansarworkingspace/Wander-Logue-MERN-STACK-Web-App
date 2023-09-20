@@ -107,30 +107,7 @@ const [banner, setBanner] = useState(null);
 
 
 
-//orginal
-  // const handleDeleteBanner = async (bannerId) => {
-  //   try {
-  //     const token = document.cookie.replace(
-  //       /(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/,
-  //       '$1'
-  //     );
 
-  //     await axios.delete(`https://ansaren.online/api/admin/deleteBanner/${bannerId}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       withCredentials: true,
-  //     });
-
-  //     toast.success('Banner deleted successfully.');
-  //     // Fetch banners again to update the list
-  //     const response = await axios.get('https://ansaren.online/api/admin/banners');
-  //     setBanners(response.data);
-  //   } catch (error) {
-  //     toast.error('Error deleting banner.');
-  //   }
-  // };
-  
 
 
 
@@ -155,15 +132,17 @@ const [banner, setBanner] = useState(null);
   
       if (result.isConfirmed) {
         await axios.delete(`https://ansaren.online/api/admin/deleteBanner/${bannerId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
+          withCredentials: true
         });
   
         toast.success('Banner deleted successfully.');
         // Fetch banners again to update the list
-        const response = await axios.get('https://ansaren.online/api/admin/banners');
+        const response = await axios.get('https://ansaren.online/api/admin/banners',{
+          withCredentials: true
+        });
         setBanners(response.data);
   
         Swal.fire('Deleted!', 'The banner has been deleted.', 'success');

@@ -370,7 +370,7 @@ typing.......
           style={{ backgroundColor: "#7EAA92", border: "none", width: "6rem" }}
           onClick={handleSendMessage}
         >
-          Chat
+          send
         </Button>
       </div>
     </div>

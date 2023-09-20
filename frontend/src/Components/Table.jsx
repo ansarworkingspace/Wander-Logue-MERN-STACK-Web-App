@@ -33,6 +33,7 @@ const TableComponent = ({ users }) => {
       // Make an API call to toggle block status
       const response = await fetch('https://ansaren.online/api/admin/toggleBlockUser', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

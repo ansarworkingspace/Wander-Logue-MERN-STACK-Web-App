@@ -166,45 +166,58 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, mobile } = req.body;
   const userExists = await User.findOne({ email: email });
 
-  if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
-  }
-
   if (password.length < 6) {
     res.status(400);
     throw new Error('Password must be at least 6 characters long');
   }
 
+  // Generate OTP
+  const otp = Math.floor(1000 + Math.random() * 9000);
 
- // Generate OTP
- const otp = Math.floor(1000 + Math.random() * 9000);
+  if (userExists) {
+    // User exists, update user data if verified is false
+    if (!userExists.verified) {
+      userExists.name = name;
+      userExists.mobile = mobile;
+      userExists.password = password;
+      userExists.otp = otp;
+      await userExists.save();
 
- // Send OTP to user's email
- await sendOTPByEmail(email, otp);
+      // Send OTP to user's email
+      await sendOTPByEmail(email, otp);
 
-
-  const user = await User.create({  //eldho rise signin issue
-    name,
-    email,
-    password,
-    mobile,
-    otp,
-  });
-
-
-
-  if (user) {
-    generateToken(res, user._id);
-    res.status(201).json({
-      message: 'User registered successfully',
-    });
+      generateToken(res, userExists._id);
+      res.status(200).json({
+        message: 'User data updated successfully',
+      });
+    } else {
+      res.status(400);
+      throw new Error('User already exists and is verified');
+    }
   } else {
-    res.status(400);
-    throw new Error('Invalid user data');
+    // User doesn't exist, create a new user
+    const user = await User.create({
+      name,
+      email,
+      password,
+      mobile,
+      otp,
+    });
+
+    if (user) {
+      // Send OTP to user's email
+      await sendOTPByEmail(email, otp);
+
+      generateToken(res, user._id);
+      res.status(201).json({
+        message: 'User registered successfully',
+      });
+    } else {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
   }
 });
-
 
 
 
